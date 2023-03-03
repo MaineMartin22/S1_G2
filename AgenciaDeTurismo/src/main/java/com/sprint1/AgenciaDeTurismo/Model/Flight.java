@@ -10,11 +10,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Flight {
-    private String numberFlight;
+    private int numberFlight;
     private String origin;
     private String destiny;
     private String seatType;
-    private String priceForPerson;
+    private double priceForPerson;
     private LocalDate departuraDate;
     private LocalDate retunrDate;
 }
