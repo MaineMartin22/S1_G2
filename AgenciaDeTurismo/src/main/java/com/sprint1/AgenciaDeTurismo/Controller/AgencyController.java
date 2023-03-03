@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.Controller;
 
+import com.sprint1.AgenciaDeTurismo.Model.Flight;
 import com.sprint1.AgenciaDeTurismo.Model.Hotel;
 import com.sprint1.AgenciaDeTurismo.Service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,7 @@ public class AgencyController {
     public List<Hotel> hotelesDisponibles(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String destination){
         return agencyService.getHotelDisponible(dateFrom, dateTo, destination);
     }
+
+   @GetMapping("/flights")
+    public List<Flight> getFlights(){ return agencyService.getFlight();}
 }
