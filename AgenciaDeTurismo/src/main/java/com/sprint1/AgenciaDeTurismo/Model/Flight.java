@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 public class Flight {
-    private String nroVuelo;
-    private  String origen;
-    private String destino;
-    private String typeAsiento;
+    private String numberFlight;
+    private String origin;
+    private String destiny;
+    private String seatType;
     private String priceForPerson;
-    private String fechaIda;
-    private String fechaVuelta;
+    private LocalDate departuraDate;
+    private LocalDate retunrDate;
 }
