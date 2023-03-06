@@ -1,9 +1,11 @@
 package com.sprint1.AgenciaDeTurismo.Repository;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.Hotel;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,12 +15,12 @@ import java.util.List;
 public class HotelRepository {
 
     private List<Hotel> hotels = new ArrayList<>();
+    private List<HotelDTO> hotelDTO = new ArrayList<>();
 
     Hotel hotel1 = new Hotel("CH-0002", "Cataratas Hotel", "Puerto Iguazú", "Doble", "$6300", LocalDate.of(2022, 02, 10), LocalDate.of(2022, 03, 20), false);
     Hotel hotel2 = new Hotel("CH-0003", "Cataratas Hotel 2", "Puerto Iguazú", "Triple", "$8200", LocalDate.of(2022, 02, 10), LocalDate.of(2022, 03, 20), false);
     Hotel hotel3 = new Hotel("HB-0001", "Hotel Bristol", "Buenos Aires", "Single", "$5435", LocalDate.of(2022, 02, 10), LocalDate.of(2022, 03, 23), false);
-    Hotel hotel4 = new Hotel
-            ("BH,0002", "Hotel Bristol 2", "Buenos Aires", "Doble", "$7200", LocalDate.of(2022,02,12), LocalDate.of(2022,04,17), false);
+    Hotel hotel4 = new Hotel("BH,0002", "Hotel Bristol 2", "Buenos Aires", "Doble", "$7200", LocalDate.of(2022,02,12), LocalDate.of(2022,04,17), false);
     Hotel hotel5 = new Hotel("SH,0002", "Sheraton", "Tucumán", "Doble", "$5790", LocalDate.of(2022,04,17), LocalDate.of(2022,05,23), false);
     Hotel hotel6 = new Hotel("SH,0001", "Sheraton 2", "Tucumán", "Single", "$4150", LocalDate.of(2022,01,02), LocalDate.of(2022,02,19), false);
     Hotel hotel7 = new Hotel("SE,0001", "Selina", "Bogotá", "Single", "$3900", LocalDate.of(2022,01,23), LocalDate.of(2022,11,23), false);
@@ -41,25 +43,27 @@ public class HotelRepository {
         hotels.add(hotel10);
         hotels.add(hotel11);
         hotels.add(hotel12);
-
         return hotels;
     }
 
-    // no guarda nada en la lista. Basicamente, no anda.
     public List<Hotel> getHotelDisponible(String dateFrom, String dateTo, String destination) {
-        List<Hotel> hotelesDisponibles = new ArrayList<>();
+
+        List<Hotel>  hotelesDisponibles = new ArrayList<>();
         LocalDate fechaComoLocalDateFrom = LocalDate.parse(dateFrom);
         LocalDate fechaComoLocalDateTo = LocalDate.parse(dateTo);
-        for (Hotel hotel : hotels) {
-            if (hotel.getCity().toUpperCase().contains(destination.toUpperCase()) &&
-                    hotel.isReserved() &&
-                    fechaComoLocalDateFrom.isAfter(hotel.getAvailabilityFrom()) &&
-                    fechaComoLocalDateTo.isBefore(hotel.getAvailabilityUntil())) {
 
-                hotelesDisponibles.add(hotel);
+        for (Hotel hotel : dataHotels()) {
+            if(
+                    hotel.getCity().toUpperCase().contains(destination.toUpperCase()) &&
+                    hotel.isReserved() == false &&
+                    (fechaComoLocalDateFrom.isAfter(hotel.getAvailabilityFrom()) ||
+                    fechaComoLocalDateFrom.getDayOfMonth() == hotel.getAvailabilityFrom().getDayOfMonth()) &&
+                    (fechaComoLocalDateTo.isBefore(hotel.getAvailabilityUntil()) ||
+                    fechaComoLocalDateTo.getDayOfMonth() ==  hotel.getAvailabilityUntil().getDayOfMonth()))
+            {
 
+                 hotelesDisponibles.add(hotel);
             }
-            System.out.println(hotelesDisponibles);
         }
         return hotelesDisponibles;
 

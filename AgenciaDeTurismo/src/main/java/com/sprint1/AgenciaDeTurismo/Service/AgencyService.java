@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.Hotel;
 import com.sprint1.AgenciaDeTurismo.Model.Flight;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
@@ -19,11 +20,11 @@ public class AgencyService {
     @Autowired
     FlightRepository flightRepository;
 
-    public List<Hotel> get(){
+    public List<Hotel> findAll(){
         return hotelRepository.dataHotels();
     }
 
-    public List<Hotel> getHotelDisponible(String dateFrom, String dateTo, String destination){
+    public List<Hotel> getHotelDisponibles(String dateFrom, String dateTo, String destination){
         return hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
     }
 
