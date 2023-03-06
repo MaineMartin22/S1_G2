@@ -13,6 +13,6 @@ import lombok.Setter;
 public class FlightRequestDto {
     private String userName;
 
-    private FlightDto flightDto;
+    private FlightDto flightReservation;
 
 }

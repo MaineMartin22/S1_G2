@@ -1,5 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight;
 
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
+import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +15,11 @@ import lombok.Setter;
 public class FlightResponse {
     private String userName;
 
-    private Integer totalFlight;
+    private Integer total;
 
-    private FlightResponseDto reservation;
+    private FlightResponseDto flightReservation;
 
-    private StatusFlight statusFlight;
+    private StatusCodeDto statusCode;
 
 
 

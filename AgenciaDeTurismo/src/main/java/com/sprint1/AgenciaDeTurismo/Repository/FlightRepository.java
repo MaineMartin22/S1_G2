@@ -62,7 +62,7 @@ public class FlightRepository {
 
     }
 
-    public FlightModel findflight(String numberFlight){
+    public FlightModel findFlight(String numberFlight){
         return dataFlights().stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElse(null);
 
     }

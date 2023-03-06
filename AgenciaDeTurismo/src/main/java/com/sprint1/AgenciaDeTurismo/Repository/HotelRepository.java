@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.Repository;
 
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import org.springframework.stereotype.Repository;
 

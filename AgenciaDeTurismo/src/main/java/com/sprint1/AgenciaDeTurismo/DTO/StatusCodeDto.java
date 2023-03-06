@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel;
+package com.sprint1.AgenciaDeTurismo.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight;
+package com.sprint1.AgenciaDeTurismo.DTO;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
@@ -13,7 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FlightResponseDto {
+
+public class FlightDTO {
     private String dateFrom;
     private String dateTo;
     private String origin;
@@ -21,6 +22,6 @@ public class FlightResponseDto {
     private String flightNumber;
     private Integer seats;
     private String seatType;
-    private PeopleDto people;
-
+    private PeopleDto peopleDto;
+    private PaymentMethodDto paymentMethodDto;
 }
