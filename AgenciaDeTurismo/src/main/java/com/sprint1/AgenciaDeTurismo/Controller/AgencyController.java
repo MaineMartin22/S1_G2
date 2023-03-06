@@ -1,14 +1,12 @@
 package com.sprint1.AgenciaDeTurismo.Controller;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.ReqReservaHotelDto;
 import com.sprint1.AgenciaDeTurismo.Model.Flight;
 import com.sprint1.AgenciaDeTurismo.Model.Hotel;
 import com.sprint1.AgenciaDeTurismo.Service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -39,7 +37,14 @@ public class AgencyController {
     @GetMapping("/api/v1/flight")
     // /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=Buenos Aires&destination=Puerto Iguazú
     public List<Flight> flightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
-        return agencyService.getFlightAvailability(dateFrom,dateTo,origin,destination);
+        return agencyService.getFlightAvailability(dateFrom, dateTo, origin, destination);
     }
 
+
+    // no anda
+    @PostMapping("/api/v1/booking")
+    public ReqReservaHotelDto reservaHotel(@RequestBody ReqReservaHotelDto reqReservaHotelDto) {
+        return agencyService.reserva(reqReservaHotelDto);
+    }
 }
+
