@@ -1,9 +1,13 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.BookingRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.BookingResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.BookingResponseDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.StatusCodeDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.StatusFlight;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.StatusCodeDto;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
@@ -14,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -69,6 +72,33 @@ public class AgencyService {
 
     public List<FlightModel> getFlightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
         return flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
+    }
+    public FlightResponse flightResponse(@RequestBody FlightRequestDto flightRequestDto){
+        FlightResponse response = new FlightResponse();
+        FlightResponseDto flightResponseDto = new FlightResponseDto();
+
+        FlightModel reservationFlight = flightRepository.findflight(flightRequestDto.getFlightDto().getNumberFlight());
+
+        flightResponseDto.setNumberFlight(flightRequestDto.getFlightDto().getNumberFlight());
+        flightResponseDto.setOrigin(flightRequestDto.getFlightDto().getOrigin());
+        flightResponseDto.setDestiny(flightRequestDto.getFlightDto().getDestiny());
+        flightResponseDto.setSeatType(flightRequestDto.getFlightDto().getSeatType());
+        flightResponseDto.setPriceForPerson(flightRequestDto.getFlightDto().getPriceForPerson());
+        flightResponseDto.setDeparturaDate(flightRequestDto.getFlightDto().getDeparturaDate());
+        flightResponseDto.setReturnDate(flightRequestDto.getFlightDto().getReturnDate());
+        flightResponseDto.setSeats(flightRequestDto.getFlightDto().getSeats());
+
+
+        Integer totalPrice = (int) (reservationFlight.getPriceForPerson()*flightRequestDto.getFlightDto().getSeats());
+
+        response.setUserName(flightRequestDto.getUserName());
+        response.setTotalFlight(totalPrice);
+        response.setReservation(flightResponseDto);
+        response.setStatusFlight(new StatusFlight(200, "Proceso termino satisfactoriamente"));
+
+        return response;
+
+
     }
 }
 

@@ -1,7 +1,9 @@
 package com.sprint1.AgenciaDeTurismo.Controller;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.BookingRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.BookingResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Service.AgencyService;
@@ -38,11 +40,14 @@ public class AgencyController {
         return agencyService.getFlightAvailability(dateFrom, dateTo, origin, destination);
     }
 
-
-    // no anda
     @PostMapping("/api/v1/booking")
     public BookingResponse reservaHotel(@RequestBody BookingRequestDto bookingRequestDto) {
         return agencyService.reserva(bookingRequestDto);
     }
+    @PostMapping("/api/v1/flight-reservation")
+    public FlightResponse flightReservation(@RequestBody FlightRequestDto flightRequestDto){
+        return null;
+    }
+
 }
 
