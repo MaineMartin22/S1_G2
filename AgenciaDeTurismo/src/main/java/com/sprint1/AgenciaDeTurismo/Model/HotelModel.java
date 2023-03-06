@@ -6,19 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Hotel {
+public class HotelModel {
 
     private String hotelCode;
     private String name;
     private String city;
     private String  typeRoom;
-    private String  priceForNight;
+    private Integer  priceForNight;
     private LocalDate availabilityFrom;
     private LocalDate  availabilityUntil;
     private boolean reserved;

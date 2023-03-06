@@ -6,15 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
-
-
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Flight {
+public class FlightModel {
     private String numberFlight;
     private String origin;
     private String destiny;

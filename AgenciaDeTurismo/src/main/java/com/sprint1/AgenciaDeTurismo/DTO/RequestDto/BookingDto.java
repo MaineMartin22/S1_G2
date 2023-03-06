@@ -12,14 +12,13 @@ import java.util.List;
 @Getter
 @Setter
 public class BookingDto {
-        private String userName;
         private String dateFrom;
         private String dateTo;
         private String destination;
         private String hotelCode;
-        private int peopleAmount;
+        private Integer peopleAmount;
         private String roomType;
-        private List<PeopleDto> people;
-        private PaymentMethodDto paymentMethodDto;
+        private PeopleDto people;
+        private PaymentMethodDto paymentMethod;
 
 }

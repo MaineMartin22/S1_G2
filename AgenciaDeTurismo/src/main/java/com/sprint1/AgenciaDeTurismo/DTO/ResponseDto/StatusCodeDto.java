@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.DTO.RequestDto;
+package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PaymentMethodDto {
-    private String type;
-    private String number;
-    private Integer dues;
+public class StatusCodeDto {
+    private Integer code;
+    private String message;
 }
