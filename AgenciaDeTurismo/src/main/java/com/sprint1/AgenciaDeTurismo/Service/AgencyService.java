@@ -7,6 +7,7 @@ import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -29,5 +30,9 @@ public class AgencyService {
     }
 
     public List<Flight> getFlight(){return flightRepository.dataFlights();}
+
+    public List<Flight> getFlightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
+        return flightRepository.getFlightAvailability(dateFrom,dateTo,origin,destination);
+    }
 
 }
