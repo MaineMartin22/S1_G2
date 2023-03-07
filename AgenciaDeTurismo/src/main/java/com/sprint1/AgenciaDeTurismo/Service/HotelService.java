@@ -4,7 +4,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
-import com.sprint1.AgenciaDeTurismo.Exception.SinHoteles_VuelosException;
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class HotelService {
     public BookingResponse reserva(@RequestBody BookingRequestDto bookingRequestDto) {
 
         if(hotelRepository.dataHotels().isEmpty()){
-            throw new SinHoteles_VuelosException("No se econtraron hoteles disponibles");
+            throw new NotFoundException("No se econtraron hoteles disponibles");
         }
 
         BookingResponse response = new BookingResponse();
@@ -44,7 +44,7 @@ public class HotelService {
         HotelModel bookHotel = hotelRepository.findHotelWhitCode(bookingRequestDto.getBooking().getHotelCode());
 
         if(bookHotel == null){
-            throw new SinHoteles_VuelosException("No se encuentra hotel con ese código");
+            throw new NotFoundException("No se encuentra hotel con ese código");
         }
 
         bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());

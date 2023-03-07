@@ -13,8 +13,8 @@ public class GlobalHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(SinHoteles_VuelosException.class)
-    public ResponseEntity<String> handlerRuntime(SinHoteles_VuelosException exception){
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handlerRuntime(NotFoundException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

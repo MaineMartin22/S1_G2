@@ -43,20 +43,20 @@ public class AgencyController {
     // US 0004
     @GetMapping("/api/v1/flights")
     public List<FlightModel> getFlights() {
-        return flightService.getFlight(); }
-
-        // US 0005
-        @GetMapping("/api/v1/flight")
-        // /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=Buenos Aires&destination=Puerto Iguazú
-        public List<FlightModel> flightAvailability (@RequestParam String dateFrom, @RequestParam String
-        dateTo, @RequestParam String origin, @RequestParam String destination){
-            return flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
-        }
-
-        // US 0006
-        @PostMapping("/api/v1/flight-reservation")
-        public FlightResponse flightReservation (@RequestBody FlightRequestDto flightRequestDto){
-            return flightService.flightResponse(flightRequestDto);
-        }
+        return flightService.getFlight();
     }
+
+    // US 0005
+    @GetMapping("/api/v1/flight")
+    // /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=Buenos Aires&destination=Puerto Iguazú
+    public List<FlightModel> flightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
+        return flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
+    }
+
+    // US 0006
+    @PostMapping("/api/v1/flight-reservation")
+    public FlightResponse flightReservation(@RequestBody FlightRequestDto flightRequestDto) {
+        return flightService.flightResponse(flightRequestDto);
+    }
+}
 
