@@ -42,8 +42,7 @@ public class AgencyController {
 
     // US 0004
     @GetMapping("/api/v1/flights")
-    public List<FlightModel> getFlights() {
-        return flightService.getFlight(); }
+    public List<FlightModel> getFlights() {return flightService.getFlight(); }
 
         // US 0005
         @GetMapping("/api/v1/flight")
@@ -58,5 +57,7 @@ public class AgencyController {
         public FlightResponse flightReservation (@RequestBody FlightRequestDto flightRequestDto){
             return flightService.reservationFlight(flightRequestDto);
         }
-    }
+
+
+}
 

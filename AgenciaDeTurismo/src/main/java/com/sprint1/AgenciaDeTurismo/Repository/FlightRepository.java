@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class FlightRepository {
-    private List<FlightModel> flightModels = new ArrayList<>();
+    private List<FlightModel> flights = new ArrayList<>();
 
     FlightModel flightModel1 = new FlightModel("BAPI-1235","Buenos Aires","Puerto Iguazú", "Economy",6500, LocalDate.of(2022,02,10),LocalDate.of(2022,02,15));
     FlightModel flightModel2 = new FlightModel("PIBA-1420", "Puerto Iguazú", "Bogotá", "Business",43200,LocalDate.of (2022,02,10), LocalDate.of (2022,02,20));
@@ -25,19 +25,19 @@ public class FlightRepository {
     FlightModel flightModel11 = new FlightModel("BOME-4442", "Bogotá", "Medellín", "Economy", 11000, LocalDate.of(2022,02,10), LocalDate.of (2022,02,24));
     FlightModel flightModel12 = new FlightModel("MEPI-9986", "Medellín", "Puerto Iguazú", "Business", 41640, LocalDate.of(2022,04,17), LocalDate.of (2022,05,02));
     public List<FlightModel> dataFlights(){
-        flightModels.add(flightModel1);
-        flightModels.add(flightModel2);
-        flightModels.add(flightModel3);
-        flightModels.add(flightModel4);
-        flightModels.add(flightModel5);
-        flightModels.add(flightModel6);
-        flightModels.add(flightModel7);
-        flightModels.add(flightModel8);
-        flightModels.add(flightModel9);
-        flightModels.add(flightModel10);
-        flightModels.add(flightModel11);
-        flightModels.add(flightModel12);
-        return flightModels;
+        flights.add(flightModel1);
+        flights.add(flightModel2);
+        flights.add(flightModel3);
+        flights.add(flightModel4);
+        flights.add(flightModel5);
+        flights.add(flightModel6);
+        flights.add(flightModel7);
+        flights.add(flightModel8);
+        flights.add(flightModel9);
+        flights.add(flightModel10);
+        flights.add(flightModel11);
+        flights.add(flightModel12);
+        return flights;
     }
 
     public List<FlightModel> getFlightAvailability(String dateFrom, String dateTo, String origin, String destination) {
@@ -60,6 +60,7 @@ public class FlightRepository {
         return flightModelAvailabilities;
 
     }
+
 
     public FlightModel findFlight(String numberFlight){
         return dataFlights().stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElseThrow(()-> new NotFoundException("No se encontro el vuelo"));

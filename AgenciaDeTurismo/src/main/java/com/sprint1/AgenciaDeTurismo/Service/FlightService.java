@@ -43,7 +43,7 @@ public class FlightService {
         FlightModel reservationFlight = flightRepository.findFlight(flightRequestDto.getFlightReservation().getFlightNumber());
 
         if(reservationFlight == null){
-            throw new NotFoundException("No se encuentro un vuelo con ese código");
+           throw new NotFoundException("No se encuentro un vuelo con ese código");
         }
 
         List<FlightModel> reservationTrue =   flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
