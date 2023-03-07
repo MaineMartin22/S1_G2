@@ -1,10 +1,18 @@
 package com.sprint1.AgenciaDeTurismo.Repository;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +20,16 @@ import java.util.List;
 @Repository
 public class HotelRepository {
 
+    private List<HotelModel> hotels = new ArrayList<>();
+    public HotelRepository() {
+        this.hotels=loadDataBase();
+    }
+    public List<HotelModel> dataHotels (){
+        return hotels;
+    }
+
+
+    /*
     private List<HotelModel> hotelModels = new ArrayList<>();
     private List<HotelDTO> hotelDTO = new ArrayList<>();
 
@@ -44,6 +62,8 @@ public class HotelRepository {
         return hotelModels;
     }
 
+     */
+
     public List<HotelModel> getHotelDisponible(String dateFrom, String dateTo, String destination) {
 
         List<HotelModel>  hotelesDisponibles = new ArrayList<>();
@@ -67,7 +87,25 @@ public class HotelRepository {
     }
 
     public HotelModel findHotelWhitCode(String code){
-        return dataHotels().stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElse(null);
+        return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElse(null);
+    }
+    private List<HotelModel> loadDataBase() {
+        List<HotelModel> hotels = null;
+
+        File file;
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .registerModule(new JavaTimeModule());
+        TypeReference<List<HotelModel>> typeRef = new TypeReference<>() {};
+
+        try {
+            file = ResourceUtils.getFile("classpath:dataHotels.json");
+            hotels = objectMapper.readValue(file, typeRef);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return hotels;
     }
 
 }

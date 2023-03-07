@@ -6,6 +6,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
+import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
@@ -37,7 +38,7 @@ public class FlightService {
         FlightResponseDto flightResponseDto = new FlightResponseDto();
 
         if(flightRepository.dataFlights().isEmpty()){
-            throw new NotFoundException("No se econtraron vuelos disponibles");
+            throw new NotFoundException("No se encontraron vuelos disponibles");
         }
 
         FlightModel reservationFlight = flightRepository.findFlight(flightRequestDto.getFlightReservation().getFlightNumber());
@@ -53,9 +54,13 @@ public class FlightService {
         }
         PeopleDto personData = flightRequestDto.getFlightReservation().getPeople();
 
-        if(personData.getMail() == null || personData.getDni() == null || personData.getName() == null ||
-                personData.getLastName() == null || personData.getBirthDate() == null) {
-            throw new NotFoundException("Debes ingresar correctamente los datos del pasajero");
+        if (personData.getMail() == null || personData.getDni() == null || personData.getName() == null ||
+                personData.getLastName() == null || personData.getBirthDate() == null || personData.getMail().length() < 10 ||
+                personData.getDni().length() < 4 || personData.getName().length() < 3 ||
+                personData.getLastName().length() < 4 || personData.getBirthDate().length() < 8) {
+            throw new BadRequestException("Debes ingresar correctamente los datos del huesped");
+
+
         }
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
         if(paymentMethod.getNumber() == null ||( paymentMethod.getDues() == null || paymentMethod.getDues()<1) || paymentMethod.getType() == null){

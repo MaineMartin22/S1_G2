@@ -1,9 +1,16 @@
 package com.sprint1.AgenciaDeTurismo.Repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +19,13 @@ import java.util.List;
 public class FlightRepository {
     private List<FlightModel> flights = new ArrayList<>();
 
+    public FlightRepository() {
+        this.flights=loadDataBase();
+    }
+    public List<FlightModel> dataFlights (){
+        return flights;
+    }
+    /*
     FlightModel flightModel1 = new FlightModel("BAPI-1235","Buenos Aires","Puerto Iguazú", "Economy",6500, LocalDate.of(2022,02,10),LocalDate.of(2022,02,15));
     FlightModel flightModel2 = new FlightModel("PIBA-1420", "Puerto Iguazú", "Bogotá", "Business",43200,LocalDate.of (2022,02,10), LocalDate.of (2022,02,20));
     FlightModel flightModel3 = new FlightModel("PIBA-1420", "Puerto Iguazú", "Bogotá", "Economy", 25735,LocalDate.of (2022,02,10), LocalDate.of (2022,02,21));
@@ -38,7 +52,7 @@ public class FlightRepository {
         flights.add(flightModel11);
         flights.add(flightModel12);
         return flights;
-    }
+    }*/
 
     public List<FlightModel> getFlightAvailability(String dateFrom, String dateTo, String origin, String destination) {
 
@@ -46,7 +60,7 @@ public class FlightRepository {
         LocalDate fechaComoLocalDateFrom = LocalDate.parse(dateFrom);
         LocalDate fechaComoLocalDateTo = LocalDate.parse(dateTo);
 
-        for (FlightModel flightModel : dataFlights()) {
+        for (FlightModel flightModel : flights) {
             if(
                     flightModel.getOrigin().toUpperCase().contains((origin.toUpperCase())) &&
                            flightModel.getDeparturaDate().isEqual(fechaComoLocalDateFrom) &&
@@ -63,7 +77,25 @@ public class FlightRepository {
 
 
     public FlightModel findFlight(String numberFlight){
-        return dataFlights().stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElseThrow(()-> new NotFoundException("No se encontro el vuelo"));
+        return flights.stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElseThrow(()-> new NotFoundException("No se encontro el vuelo"));
 
+    }
+    private List<FlightModel> loadDataBase() {
+        List<FlightModel> flights = null;
+
+        File file;
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .registerModule(new JavaTimeModule());
+        TypeReference<List<FlightModel>> typeRef = new TypeReference<>() {};
+
+        try {
+            file = ResourceUtils.getFile("classpath:dataFlights.json");
+            flights = objectMapper.readValue(file, typeRef);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return flights;
     }
 }
