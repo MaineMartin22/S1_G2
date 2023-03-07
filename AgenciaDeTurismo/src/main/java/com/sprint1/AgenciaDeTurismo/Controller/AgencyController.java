@@ -56,7 +56,7 @@ public class AgencyController {
         // US 0006
         @PostMapping("/api/v1/flight-reservation")
         public FlightResponse flightReservation (@RequestBody FlightRequestDto flightRequestDto){
-            return flightService.flightResponse(flightRequestDto);
+            return flightService.reservationFlight(flightRequestDto);
         }
     }
 

@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalHandler {
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handlerRuntime(RuntimeException exception){
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(PaymentRequiredException.class)
+    public ResponseEntity<String> handlerRuntime(PaymentRequiredException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.PAYMENT_REQUIRED);
     }
 
-    @ExceptionHandler(SinHoteles_VuelosException.class)
-    public ResponseEntity<String> handlerRuntime(SinHoteles_VuelosException exception){
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handlerRuntime(NotFoundException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handlerRuntime(BadRequestException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

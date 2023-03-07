@@ -1,10 +1,14 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
-import com.sprint1.AgenciaDeTurismo.Exception.SinHoteles_VuelosException;
+import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
+import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +38,8 @@ public class HotelService {
     // US 0003
     public BookingResponse reserva(@RequestBody BookingRequestDto bookingRequestDto) {
 
-        if(hotelRepository.dataHotels().isEmpty()){
-            throw new SinHoteles_VuelosException("No se econtraron hoteles disponibles");
+        if (hotelRepository.dataHotels().isEmpty()) {
+            throw new NotFoundException("No se econtraron hoteles disponibles");
         }
 
         BookingResponse response = new BookingResponse();
@@ -43,8 +47,46 @@ public class HotelService {
 
         HotelModel bookHotel = hotelRepository.findHotelWhitCode(bookingRequestDto.getBooking().getHotelCode());
 
-        if(bookHotel == null){
-            throw new SinHoteles_VuelosException("No se encuentra hotel con ese código");
+        if (bookHotel == null) {
+            throw new NotFoundException("No se encuentra hotel con ese código");
+        }
+
+        List<HotelModel> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
+                bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
+        if (reservationTrue.size() == 0) {
+            throw new BadRequestException("Las fechas solicitadas no están disponibles");
+        }
+
+        if (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom()) == false) {
+            throw new NotFoundException("Ese tipo de habitacion no esta disponible.");
+        }
+
+        PeopleDto personData = bookingRequestDto.getBooking().getPeople();
+
+        if(bookingRequestDto.getUserName() == null){
+            throw new BadRequestException("Debes ingresar el userName");
+        }
+        if(bookingRequestDto.getUserName().length()< 5){
+            throw new BadRequestException("El userName debe tener al menos 5 caracteres");
+        }
+
+        if(personData.getMail() == null || personData.getDni() == null || personData.getName() == null ||
+                personData.getLastName() == null || personData.getBirthDate() == null || personData.getMail().length() < 10  ||
+                personData.getDni().length() < 4 || personData.getName().length() < 3 ||
+                personData.getLastName().length() < 4 || personData.getBirthDate().length() < 8) {
+            throw new BadRequestException("Debes ingresar correctamente los datos del huesped");
+        }
+        PaymentMethodDto paymentData = bookingRequestDto.getBooking().getPaymentMethod();
+        if(paymentData.getType() == null || (paymentData.getDues() == null || paymentData.getDues()< 1) || paymentData.getNumber() == null ){
+            throw new PaymentRequiredException("Debes ingresar un metodo de pago valido.");
+        }
+
+        if(paymentData.getType().equalsIgnoreCase("credit") == false && paymentData.getType().equalsIgnoreCase("debit") == false  ){
+            throw new PaymentRequiredException("No se permite este metodo de pago " + paymentData.getType());
+        }
+
+        if(bookingRequestDto.getBooking().getPeopleAmount() < 1){
+            throw new BadRequestException("Debes ingresar la cantidad de huespedes.");
         }
 
         bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());

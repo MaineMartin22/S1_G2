@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.Repository;
 
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import org.springframework.stereotype.Repository;
 
@@ -48,10 +49,8 @@ public class FlightRepository {
         for (FlightModel flightModel : dataFlights()) {
             if(
                     flightModel.getOrigin().toUpperCase().contains((origin.toUpperCase())) &&
-                            (fechaComoLocalDateFrom.isAfter(flightModel.getDeparturaDate()) ||
-                            fechaComoLocalDateFrom.getDayOfMonth() == flightModel.getDeparturaDate().getDayOfMonth()) &&
-                            (fechaComoLocalDateTo.isBefore(flightModel.getReturnDate()) ||
-                                    fechaComoLocalDateTo.getDayOfMonth() ==  flightModel.getReturnDate().getDayOfMonth()) &&
+                           flightModel.getDeparturaDate().isEqual(fechaComoLocalDateFrom) &&
+                            flightModel.getReturnDate().isEqual(fechaComoLocalDateTo) &&
                             flightModel.getDestiny().toUpperCase().contains((destination.toUpperCase())))
             {
 
@@ -63,7 +62,7 @@ public class FlightRepository {
     }
 
     public FlightModel findFlight(String numberFlight){
-        return dataFlights().stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElse(null);
+        return dataFlights().stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElseThrow(()-> new NotFoundException("No se encontro el vuelo"));
 
     }
 }
