@@ -19,20 +19,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Service
-public class FlightService {
+public class FlightService implements IFlightService {
     @Autowired
     FlightRepository flightRepository;
     // US 0004
+
     public List<FlightModel> getFlight() {
         return flightRepository.dataFlights();
     }
 
     // US 0005
+
     public List<FlightModel> getFlightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
         return flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
     }
 
     // US 0006
+
     public FlightResponse reservationFlight(@RequestBody FlightRequestDto flightRequestDto) {
         FlightResponse response = new FlightResponse();
         FlightResponseDto flightResponseDto = new FlightResponseDto();
@@ -66,7 +69,7 @@ public class FlightService {
         if(paymentMethod.getNumber() == null ||( paymentMethod.getDues() == null || paymentMethod.getDues()<1) || paymentMethod.getType() == null){
             throw  new PaymentRequiredException("Debes ingresar un método de pago válido");
         }
-        if(paymentMethod.getType().equalsIgnoreCase("credit") == false && paymentMethod.getType().equalsIgnoreCase("debit") == false  ){
+        if(!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")){
             throw new PaymentRequiredException("No se permite este metodo de pago " + paymentMethod.getType());
         }
 
@@ -75,13 +78,13 @@ public class FlightService {
         }
         String origin = flightRequestDto.getFlightReservation().getOrigin();
         String destiny = flightRequestDto.getFlightReservation().getDestination();
-        if(origin.equalsIgnoreCase(reservationFlight.getOrigin()) == false && destiny.equalsIgnoreCase(reservationFlight.getDestiny()) == false ){
+        if(!origin.equalsIgnoreCase(reservationFlight.getOrigin()) && !destiny.equalsIgnoreCase(reservationFlight.getDestiny())){
             throw new NotFoundException("El vuelo desde con los destinos ingresados no se encuentra disponible.");
         }
 
         String seatTypeDisp = reservationFlight.getSeatType();
         String seatResponse = "El tipo de asiento disponible para este vuelo es: " + seatTypeDisp + ".";
-        if(flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType()) == false){
+        if(!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType())){
             throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n"+ seatResponse);
         }
 

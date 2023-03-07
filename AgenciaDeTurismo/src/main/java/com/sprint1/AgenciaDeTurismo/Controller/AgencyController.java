@@ -37,7 +37,7 @@ public class AgencyController {
     // US 0003
     @PostMapping("/api/v1/booking")
     public BookingResponse reservaHotel(@RequestBody BookingRequestDto bookingRequestDto) {
-        return hotelService.reserva(bookingRequestDto);
+        return hotelService.reservationHotel(bookingRequestDto);
     }
 
     // US 0004

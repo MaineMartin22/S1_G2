@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Service
-public class HotelService {
+public class HotelService implements IHotelService {
     @Autowired
     HotelRepository hotelRepository;
 
@@ -35,7 +35,7 @@ public class HotelService {
     }
 
     // US 0003
-    public BookingResponse reserva(@RequestBody BookingRequestDto bookingRequestDto) {
+    public BookingResponse reservationHotel(@RequestBody BookingRequestDto bookingRequestDto) {
 
         if (hotelRepository.dataHotels().isEmpty()) {
             throw new NotFoundException("No se econtraron hoteles disponibles");
@@ -54,7 +54,7 @@ public class HotelService {
             throw new BadRequestException("Las fechas solicitadas no están disponibles");
         }
 
-        if (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom()) == false) {
+        if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
             throw new NotFoundException("Ese tipo de habitacion no esta disponible.");
         }
 
@@ -78,7 +78,7 @@ public class HotelService {
             throw new PaymentRequiredException("Debes ingresar un metodo de pago valido.");
         }
 
-        if (paymentData.getType().equalsIgnoreCase("credit") == false && paymentData.getType().equalsIgnoreCase("debit") == false) {
+        if (!paymentData.getType().equalsIgnoreCase("credit") && !paymentData.getType().equalsIgnoreCase("debit")) {
             throw new PaymentRequiredException("No se permite este metodo de pago " + paymentData.getType());
         }
 
