@@ -30,7 +30,9 @@ public class AgencyController {
     // US 0002
     @GetMapping("/api/v1/hotels")
     // /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=Puerto Iguazu
-    public List<HotelModel> hotelesDisponibles(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam  String destination) {
+    public List<HotelModel> hotelesDisponibles(@RequestParam(required = false) String dateFrom,
+                                               @RequestParam(required = false) String dateTo,
+                                               @RequestParam(required = false)  String destination) {
         return hotelService.getHotelDisponibles(dateFrom, dateTo, destination);
     }
 

@@ -44,8 +44,8 @@ public class HotelService implements IHotelService {
         } catch (DateTimeParseException e) {
            throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
         }
-        if (destination == null&&destination.length()==0) {
-            throw new BadRequestException("Debe ingresar el destino");
+        if (destination == null || destination.length() < 2) {
+            throw new BadRequestException("Debe ingresar un destino");
         }
         boolean isDestinationAvailable =hotelRepository.dataHotels().stream()
                 .anyMatch(flight -> flight.getCity().toUpperCase().contains(destination.toUpperCase()));
