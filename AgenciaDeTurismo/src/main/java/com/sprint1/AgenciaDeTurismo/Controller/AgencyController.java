@@ -21,18 +21,13 @@ public class AgencyController {
     @Autowired
     FlightService flightService;
 
-    // US 0001
-    /*@GetMapping("/api/v1/hotels")
-    public List<HotelModel> get() {
-        return hotelService.findAll();
-    }*/
 
-    // US 0002
+    // US 0001 & 0002
     @GetMapping("/api/v1/hotels")
     // /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=Puerto Iguazu
     public List<HotelModel> hotelesDisponibles(@RequestParam(required = false) String dateFrom,
                                                @RequestParam(required = false) String dateTo,
-                                               @RequestParam(required = false)  String destination) {
+                                               @RequestParam(required = false) String destination) {
         return hotelService.getHotelDisponibles(dateFrom, dateTo, destination);
     }
 
@@ -42,23 +37,21 @@ public class AgencyController {
         return hotelService.reservationHotel(bookingRequestDto);
     }
 
-    // US 0004
+    // US 0004 & 0005
     @GetMapping("/api/v1/flights")
-    public List<FlightModel> getFlights() {return flightService.getFlight(); }
+    // /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=Buenos Aires&destination=Puerto Iguazú
+    public List<FlightModel> flightAvailability(@RequestParam(required = false) String dateFrom,
+                                                @RequestParam(required = false) String dateTo,
+                                                @RequestParam(required = false) String origin,
+                                                @RequestParam(required = false) String destination) {
+        return flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
+    }
 
-        // US 0005
-        @GetMapping("/api/v1/flight")
-        // /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=Buenos Aires&destination=Puerto Iguazú
-        public List<FlightModel> flightAvailability (@RequestParam String dateFrom, @RequestParam String
-        dateTo, @RequestParam String origin, @RequestParam String destination){
-            return flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
-        }
-
-        // US 0006
-        @PostMapping("/api/v1/flight-reservation")
-        public FlightResponse flightReservation (@RequestBody FlightRequestDto flightRequestDto){
-            return flightService.reservationFlight(flightRequestDto);
-        }
+    // US 0006
+    @PostMapping("/api/v1/flight-reservation")
+    public FlightResponse flightReservation(@RequestBody FlightRequestDto flightRequestDto) {
+        return flightService.reservationFlight(flightRequestDto);
+    }
 
 
 }

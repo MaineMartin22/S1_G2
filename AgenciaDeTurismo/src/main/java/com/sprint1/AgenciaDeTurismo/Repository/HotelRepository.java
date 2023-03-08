@@ -20,15 +20,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-
 @Repository
 public class HotelRepository {
 
     private List<HotelModel> hotels = new ArrayList<>();
+
     public HotelRepository() {
-        this.hotels=loadDataBase();
+        this.hotels = loadDataBase();
     }
-    public List<HotelModel> dataHotels (){
+
+    public List<HotelModel> dataHotels() {
         return hotels;
     }
 
@@ -81,9 +82,10 @@ public class HotelRepository {
     }
 
 
-    public HotelModel findHotelWhitCode(String code){
-        return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElseThrow(()-> new NotFoundException("No se encontró el hotel"));
+    public HotelModel findHotelWhitCode(String code) {
+        return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElseThrow(() -> new NotFoundException("No se encontró el hotel"));
     }
+
     private List<HotelModel> loadDataBase() {
         List<HotelModel> hotels = null;
 
@@ -91,7 +93,8 @@ public class HotelRepository {
         ObjectMapper objectMapper = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .registerModule(new JavaTimeModule());
-        TypeReference<List<HotelModel>> typeRef = new TypeReference<>() {};
+        TypeReference<List<HotelModel>> typeRef = new TypeReference<>() {
+        };
 
         try {
             file = ResourceUtils.getFile("classpath:dataHotels.json");

@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -31,6 +33,46 @@ public class FlightService implements IFlightService {
     // US 0005
 
     public List<FlightModel> getFlightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
+        // Si no se pasan parametros, devuevle la lista completa
+        if (dateFrom == null && dateTo == null && origin == null && destination == null) {
+            return getFlight();
+        }
+
+        // Si el formato de fechas no coincide, lanza la excepcion
+        LocalDate dateFromNew;
+        LocalDate dateToNew;
+
+        try {
+            dateFromNew = LocalDate.parse(dateFrom);
+            dateToNew = LocalDate.parse(dateTo);
+        } catch (Exception e) {
+            throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
+        }
+
+        // si el destino es nulo y es menor a 2 caracteres, devuelve una excepcion
+        if (destination == null || destination.length() < 2) {
+            throw new BadRequestException("Debe ingresar un destino");
+        }
+
+        // si el origen es nulo y es menor a 2 caracteres, devuelve una excepcion
+        if (origin == null || origin.length() < 2) {
+            throw new BadRequestException("Debe ingresar un origen");
+        }
+
+        // si el origen y destino es el mismo por parametro que el de la lista
+        boolean isOriginAvailable = flightRepository.dataFlights().stream()
+                .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(origin.toUpperCase()));
+        boolean isDestinationAvailable = flightRepository.dataFlights().stream()
+                .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(destination.toUpperCase()));
+
+        if (!isDestinationAvailable) {
+            throw new BadRequestException("El destino proporcionado no está disponible.");
+        }
+
+        if(!isOriginAvailable){
+            throw new BadRequestException("El origen proporcionado no está disponible.");
+        }
+
         return flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
     }
 
@@ -40,19 +82,19 @@ public class FlightService implements IFlightService {
         FlightResponse response = new FlightResponse();
         FlightResponseDto flightResponseDto = new FlightResponseDto();
 
-        if(flightRepository.dataFlights().isEmpty()){
+        if (flightRepository.dataFlights().isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos disponibles");
         }
 
         FlightModel reservationFlight = flightRepository.findFlight(flightRequestDto.getFlightReservation().getFlightNumber());
 
-        if(reservationFlight == null){
-           throw new NotFoundException("No se encuentro un vuelo con ese código");
+        if (reservationFlight == null) {
+            throw new NotFoundException("No se encuentro un vuelo con ese código");
         }
 
-        List<FlightModel> reservationTrue =   flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
-            flightRequestDto.getFlightReservation().getOrigin(), flightRequestDto.getFlightReservation().getDestination());
-        if(reservationTrue.size() == 0){
+        List<FlightModel> reservationTrue = flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
+                flightRequestDto.getFlightReservation().getOrigin(), flightRequestDto.getFlightReservation().getDestination());
+        if (reservationTrue.size() == 0) {
             throw new NotFoundException("Las fechas solicitadas no están disponibles");
         }
         PeopleDto personData = flightRequestDto.getFlightReservation().getPeople();
@@ -66,26 +108,26 @@ public class FlightService implements IFlightService {
 
         }
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
-        if(paymentMethod.getNumber() == null ||( paymentMethod.getDues() == null || paymentMethod.getDues()<1) || paymentMethod.getType() == null){
-            throw  new PaymentRequiredException("Debes ingresar un método de pago válido");
+        if (paymentMethod.getNumber() == null || (paymentMethod.getDues() == null || paymentMethod.getDues() < 1) || paymentMethod.getType() == null) {
+            throw new PaymentRequiredException("Debes ingresar un método de pago válido");
         }
-        if(!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")){
+        if (!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")) {
             throw new PaymentRequiredException("No se permite este metodo de pago " + paymentMethod.getType());
         }
 
-        if(flightRequestDto.getFlightReservation().getSeats() < 1){
+        if (flightRequestDto.getFlightReservation().getSeats() < 1) {
             throw new NotFoundException("La cantidad de pasajeros no puede ser menor a 1.");
         }
         String origin = flightRequestDto.getFlightReservation().getOrigin();
         String destiny = flightRequestDto.getFlightReservation().getDestination();
-        if(!origin.equalsIgnoreCase(reservationFlight.getOrigin()) && !destiny.equalsIgnoreCase(reservationFlight.getDestiny())){
+        if (!origin.equalsIgnoreCase(reservationFlight.getOrigin()) && !destiny.equalsIgnoreCase(reservationFlight.getDestiny())) {
             throw new NotFoundException("El vuelo desde con los destinos ingresados no se encuentra disponible.");
         }
 
         String seatTypeDisp = reservationFlight.getSeatType();
         String seatResponse = "El tipo de asiento disponible para este vuelo es: " + seatTypeDisp + ".";
-        if(!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType())){
-            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n"+ seatResponse);
+        if (!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType())) {
+            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n" + seatResponse);
         }
 
 

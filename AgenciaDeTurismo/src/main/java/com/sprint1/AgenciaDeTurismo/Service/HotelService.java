@@ -14,6 +14,7 @@ import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -32,7 +33,7 @@ public class HotelService implements IHotelService {
 
     // US 0002
     public List<HotelModel> getHotelDisponibles(String dateFrom, String dateTo, String destination) {
-        if(dateFrom == null && dateTo == null && destination == null) {
+        if (dateFrom == null && dateTo == null && destination == null) {
             return findAll();
         }
         LocalDate dateFromNew;
@@ -42,12 +43,12 @@ public class HotelService implements IHotelService {
             dateFromNew = LocalDate.parse(dateFrom);
             dateToNew = LocalDate.parse(dateTo);
         } catch (DateTimeParseException e) {
-           throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
+            throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
         }
         if (destination == null || destination.length() < 2) {
             throw new BadRequestException("Debe ingresar un destino");
         }
-        boolean isDestinationAvailable =hotelRepository.dataHotels().stream()
+        boolean isDestinationAvailable = hotelRepository.dataHotels().stream()
                 .anyMatch(flight -> flight.getCity().toUpperCase().contains(destination.toUpperCase()));
 
         if (!isDestinationAvailable) {
@@ -109,26 +110,26 @@ public class HotelService implements IHotelService {
             throw new BadRequestException("Debes ingresar la cantidad de huéspedes.");
         }
 
-            bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());
-            bookingResponse.setDateTo(bookingRequestDto.getBooking().getDateTo());
-            bookingResponse.setDestination(bookingRequestDto.getBooking().getDestination());
-            bookingResponse.setHotelCode(bookingRequestDto.getBooking().getHotelCode());
-            bookingResponse.setPeopleAmount(bookingRequestDto.getBooking().getPeopleAmount());
-            bookingResponse.setRoomType(bookingRequestDto.getBooking().getRoomType());
-            bookingResponse.setPeople(bookingRequestDto.getBooking().getPeople());
+        bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());
+        bookingResponse.setDateTo(bookingRequestDto.getBooking().getDateTo());
+        bookingResponse.setDestination(bookingRequestDto.getBooking().getDestination());
+        bookingResponse.setHotelCode(bookingRequestDto.getBooking().getHotelCode());
+        bookingResponse.setPeopleAmount(bookingRequestDto.getBooking().getPeopleAmount());
+        bookingResponse.setRoomType(bookingRequestDto.getBooking().getRoomType());
+        bookingResponse.setPeople(bookingRequestDto.getBooking().getPeople());
 
-            LocalDate fechaComoLocalDateFrom = LocalDate.parse(bookingRequestDto.getBooking().getDateFrom());
-            LocalDate fechaComoLocalDateTo = LocalDate.parse(bookingRequestDto.getBooking().getDateTo());
+        LocalDate fechaComoLocalDateFrom = LocalDate.parse(bookingRequestDto.getBooking().getDateFrom());
+        LocalDate fechaComoLocalDateTo = LocalDate.parse(bookingRequestDto.getBooking().getDateTo());
 
-            Integer totalPrice = Math.toIntExact(ChronoUnit.DAYS.between(fechaComoLocalDateFrom, fechaComoLocalDateTo) * bookHotel.getPriceForNight());
+        Integer totalPrice = Math.toIntExact(ChronoUnit.DAYS.between(fechaComoLocalDateFrom, fechaComoLocalDateTo) * bookHotel.getPriceForNight());
 
-            response.setUserName(bookingRequestDto.getUserName());
-            response.setTotal(totalPrice);
-            response.setBooking(bookingResponse);
-            response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
+        response.setUserName(bookingRequestDto.getUserName());
+        response.setTotal(totalPrice);
+        response.setBooking(bookingResponse);
+        response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
 
-            return response;
-        }
-
+        return response;
     }
+
+}
 
