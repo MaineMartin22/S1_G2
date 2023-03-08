@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -31,14 +32,36 @@ public class HotelService implements IHotelService {
 
     // US 0002
     public List<HotelModel> getHotelDisponibles(String dateFrom, String dateTo, String destination) {
+        if(dateFrom == null && dateTo == null && destination == null) {
+            return findAll();
+        }
+        LocalDate dateFromNew;
+        LocalDate dateToNew;
+
+        try {
+            dateFromNew = LocalDate.parse(dateFrom);
+            dateToNew = LocalDate.parse(dateTo);
+        } catch (DateTimeParseException e) {
+           throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
+        }
+        if (destination == null&&destination.length()==0) {
+            throw new BadRequestException("Debe ingresar el destino");
+        }
+        boolean isDestinationAvailable =hotelRepository.dataHotels().stream()
+                .anyMatch(flight -> flight.getCity().toUpperCase().contains(destination.toUpperCase()));
+
+        if (!isDestinationAvailable) {
+            throw new BadRequestException("El destino proporcionado no está disponible.");
+        }
         return hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
+
     }
 
     // US 0003
     public BookingResponse reservationHotel(@RequestBody BookingRequestDto bookingRequestDto) {
 
         if (hotelRepository.dataHotels().isEmpty()) {
-            throw new NotFoundException("No se econtraron hoteles disponibles");
+            throw new NotFoundException("No se encontraron hoteles disponibles");
         }
         BookingResponse response = new BookingResponse();
         BookingResponseDto bookingResponse = new BookingResponseDto();
@@ -55,35 +78,35 @@ public class HotelService implements IHotelService {
         }
 
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
-            throw new NotFoundException("Ese tipo de habitacion no esta disponible.");
+            throw new NotFoundException("Ese tipo de habitación no está disponible.");
         }
 
         PeopleDto personData = bookingRequestDto.getBooking().getPeople();
 
         if (bookingRequestDto.getUserName() == null) {
-            throw new BadRequestException("Debes ingresar el userName");
+            throw new BadRequestException("Debes ingresar nombre de usuario");
         }
         if (bookingRequestDto.getUserName().length() < 5) {
-            throw new BadRequestException("El userName debe tener al menos 5 caracteres");
+            throw new BadRequestException("El nombre de usuario debe tener al menos 5 caracteres");
         }
 
         if (personData.getMail() == null || personData.getDni() == null || personData.getName() == null ||
                 personData.getLastName() == null || personData.getBirthDate() == null || personData.getMail().length() < 10 ||
                 personData.getDni().length() < 4 || personData.getName().length() < 3 ||
                 personData.getLastName().length() < 4 || personData.getBirthDate().length() < 8) {
-            throw new BadRequestException("Debes ingresar correctamente los datos del huesped");
+            throw new BadRequestException("Debes ingresar correctamente los datos del huésped");
         }
         PaymentMethodDto paymentData = bookingRequestDto.getBooking().getPaymentMethod();
         if (paymentData.getType() == null || (paymentData.getDues() == null || paymentData.getDues() < 1) || paymentData.getNumber() == null) {
-            throw new PaymentRequiredException("Debes ingresar un metodo de pago valido.");
+            throw new PaymentRequiredException("Debes ingresar un método de pago válido.");
         }
 
         if (!paymentData.getType().equalsIgnoreCase("credit") && !paymentData.getType().equalsIgnoreCase("debit")) {
-            throw new PaymentRequiredException("No se permite este metodo de pago " + paymentData.getType());
+            throw new PaymentRequiredException("No se permite este método de pago " + paymentData.getType());
         }
 
         if (bookingRequestDto.getBooking().getPeopleAmount() < 1) {
-            throw new BadRequestException("Debes ingresar la cantidad de huespedes.");
+            throw new BadRequestException("Debes ingresar la cantidad de huéspedes.");
         }
 
             bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());

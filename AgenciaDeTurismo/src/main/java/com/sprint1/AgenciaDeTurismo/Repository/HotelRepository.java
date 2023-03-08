@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+
 
 @Repository
 public class HotelRepository {
@@ -65,29 +69,20 @@ public class HotelRepository {
      */
 
     public List<HotelModel> getHotelDisponible(String dateFrom, String dateTo, String destination) {
+        LocalDate fechaDesde = LocalDate.parse(dateFrom);
+        LocalDate fechaHasta = LocalDate.parse(dateTo);
 
-        List<HotelModel>  hotelesDisponibles = new ArrayList<>();
-        LocalDate fechaComoLocalDateFrom = LocalDate.parse(dateFrom);
-        LocalDate fechaComoLocalDateTo = LocalDate.parse(dateTo);
-
-        for (HotelModel hotelModel : dataHotels()) {
-            if(
-                    hotelModel.getCity().toUpperCase().contains(destination.toUpperCase()) &&
-                    hotelModel.isReserved() == false &&
-                    (fechaComoLocalDateFrom.isAfter(hotelModel.getAvailabilityFrom()) ||
-                    fechaComoLocalDateFrom.getDayOfMonth() == hotelModel.getAvailabilityFrom().getDayOfMonth()) &&
-                    (fechaComoLocalDateTo.isBefore(hotelModel.getAvailabilityUntil()) ||
-                    fechaComoLocalDateTo.getDayOfMonth() ==  hotelModel.getAvailabilityUntil().getDayOfMonth()))
-            {
-
-                 hotelesDisponibles.add(hotelModel);
-            }
-        }
-        return hotelesDisponibles;
+        return dataHotels().stream()
+                .filter(hotel -> hotel.getCity().toUpperCase().contains(destination.toUpperCase()))
+                .filter(hotel -> !hotel.isReserved())
+                .filter(hotel -> (fechaDesde.isAfter(hotel.getAvailabilityFrom()) || fechaDesde.getDayOfMonth() == hotel.getAvailabilityFrom().getDayOfMonth()))
+                .filter(hotel -> (fechaHasta.isBefore(hotel.getAvailabilityUntil()) || fechaHasta.getDayOfMonth() == hotel.getAvailabilityUntil().getDayOfMonth()))
+                .collect(Collectors.toList());
     }
 
+
     public HotelModel findHotelWhitCode(String code){
-        return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElse(null);
+        return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElseThrow(()-> new NotFoundException("No se encontró el hotel"));
     }
     private List<HotelModel> loadDataBase() {
         List<HotelModel> hotels = null;

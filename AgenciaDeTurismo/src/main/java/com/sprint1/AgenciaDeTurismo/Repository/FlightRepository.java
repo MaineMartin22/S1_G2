@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class FlightRepository {
@@ -53,27 +54,18 @@ public class FlightRepository {
         flights.add(flightModel12);
         return flights;
     }*/
-
     public List<FlightModel> getFlightAvailability(String dateFrom, String dateTo, String origin, String destination) {
-
-        List<FlightModel> flightModelAvailabilities = new ArrayList<>();
-        LocalDate fechaComoLocalDateFrom = LocalDate.parse(dateFrom);
-        LocalDate fechaComoLocalDateTo = LocalDate.parse(dateTo);
-
-        for (FlightModel flightModel : flights) {
-            if(
-                    flightModel.getOrigin().toUpperCase().contains((origin.toUpperCase())) &&
-                           flightModel.getDeparturaDate().isEqual(fechaComoLocalDateFrom) &&
-                            flightModel.getReturnDate().isEqual(fechaComoLocalDateTo) &&
-                            flightModel.getDestiny().toUpperCase().contains((destination.toUpperCase())))
-            {
-
-                flightModelAvailabilities.add(flightModel);
-            }
-        }
-        return flightModelAvailabilities;
-
+        LocalDate fechaDesde = LocalDate.parse(dateFrom);
+        LocalDate fechaHasta = LocalDate.parse(dateTo);
+        return flights.stream()
+                .filter(flight -> flight.getOrigin().toUpperCase().contains(origin.toUpperCase()))
+                .filter(flight -> flight.getDestiny().toUpperCase().contains(destination.toUpperCase()))
+                .filter(flight -> flight.getDeparturaDate().isEqual(fechaDesde))
+                .filter(flight -> flight.getReturnDate().isEqual(fechaHasta))
+                .collect(Collectors.toList());
     }
+
+
 
 
     public FlightModel findFlight(String numberFlight){

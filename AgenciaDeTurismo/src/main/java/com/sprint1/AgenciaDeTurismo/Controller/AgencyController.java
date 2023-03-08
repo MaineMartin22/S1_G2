@@ -22,15 +22,15 @@ public class AgencyController {
     FlightService flightService;
 
     // US 0001
-    @GetMapping("/api/v1/hotels")
+    /*@GetMapping("/api/v1/hotels")
     public List<HotelModel> get() {
         return hotelService.findAll();
-    }
+    }*/
 
     // US 0002
-    @GetMapping("/api/v1/hotel")
+    @GetMapping("/api/v1/hotels")
     // /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=Puerto Iguazu
-    public List<HotelModel> hotelesDisponibles(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String destination) {
+    public List<HotelModel> hotelesDisponibles(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam  String destination) {
         return hotelService.getHotelDisponibles(dateFrom, dateTo, destination);
     }
 
