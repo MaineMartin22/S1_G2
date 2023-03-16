@@ -34,7 +34,7 @@ public class AgencyController {
     // /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=Puerto Iguazu
     public List<HotelDTO> hotelesDisponibles(@RequestParam(required = false) String dateFrom,
                                              @RequestParam(required = false) String dateTo,
-                                             @RequestParam(required = false) String destination) {
+                                             @RequestParam(required = false) @Valid String destination) {
         return hotelService.getHotelDisponibles(dateFrom, dateTo, destination);
     }
 

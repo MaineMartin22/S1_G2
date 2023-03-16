@@ -7,16 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookingDto {
+public class    BookingDto {
         private String dateFrom;
         private String dateTo;
+
+        @NotNull(message="El destino elegido no existe")
         private String destination;
         private String hotelCode;
         private Integer peopleAmount;
+        @AssertTrue(message="El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella")
         private String roomType;
         private PeopleDto people;
         private PaymentMethodDto paymentMethod;
