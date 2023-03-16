@@ -6,19 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class    BookingDto {
-        private String dateFrom;
-        private String dateTo;
 
-        @NotNull(message="El destino elegido no existe")
+public class    BookingDto {
+
+        private LocalDate dateFrom;
+        private LocalDate dateTo;
+
+        @NotNull(message ="El destino no puede estar vacío")
         private String destination;
         private String hotelCode;
         private Integer peopleAmount;

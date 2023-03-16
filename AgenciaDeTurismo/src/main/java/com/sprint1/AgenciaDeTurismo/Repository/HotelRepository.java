@@ -39,15 +39,13 @@ public class HotelRepository {
 
 
 
-    public List<HotelDTO> getHotelDisponible(String dateFrom, String dateTo, String destination) {
-        LocalDate fechaDesde = LocalDate.parse(dateFrom);
-        LocalDate fechaHasta = LocalDate.parse(dateTo);
+    public List<HotelDTO> getHotelDisponible(LocalDate dateFrom, LocalDate dateTo, String destination) {
 
         return dataHotels().stream()
                 .filter(hotel -> hotel.getCity().toUpperCase().contains(destination.toUpperCase()))
                 .filter(hotel -> !hotel.isReserved())
-                .filter(hotel -> (fechaDesde.isAfter(hotel.getAvailabilityFrom()) || fechaDesde.getDayOfMonth() == hotel.getAvailabilityFrom().getDayOfMonth()))
-                .filter(hotel -> (fechaHasta.isBefore(hotel.getAvailabilityUntil()) || fechaHasta.getDayOfMonth() == hotel.getAvailabilityUntil().getDayOfMonth()))
+                .filter(hotel -> (dateFrom.isAfter(hotel.getAvailabilityFrom()) || dateFrom.getDayOfMonth() == hotel.getAvailabilityFrom().getDayOfMonth()))
+                .filter(hotel -> (dateTo.isBefore(hotel.getAvailabilityUntil()) || dateTo.getDayOfMonth() == hotel.getAvailabilityUntil().getDayOfMonth()))
                 .collect(Collectors.toList());
     }
 

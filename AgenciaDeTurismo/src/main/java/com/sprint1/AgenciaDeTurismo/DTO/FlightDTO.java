@@ -1,6 +1,5 @@
 package com.sprint1.AgenciaDeTurismo.DTO;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-
-public class FlightDTOResponse {
+public class FlightDTO {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String origin;
@@ -22,6 +20,6 @@ public class FlightDTOResponse {
     private String flightNumber;
     private Integer seats;
     private String seatType;
-    private PeopleDto peopleDto;
-    private PaymentMethodDto paymentMethodDto;
+    private PeopleDto people;
+
 }

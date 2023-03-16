@@ -12,13 +12,11 @@ import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -28,8 +26,6 @@ public class HotelService implements IHotelService {
     @Autowired
     HotelRepository hotelRepository;
 
-    ModelMapper modelMapper = new ModelMapper();
-
     // US 0001
 
     @Override
@@ -38,22 +34,11 @@ public class HotelService implements IHotelService {
     }
 
     // US 0002
-    public List<HotelDTO> getHotelDisponibles(String dateFrom, String dateTo, String destination) {
+    public List<HotelDTO> getHotelDisponibles(LocalDate dateFrom, LocalDate dateTo, String destination) {
         if (dateFrom == null && dateTo == null && destination == null) {
             return findAll();
         }
-        LocalDate dateFromNew;
-        LocalDate dateToNew;
 
-        try {
-            dateFromNew = LocalDate.parse(dateFrom);
-            dateToNew = LocalDate.parse(dateTo);
-        } catch (DateTimeParseException e) {
-            throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
-        }
-        if (destination == null || destination.length() < 2) {
-            throw new BadRequestException("Debe ingresar un destino");
-        }
         boolean isDestinationAvailable = hotelRepository.dataHotels().stream()
                 .anyMatch(flight -> flight.getCity().toUpperCase().contains(destination.toUpperCase()));
 
@@ -65,7 +50,7 @@ public class HotelService implements IHotelService {
     }
 
     // US 0003
-    public BookingResponse reservationHotel(@RequestBody BookingRequestDto bookingRequestDto) {
+    public BookingResponse reservationHotel(BookingRequestDto bookingRequestDto) {
 
         if (hotelRepository.dataHotels().isEmpty()) {
             throw new NotFoundException("No se encontraron hoteles disponibles");
@@ -80,40 +65,27 @@ public class HotelService implements IHotelService {
 
         List<HotelDTO> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
                 bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
-        if (reservationTrue.size() == 0) {
+        if (reservationTrue.isEmpty()) {
             throw new BadRequestException("Las fechas solicitadas no están disponibles");
         }
 
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
-            throw new NotFoundException("Ese tipo de habitación no está disponible.");
+            throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles es : " + bookHotel.getTypeRoom());
         }
 
         PeopleDto personData = bookingRequestDto.getBooking().getPeople();
 
-        if (bookingRequestDto.getUserName() == null) {
-            throw new BadRequestException("Debes ingresar nombre de usuario");
-        }
-        if (bookingRequestDto.getUserName().length() < 5) {
-            throw new BadRequestException("El nombre de usuario debe tener al menos 5 caracteres");
+
+        if( (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Single") &&  bookingRequestDto.getBooking().getPeopleAmount() > 1) ||
+                (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Doble") &&  bookingRequestDto.getBooking().getPeopleAmount() > 2) ||
+                (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Triple") &&  bookingRequestDto.getBooking().getPeopleAmount() > 3)){
+           throw new BadRequestException("La cantidad de personas excede la capacidad de la habitación");
         }
 
-        if (personData.getMail() == null || personData.getDni() == null || personData.getName() == null ||
-                personData.getLastName() == null || personData.getBirthDate() == null || personData.getMail().length() < 10 ||
-                personData.getDni().length() < 4 || personData.getName().length() < 3 ||
-                personData.getLastName().length() < 4 || personData.getBirthDate().length() < 8) {
-            throw new BadRequestException("Debes ingresar correctamente los datos del huésped");
-        }
         PaymentMethodDto paymentData = bookingRequestDto.getBooking().getPaymentMethod();
-        if (paymentData.getType() == null || (paymentData.getDues() == null || paymentData.getDues() < 1) || paymentData.getNumber() == null) {
-            throw new PaymentRequiredException("Debes ingresar un método de pago válido.");
-        }
 
         if (!paymentData.getType().equalsIgnoreCase("credit") && !paymentData.getType().equalsIgnoreCase("debit")) {
-            throw new PaymentRequiredException("No se permite este método de pago " + paymentData.getType());
-        }
-
-        if (bookingRequestDto.getBooking().getPeopleAmount() < 1) {
-            throw new BadRequestException("Debes ingresar la cantidad de huéspedes.");
+            throw new PaymentRequiredException("El método de pago " + paymentData.getType() + " no esta disponible. Solo se permite tarjetas de crédito o débito" );
         }
 
         bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());
@@ -124,13 +96,31 @@ public class HotelService implements IHotelService {
         bookingResponse.setRoomType(bookingRequestDto.getBooking().getRoomType());
         bookingResponse.setPeople(bookingRequestDto.getBooking().getPeople());
 
-        LocalDate fechaComoLocalDateFrom = LocalDate.parse(bookingRequestDto.getBooking().getDateFrom());
-        LocalDate fechaComoLocalDateTo = LocalDate.parse(bookingRequestDto.getBooking().getDateTo());
 
-        Integer totalPrice = Math.toIntExact(ChronoUnit.DAYS.between(fechaComoLocalDateFrom, fechaComoLocalDateTo) * bookHotel.getPriceForNight());
+        double totalPrice = Math.toIntExact(ChronoUnit.DAYS.between(bookingRequestDto.getBooking().getDateFrom(), bookingRequestDto.getBooking().getDateTo()) * bookHotel.getPriceForNight());
+        double totalIntereses = 0;
+
+
+        if (paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() <= 3){
+            totalIntereses = totalPrice * 0.05;
+        } else if (paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() <= 6) {
+            totalIntereses = totalPrice * 0.10;
+        } else if(paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() <= 12){
+            totalIntereses = totalPrice * 0.15;
+        } else if ((paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() > 12)){
+            throw new PaymentRequiredException("Las cuotas con tarjeta de crédito no pueden ser mayor a 12");
+        }
+
+        if ((paymentData.getType().equalsIgnoreCase("debit") && paymentData.getDues() != 1)){
+            throw new PaymentRequiredException("Solo se permite el pago en una sola cuota");
+        }
+
+        double totalFinal = totalPrice + totalIntereses;
 
         response.setUserName(bookingRequestDto.getUserName());
-        response.setTotal(totalPrice);
+        response.setTotalNeto(totalPrice);
+        response.setTotalIntereses(totalIntereses);
+        response.setTotalFinal(totalFinal);
         response.setBooking(bookingResponse);
         response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
 
