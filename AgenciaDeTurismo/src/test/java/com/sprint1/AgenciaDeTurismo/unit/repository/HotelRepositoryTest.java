@@ -3,6 +3,7 @@ package com.sprint1.AgenciaDeTurismo.unit.repository;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
+import com.sprint1.AgenciaDeTurismo.utils.HotelDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,19 +19,14 @@ public class HotelRepositoryTest {
     @Test
     public void dataHotelsTest(){
         // arrange
-        List<HotelDTO> expected = new ArrayList<>();
-        HotelDTO cataratas = HotelFactory.getCataratasHotel();
-        HotelDTO bristol = HotelFactory.getBristol();
-
-        expected.add(cataratas);
-        expected.add(bristol);
+        List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
 
         // act
 
         var result = hotelRepository.dataHotels();
 
         // assert
-
         Assertions.assertEquals(expected, result);
 
     }
@@ -39,7 +35,7 @@ public class HotelRepositoryTest {
     public void getHotelDisponibleTest(){
         // arange
         List<HotelDTO> expected = new ArrayList<>();
-        HotelDTO cataratas = HotelFactory.getCataratasHotel();
+        HotelDTO cataratas = HotelDTOFactory.getCataratasHotelDTO();
 
         LocalDate dateFrom = LocalDate.of(2022, 02, 10);
         LocalDate dateTo = LocalDate.of(2022, 03, 20);
@@ -58,7 +54,7 @@ public class HotelRepositoryTest {
     @Test
     public void findHotelWhitCodeTest(){
         // arange
-        HotelDTO expected = HotelFactory.getBristol();
+        HotelModel expected = HotelFactory.getBristol();
 
         String code = "HB-0001";
 

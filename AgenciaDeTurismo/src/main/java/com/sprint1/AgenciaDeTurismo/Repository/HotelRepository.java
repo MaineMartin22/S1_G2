@@ -26,7 +26,7 @@ public class HotelRepository {
     private List<HotelModel> hotels;
 
     public HotelRepository() {
-        this.hotels = this.loadDataBase();
+        this.hotels = loadDataBase();
     }
 
     ModelMapper modelMapper = new ModelMapper();
