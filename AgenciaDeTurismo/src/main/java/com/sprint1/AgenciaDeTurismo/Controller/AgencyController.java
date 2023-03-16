@@ -32,9 +32,9 @@ public class AgencyController {
     // US 0001 & 0002
     @GetMapping("/api/v1/hotels")
     // /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=Puerto Iguazu
-    public List<HotelDTO> hotelesDisponibles(@RequestParam(required = false) String dateFrom,
-                                             @RequestParam(required = false) String dateTo,
-                                             @RequestParam(required = false) String destination) {
+    public List<HotelDTO> hotelesDisponibles(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
+                                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo,
+                                             @RequestParam(required = false) @Size(min = 3, message = "Debe ingresar un destino") String destination) {
         return hotelService.getHotelDisponibles(dateFrom, dateTo, destination);
     }
 

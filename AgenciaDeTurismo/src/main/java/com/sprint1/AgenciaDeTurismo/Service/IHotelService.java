@@ -5,11 +5,12 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IHotelService {
 
     List<HotelDTO> findAll();
-    List<HotelDTO> getHotelDisponibles(String dateFrom, String dateTo, String destination);
+    List<HotelDTO> getHotelDisponibles(LocalDate dateFrom, LocalDate dateTo, String destination);
     BookingResponse reservationHotel(@RequestBody BookingRequestDto bookingRequestDto);
 }

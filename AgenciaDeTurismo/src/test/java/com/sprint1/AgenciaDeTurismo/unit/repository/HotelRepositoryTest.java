@@ -6,6 +6,7 @@ import com.sprint1.AgenciaDeTurismo.utils.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,8 @@ public class HotelRepositoryTest {
         List<HotelModel> expected = new ArrayList<>();
         HotelModel cataratas = HotelFactory.getCataratasHotel();
 
-        String dateFrom = "2022-02-10";
-        String dateTo = "2022-03-20";
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 03, 20);
         String destination = "Puerto Iguazú";
 
         expected.add(cataratas);

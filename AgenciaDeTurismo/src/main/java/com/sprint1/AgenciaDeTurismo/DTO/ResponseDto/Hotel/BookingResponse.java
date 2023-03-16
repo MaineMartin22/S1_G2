@@ -12,7 +12,11 @@ import lombok.Setter;
 @Setter
 public class BookingResponse {
     private String userName;
-    private Integer total;
+    private double totalNeto;
+
+    private double totalIntereses;
+
+    private double totalFinal;
     private BookingResponseDto booking;
     private StatusCodeDto statusCode;
 }

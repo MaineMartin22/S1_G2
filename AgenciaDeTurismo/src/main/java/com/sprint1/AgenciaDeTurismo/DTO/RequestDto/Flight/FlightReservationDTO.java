@@ -1,15 +1,11 @@
 package com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-import javax.validation.constraints.Past;
-import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 @AllArgsConstructor

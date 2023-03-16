@@ -1,12 +1,11 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
-import com.sprint1.AgenciaDeTurismo.DTO.FlightDTOResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
@@ -16,7 +15,6 @@ import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,16 +37,6 @@ public class FlightService implements IFlightService {
             return getFlight();
         }
 
-        // si el destino es nulo y es menor a 2 caracteres, devuelve una excepcion
-        if (destination == null || destination.length() < 2) {
-            throw new BadRequestException("Debe ingresar un destino");
-        }
-
-        // si el origen es nulo y es menor a 2 caracteres, devuelve una excepcion
-        if (origin == null || origin.length() < 2) {
-            throw new BadRequestException("Debe ingresar un origen");
-        }
-
         // si el origen y destino es el mismo por parametro que el de la lista
         boolean isOriginAvailable = flightRepository.dataFlights().stream()
                 .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(origin.toUpperCase()));
@@ -67,9 +55,9 @@ public class FlightService implements IFlightService {
     }
 
     // US 0006
-    public FlightResponse reservationFlight(@RequestBody FlightRequestDto flightRequestDto) {
+    public FlightResponse reservationFlight(FlightRequestDto flightRequestDto) {
         FlightResponse response = new FlightResponse();
-        FlightResponseDto flightResponseDto = new FlightResponseDto();
+        FlightDTO flightResponseDto = new FlightDTO();
 
         if (flightRepository.dataFlights().isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos disponibles");

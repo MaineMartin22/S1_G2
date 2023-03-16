@@ -13,7 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FlightResponseDto {
+
+public class FlightDTOResponse {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String origin;
@@ -21,6 +22,6 @@ public class FlightResponseDto {
     private String flightNumber;
     private Integer seats;
     private String seatType;
-    private PeopleDto people;
-
+    private PeopleDto peopleDto;
+    private PaymentMethodDto paymentMethodDto;
 }
