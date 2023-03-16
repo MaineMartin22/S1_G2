@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -39,12 +38,9 @@ public class FlightService implements IFlightService {
         }
 
         // Si el formato de fechas no coincide, lanza la excepcion
-        LocalDate dateFromNew;
-        LocalDate dateToNew;
-
         try {
-            dateFromNew = LocalDate.parse(dateFrom);
-            dateToNew = LocalDate.parse(dateTo);
+           LocalDate.parse(dateFrom);
+           LocalDate.parse(dateTo);
         } catch (Exception e) {
             throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
         }
@@ -94,7 +90,7 @@ public class FlightService implements IFlightService {
 
         List<FlightModel> reservationTrue = flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
                 flightRequestDto.getFlightReservation().getOrigin(), flightRequestDto.getFlightReservation().getDestination());
-        if (reservationTrue.size() == 0) {
+        if (reservationTrue.isEmpty()) {
             throw new NotFoundException("Las fechas solicitadas no están disponibles");
         }
         PeopleDto personData = flightRequestDto.getFlightReservation().getPeople();
