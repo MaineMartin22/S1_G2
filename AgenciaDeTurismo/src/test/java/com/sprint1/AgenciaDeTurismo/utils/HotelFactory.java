@@ -1,13 +1,14 @@
 package com.sprint1.AgenciaDeTurismo.utils;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 
 import java.time.LocalDate;
 
 public class HotelFactory {
 
-    public static HotelModel getCataratasHotel() {
-        return HotelModel.builder().hotelCode("CH-0002")
+    public static HotelDTO getCataratasHotel() {
+        return HotelDTO.builder().hotelCode("CH-0002")
                 .name("Cataratas Hotel")
                 .city("Puerto Iguazú")
                 .typeRoom("Doble")
@@ -18,8 +19,8 @@ public class HotelFactory {
                 .build();
 
     }
-    public static HotelModel getBristol() {
-        return HotelModel.builder().hotelCode("HB-0001")
+    public static HotelDTO getBristol() {
+        return HotelDTO.builder().hotelCode("HB-0001")
                 .name("Hotel Bristol")
                 .city("Buenos Aires")
                 .typeRoom("Single")

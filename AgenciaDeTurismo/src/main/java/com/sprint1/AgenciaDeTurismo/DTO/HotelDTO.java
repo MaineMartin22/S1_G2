@@ -9,6 +9,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class HotelDTO {
 
     private String hotelCode;
@@ -17,7 +18,7 @@ public class HotelDTO {
     @NotNull(message="El destino elegido no existe")
     private String city;
     private String  typeRoom;
-    private String  priceForNight;
+    private double  priceForNight;
     private LocalDate availabilityFrom;
     private LocalDate  availabilityUntil;
     private boolean reserved;

@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.unit.repository;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.utils.HotelFactory;
@@ -17,9 +18,9 @@ public class HotelRepositoryTest {
     @Test
     public void dataHotelsTest(){
         // arrange
-        List<HotelModel> expected = new ArrayList<>();
-        HotelModel cataratas = HotelFactory.getCataratasHotel();
-        HotelModel bristol = HotelFactory.getBristol();
+        List<HotelDTO> expected = new ArrayList<>();
+        HotelDTO cataratas = HotelFactory.getCataratasHotel();
+        HotelDTO bristol = HotelFactory.getBristol();
 
         expected.add(cataratas);
         expected.add(bristol);
@@ -37,8 +38,8 @@ public class HotelRepositoryTest {
     @Test
     public void getHotelDisponibleTest(){
         // arange
-        List<HotelModel> expected = new ArrayList<>();
-        HotelModel cataratas = HotelFactory.getCataratasHotel();
+        List<HotelDTO> expected = new ArrayList<>();
+        HotelDTO cataratas = HotelFactory.getCataratasHotel();
 
         LocalDate dateFrom = LocalDate.of(2022, 02, 10);
         LocalDate dateTo = LocalDate.of(2022, 03, 20);
@@ -57,7 +58,7 @@ public class HotelRepositoryTest {
     @Test
     public void findHotelWhitCodeTest(){
         // arange
-        HotelModel expected = HotelFactory.getBristol();
+        HotelDTO expected = HotelFactory.getBristol();
 
         String code = "HB-0001";
 
