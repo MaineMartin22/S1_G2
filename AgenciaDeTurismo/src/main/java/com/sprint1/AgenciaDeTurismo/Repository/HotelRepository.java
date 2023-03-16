@@ -67,8 +67,7 @@ public class HotelRepository {
         try {
             file = ResourceUtils.getFile("classpath:dataHotels.json");
             hotels = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {e.printStackTrace();
         }
 
         return hotels;
