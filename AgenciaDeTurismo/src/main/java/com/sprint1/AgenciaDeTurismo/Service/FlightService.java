@@ -1,5 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDTOResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
@@ -25,24 +27,16 @@ public class FlightService implements IFlightService {
     FlightRepository flightRepository;
     // US 0004
 
-    public List<FlightModel> getFlight() {
+    public List<FlightDto> getFlight() {
         return flightRepository.dataFlights();
     }
 
     // US 0005
 
-    public List<FlightModel> getFlightAvailability(@RequestParam String dateFrom, @RequestParam String dateTo, @RequestParam String origin, @RequestParam String destination) {
+    public List<FlightDto> getFlightAvailability(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
         // Si no se pasan parametros, devuevle la lista completa
         if (dateFrom == null && dateTo == null && origin == null && destination == null) {
             return getFlight();
-        }
-
-        // Si el formato de fechas no coincide, lanza la excepcion
-        try {
-           LocalDate.parse(dateFrom);
-           LocalDate.parse(dateTo);
-        } catch (Exception e) {
-            throw new BadRequestException("El formato de la fecha no coincide con el formato esperado");
         }
 
         // si el destino es nulo y es menor a 2 caracteres, devuelve una excepcion
@@ -73,7 +67,6 @@ public class FlightService implements IFlightService {
     }
 
     // US 0006
-
     public FlightResponse reservationFlight(@RequestBody FlightRequestDto flightRequestDto) {
         FlightResponse response = new FlightResponse();
         FlightResponseDto flightResponseDto = new FlightResponseDto();
@@ -88,7 +81,7 @@ public class FlightService implements IFlightService {
             throw new NotFoundException("No se encuentro un vuelo con ese código");
         }
 
-        List<FlightModel> reservationTrue = flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
+        List<FlightDto> reservationTrue = flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
                 flightRequestDto.getFlightReservation().getOrigin(), flightRequestDto.getFlightReservation().getDestination());
         if (reservationTrue.isEmpty()) {
             throw new NotFoundException("Las fechas solicitadas no están disponibles");
@@ -123,7 +116,7 @@ public class FlightService implements IFlightService {
         String seatTypeDisp = reservationFlight.getSeatType();
         String seatResponse = "El tipo de asiento disponible para este vuelo es: " + seatTypeDisp + ".";
         if (!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType())) {
-            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n" + seatResponse);
+            throw new NotFoundException("El tipo de a   siento ingresado no esta disponible." + "\n" + seatResponse);
         }
 
 

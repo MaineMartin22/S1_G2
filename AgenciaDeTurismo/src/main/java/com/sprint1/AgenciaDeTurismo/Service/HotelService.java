@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
@@ -11,6 +12,7 @@ import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,13 +28,17 @@ public class HotelService implements IHotelService {
     @Autowired
     HotelRepository hotelRepository;
 
+    ModelMapper modelMapper = new ModelMapper();
+
     // US 0001
-    public List<HotelModel> findAll() {
+
+    @Override
+    public List<HotelDTO> findAll() {
         return hotelRepository.dataHotels();
     }
 
     // US 0002
-    public List<HotelModel> getHotelDisponibles(String dateFrom, String dateTo, String destination) {
+    public List<HotelDTO> getHotelDisponibles(String dateFrom, String dateTo, String destination) {
         if (dateFrom == null && dateTo == null && destination == null) {
             return findAll();
         }
@@ -72,7 +78,7 @@ public class HotelService implements IHotelService {
             throw new NotFoundException("No se encuentra hotel con ese código");
         }
 
-        List<HotelModel> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
+        List<HotelDTO> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
                 bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
         if (reservationTrue.size() == 0) {
             throw new BadRequestException("Las fechas solicitadas no están disponibles");

@@ -15,13 +15,11 @@ import java.time.LocalDate;
 @Setter
 
 public class FlightDto {
-     private String dateFrom;
-     private String dateTo;
+     private String numberFlight;
      private String origin;
-     private String destination;
-     private String flightNumber;
-     private Integer seats;
+     private String destiny;
      private String seatType;
-     private PeopleDto people;
-     private PaymentMethodDto paymentMethod;
+     private double priceForPerson;
+     private LocalDate dateFrom;
+     private LocalDate dateTo;
 }

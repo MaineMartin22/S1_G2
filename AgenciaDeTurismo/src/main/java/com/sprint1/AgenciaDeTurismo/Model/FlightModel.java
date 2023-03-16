@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ public class FlightModel {
     private String destiny;
     private String seatType;
     private double priceForPerson;
-    private LocalDate departuraDate;
-    private LocalDate returnDate;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateFrom;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateTo;
 }

@@ -6,8 +6,8 @@
         "destiny": "Puerto Iguazú",
         "seatType": "Economy",
         "priceForPerson": 6500.0,
-        "departuraDate": "2022-02-10",
-        "returnDate": "2022-02-15"
+        "dateFrom": "2022-02-10",
+        "dateTo": "2022-02-15"
     },
     {
         "numberFlight": "PIBA-1420",
@@ -15,8 +15,8 @@
         "destiny": "Bogotá",
         "seatType": "Business",
         "priceForPerson": 43200.0,
-        "departuraDate": "2022-02-10",
-        "returnDate": "2022-02-20"
+        "dateFrom": "2022-02-10",
+        "dateTo": "2022-02-20"
     },
     {
         "numberFlight": "PIBA-1420",
@@ -24,8 +24,8 @@
         "destiny": "Bogotá",
         "seatType": "Economy",
         "priceForPerson": 25735.0,
-        "departuraDate": "2022-02-10",
-        "returnDate": "2022-02-21"
+        "dateFrom": "2022-02-10",
+        "dateTo": "2022-02-21"
     },
     {
         "numberFlight": "BATU-5536",
@@ -33,8 +33,8 @@
         "destiny": "Tucumán",
         "seatType": "Economy",
         "priceForPerson": 7320.0,
-        "departuraDate": "2022-02-10",
-        "returnDate": "2022-02-17"
+        "dateFrom": "2022-02-10",
+        "dateTo": "2022-02-17"
     },
     {
         "numberFlight": "TUPI-3369",
@@ -42,8 +42,8 @@
         "destiny": "Puerto Iguazú",
         "seatType": "Business",
         "priceForPerson": 12530.0,
-        "departuraDate": "2022-02-12",
-        "returnDate": "2022-02-23"
+        "dateFrom": "2022-02-12",
+        "dateTo": "2022-02-23"
     },
     {
         "numberFlight": "TUPI-3369",
@@ -51,8 +51,8 @@
         "destiny": "Puerto Iguazú",
         "seatType": "Economy",
         "priceForPerson": 5400.0,
-        "departuraDate": "2022-01-02",
-        "returnDate": "2022-01-16"
+        "dateFrom": "2022-01-02",
+        "dateTo": "2022-01-16"
     },
     {
         "numberFlight": "BOCA-4213",
@@ -60,8 +60,8 @@
         "destiny": "Cartagena",
         "seatType": "Economy",
         "priceForPerson": 8000.0,
-        "departuraDate": "2022-01-23",
-        "returnDate": "2022-02-05"
+        "dateFrom": "2022-01-23",
+        "dateTo": "2022-02-05"
     },
     {
         "numberFlight": "CAME-0321",
@@ -69,8 +69,8 @@
         "destiny": "Medellín",
         "seatType": "Economy",
         "priceForPerson": 7800.0,
-        "departuraDate": "2022-01-23",
-        "returnDate": "2022-01-31"
+        "dateFrom": "2022-01-23",
+        "dateTo": "2022-01-31"
     },
     {
         "numberFlight": "BOBA-6567",
@@ -78,8 +78,8 @@
         "destiny": "Buenos Aires",
         "seatType": "Business",
         "priceForPerson": 57000.0,
-        "departuraDate": "2022-02-15",
-        "returnDate": "2022-02-28"
+        "dateFrom": "2022-02-15",
+        "dateTo": "2022-02-28"
     },
     {
         "numberFlight": "BOBA-6567",
@@ -87,8 +87,8 @@
         "destiny": "Buenos Aires",
         "seatType": "Economy",
         "priceForPerson": 39860.0,
-        "departuraDate": "2022-03-01",
-        "returnDate": "2022-03-14"
+        "dateFrom": "2022-03-01",
+        "dateTo": "2022-03-14"
     },
     {
         "numberFlight": "BOME-4442",
@@ -96,8 +96,8 @@
         "destiny": "Medellín",
         "seatType": "Economy",
         "priceForPerson": 11000.0,
-        "departuraDate": "2022-02-10",
-        "returnDate": "2022-02-24"
+        "dateFrom": "2022-02-10",
+        "dateTo": "2022-02-24"
     },
     {
         "numberFlight": "MEPI-9986",
@@ -105,7 +105,7 @@
         "destiny": "Puerto Iguazú",
         "seatType": "Business",
         "priceForPerson": 41640.0,
-        "departuraDate": "2022-04-17",
-        "returnDate": "2022-05-02"
+        "dateFrom": "2022-04-17",
+        "dateTo": "2022-05-02"
     }
 ] 

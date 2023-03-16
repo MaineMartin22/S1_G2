@@ -14,8 +14,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class FlightResponseDto {
-    private String dateFrom;
-    private String dateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
     private String origin;
     private String destination;
     private String flightNumber;
