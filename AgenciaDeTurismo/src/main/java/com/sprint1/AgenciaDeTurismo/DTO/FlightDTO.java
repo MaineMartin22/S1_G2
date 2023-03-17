@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -16,6 +17,7 @@ public class FlightDTO {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String origin;
+
     private String destination;
     private String flightNumber;
     private Integer seats;

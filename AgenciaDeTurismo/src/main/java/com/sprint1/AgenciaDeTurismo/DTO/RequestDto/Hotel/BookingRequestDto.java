@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+
 public class BookingRequestDto {
     private String userName;
-    private BookingDto booking;
+    private @Valid BookingDto booking;
 }

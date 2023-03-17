@@ -14,7 +14,6 @@ public class HotelDTO {
     private String hotelCode;
     private String name;
 
-    @NotNull(message="El destino elegido no existe")
     private String city;
     private String  typeRoom;
     private String  priceForNight;
