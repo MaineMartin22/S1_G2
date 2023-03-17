@@ -37,8 +37,6 @@ public class HotelRepository {
                 .collect(Collectors.toList());
     }
 
-
-
     public List<HotelDTO> getHotelDisponible(LocalDate dateFrom, LocalDate dateTo, String destination) {
 
         return dataHotels().stream()

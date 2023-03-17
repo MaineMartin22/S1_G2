@@ -18,20 +18,21 @@ import java.util.stream.Collectors;
 public class GlobalHandler {
 
     @ExceptionHandler(PaymentRequiredException.class)
-    public ResponseEntity<String> handlerRuntime(PaymentRequiredException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.PAYMENT_REQUIRED);
+    public ResponseEntity<ErrorDTO> handlerRuntime(PaymentRequiredException exception) {
+        return new ResponseEntity<>(new ErrorDTO("Los siguientes errores fueron encontrados", List.of(exception.getMessage())), HttpStatus.PAYMENT_REQUIRED);
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<String> handlerRuntime(NotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorDTO> handlerRuntime(NotFoundException exception) {
+        return new ResponseEntity<>(new ErrorDTO("Los siguientes errores fueron encontrados", List.of(exception.getMessage())), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<String> handlerRuntime(BadRequestException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ErrorDTO> handlerRuntime(BadRequestException exception) {
+        return new ResponseEntity<>(new ErrorDTO("Los siguientes errores fueron encontrados", List.of(exception.getMessage())), HttpStatus.BAD_REQUEST);
     }
 
+    // @validated
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationDTO> validationException(MethodArgumentNotValidException e){
         return ResponseEntity.ok(
@@ -41,6 +42,7 @@ public class GlobalHandler {
         );
     }
 
+    // @valid
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ValidationDTO> validationException(ConstraintViolationException e){
         return ResponseEntity.ok(

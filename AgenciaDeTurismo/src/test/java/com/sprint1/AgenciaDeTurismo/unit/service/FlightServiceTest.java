@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
@@ -45,7 +46,7 @@ class FlightServiceTest {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
         LocalDate dateFrom = LocalDate.of(2022,02,10);
-        LocalDate dateTo= LocalDate.of(2022,02,15);
+        LocalDate dateTo= LocalDate.of(2022,02,20);
         String origin= "Buenos Aires";
         String destination = "Puerto Iguazú";
         // act
@@ -54,7 +55,24 @@ class FlightServiceTest {
 
         // assert
         Assertions.assertEquals(expected, result);
+    }
 
+    @Test
+    void getNotExistentFlightAvailability() {
+        // arrange
+        LocalDate dateFrom = LocalDate.of(2022,02,10);
+        LocalDate dateTo= LocalDate.of(2022,02,20);
+        String origin= "Buenos Aires";
+        String destination = "Puerto Iguazú";
+
+        // act
+        Mockito.when(flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)).thenReturn(List.of());
+
+        // assert
+        Assertions.assertThrows(
+                NotFoundException.class,
+                () -> flightService.getFlightAvailability(dateFrom, dateTo, origin, destination)
+        );
     }
 
     @Test
