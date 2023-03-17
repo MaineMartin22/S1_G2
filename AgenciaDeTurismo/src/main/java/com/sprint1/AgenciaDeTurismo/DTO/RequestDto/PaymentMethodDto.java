@@ -7,7 +7,10 @@ import lombok.*;
 @Data
 @Builder
 public class PaymentMethodDto {
+
+//Consensuado con Scrum, requerimiento de Intereses sobre tarjeta no se realizara//
     private String type;
     private String number;
+
     private Integer dues;
 }

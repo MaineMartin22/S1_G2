@@ -5,6 +5,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
@@ -30,35 +31,28 @@ public class FlightService implements IFlightService {
     }
 
     // US 0005
-
     public List<FlightDto> getFlightAvailability(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
         // Si no se pasan parametros, devuevle la lista completa
         if (dateFrom == null && dateTo == null && origin == null && destination == null) {
             return getFlight();
         }
 
-        // si el origen y destino es el mismo por parametro que el de la lista
-        boolean isOriginAvailable = flightRepository.dataFlights().stream()
-                .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(origin.toUpperCase()));
-        boolean isDestinationAvailable = flightRepository.dataFlights().stream()
-                .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(destination.toUpperCase()));
-
-
-
-        if(!isOriginAvailable){
-            throw new BadRequestException("El origen proporcionado no está disponible.");
-        }
-        if (!isDestinationAvailable) {
-            throw new BadRequestException("El destino proporcionado no está disponible.");
+        if (dateFrom == null || dateTo == null || origin == null || destination == null) {
+            throw new BadRequestException("Los parametros de fecha (ida y vuelta), origen y destino no pueden estar vacios");
         }
 
-        return flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
+        List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
+        if (vueloDisponible.isEmpty()) {
+            throw new NotFoundException("No se encontraron vuelos con esos datos");
+        }
+
+        return vueloDisponible;
     }
 
     // US 0006
     public FlightResponse reservationFlight(FlightRequestDto flightRequestDto) {
         FlightResponse response = new FlightResponse();
-        FlightDTO flightResponseDto = new FlightDTO();
+        FlightDTOResponse flightResponseDto = new FlightDTOResponse();
 
         if (flightRepository.dataFlights().isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos disponibles");
@@ -107,7 +101,7 @@ public class FlightService implements IFlightService {
         flightResponseDto.setDateFrom(flightRequestDto.getFlightReservation().getDateFrom());
         flightResponseDto.setDateTo(flightRequestDto.getFlightReservation().getDateTo());
         flightResponseDto.setSeats(flightRequestDto.getFlightReservation().getSeats());
-        flightResponseDto.setPeople(flightRequestDto.getFlightReservation().getPeople());
+        flightResponseDto.setPeopleDto(flightRequestDto.getFlightReservation().getPeople());
 
 
         double totalPrice = (int) (reservationFlight.getPriceForPerson() * flightRequestDto.getFlightReservation().getSeats());

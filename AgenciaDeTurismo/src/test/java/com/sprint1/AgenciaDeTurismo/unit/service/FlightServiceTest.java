@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
@@ -40,20 +41,37 @@ class FlightServiceTest {
     @Test
     void getFlightAvailability() {
         // arrange
-        List<FlightDto> expected = List.of(FlightDTOFactory.getPuertoIguazuBogotaDTO());
-        LocalDate dateFrom = LocalDate.of(2022,03,10);
-        LocalDate dateTo= LocalDate.of(2022,05,20);
-        String origin= "Puerto ";
-        String destination = "Bogotá";
+
+        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
+        LocalDate dateFrom = LocalDate.of(2022,02,10);
+        LocalDate dateTo= LocalDate.of(2022,02,20);
+        String origin= "Buenos Aires";
+        String destination = "Puerto Iguazú";
 
         // act
         Mockito.when(flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)).thenReturn(expected);
         var result = flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
-        System.out.println(expected);
-        System.out.println(result);
         // assert
-        Assertions.assertEquals(expected.toString(), result.toString());
 
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void getNotExistentFlightAvailability() {
+        // arrange
+        LocalDate dateFrom = LocalDate.of(2022,02,10);
+        LocalDate dateTo= LocalDate.of(2022,02,20);
+        String origin= "Buenos Aires";
+        String destination = "Puerto Iguazú";
+
+        // act
+        Mockito.when(flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)).thenReturn(List.of());
+
+        // assert
+        Assertions.assertThrows(
+                NotFoundException.class,
+                () -> flightService.getFlightAvailability(dateFrom, dateTo, origin, destination)
+        );
     }
 
     @Test

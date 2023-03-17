@@ -26,12 +26,14 @@ public class FlightRepository {
     }
     ModelMapper modelMapper = new ModelMapper();
 
+    // US 0004
     public List<FlightDto> dataFlights() {
         return flights.stream()
                 .map(flightModel -> modelMapper.map(flightModel, FlightDto.class))
                 .collect(Collectors.toList());
     }
 
+    // US 0005
     public List<FlightDto> getFlightAvailability(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
 
         return dataFlights().stream()
@@ -43,12 +45,14 @@ public class FlightRepository {
     }
 
 
-
-
+    // US 0006
     public FlightModel findFlight(String numberFlight){
-        return flights.stream().filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst().orElseThrow(()-> new NotFoundException("No se encontro el vuelo"));
+        return flights.stream()
+                .filter(flight -> flight.getNumberFlight().equalsIgnoreCase(numberFlight)).findFirst()
+                .orElseThrow(()-> new NotFoundException("No se encontro el vuelo"));
 
     }
+
     private List<FlightModel> loadDataBase() {
         List<FlightModel> flights = null;
 
