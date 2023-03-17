@@ -24,7 +24,6 @@ class FlightRepositoryTest {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
                 FlightDTOFactory.getPuertoIguazuBogotaDTO());
-
         // act
 
         var result = flightRepository.dataFlights();
@@ -46,6 +45,8 @@ class FlightRepositoryTest {
         var result = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
 
         // assert
+        System.out.println(expected);
+        System.out.println(result);
         Assertions.assertEquals(expected, result);
     }
 

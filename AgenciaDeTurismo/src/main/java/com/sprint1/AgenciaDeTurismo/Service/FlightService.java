@@ -30,28 +30,23 @@ public class FlightService implements IFlightService {
     }
 
     // US 0005
-
     public List<FlightDto> getFlightAvailability(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
         // Si no se pasan parametros, devuevle la lista completa
         if (dateFrom == null && dateTo == null && origin == null && destination == null) {
             return getFlight();
         }
 
-        // si el origen y destino es el mismo por parametro que el de la lista
-        boolean isOriginAvailable = flightRepository.dataFlights().stream()
-                .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(origin.toUpperCase()));
-        boolean isDestinationAvailable = flightRepository.dataFlights().stream()
-                .anyMatch(flight -> flight.getOrigin().toUpperCase().contains(destination.toUpperCase()));
-
-        if (!isDestinationAvailable) {
-            throw new BadRequestException("El destino proporcionado no está disponible.");
+        if (dateFrom == null || dateTo == null || origin == null || destination == null) {
+            throw new BadRequestException("Los parametros de fecha (ida y vuelta), origen y destino no pueden estar vacios");
         }
 
-        if(!isOriginAvailable){
-            throw new BadRequestException("El origen proporcionado no está disponible.");
+        List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
+
+        if (vueloDisponible.isEmpty()) {
+            throw new NotFoundException("No se encontraron vuelos con esos datos");
         }
 
-        return flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
+        return vueloDisponible;
     }
 
     // US 0006
