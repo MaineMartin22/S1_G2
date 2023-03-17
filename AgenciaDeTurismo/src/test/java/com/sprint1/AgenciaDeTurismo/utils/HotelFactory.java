@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 
 import java.time.LocalDate;

@@ -1,7 +1,9 @@
 package com.sprint1.AgenciaDeTurismo.unit.repository;
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
+import com.sprint1.AgenciaDeTurismo.utils.HotelDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,19 +19,14 @@ public class HotelRepositoryTest {
     @Test
     public void dataHotelsTest(){
         // arrange
-        List<HotelModel> expected = new ArrayList<>();
-        HotelModel cataratas = HotelFactory.getCataratasHotel();
-        HotelModel bristol = HotelFactory.getBristol();
-
-        expected.add(cataratas);
-        expected.add(bristol);
+        List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
 
         // act
 
         var result = hotelRepository.dataHotels();
 
         // assert
-
         Assertions.assertEquals(expected, result);
 
     }
@@ -37,8 +34,8 @@ public class HotelRepositoryTest {
     @Test
     public void getHotelDisponibleTest(){
         // arange
-        List<HotelModel> expected = new ArrayList<>();
-        HotelModel cataratas = HotelFactory.getCataratasHotel();
+        List<HotelDTO> expected = new ArrayList<>();
+        HotelDTO cataratas = HotelDTOFactory.getCataratasHotelDTO();
 
         LocalDate dateFrom = LocalDate.of(2022, 02, 10);
         LocalDate dateTo = LocalDate.of(2022, 03, 20);

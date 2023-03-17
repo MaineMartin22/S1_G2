@@ -5,8 +5,8 @@
     "destiny": "Puerto Iguazú",
     "seatType": "Economy",
     "priceForPerson": 6500.0,
-    "departuraDate": "2022-02-10",
-    "returnDate": "2022-02-15"
+    "dateFrom": "2022-02-10",
+    "dateTo": "2022-02-15"
   },
   {
     "numberFlight": "PIBA-1420",
@@ -14,7 +14,7 @@
     "destiny": "Bogotá",
     "seatType": "Business",
     "priceForPerson": 43200.0,
-    "departuraDate": "2022-02-10",
-    "returnDate": "2022-02-20"
+    "dateFrom": "2022-02-10",
+    "dateTo": "2022-02-20"
   }
-  ]
+]

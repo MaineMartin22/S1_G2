@@ -61,8 +61,7 @@ public class FlightRepository {
         try {
             file = ResourceUtils.getFile("classpath:dataFlights.json");
             flights = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {e.printStackTrace();
         }
 
         return flights;
