@@ -1,17 +1,15 @@
 package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 public class BookingResponseDto {
     private LocalDate dateFrom;
     private LocalDate dateTo;
@@ -19,5 +17,5 @@ public class BookingResponseDto {
     private String hotelCode;
     private Integer peopleAmount;
     private String roomType;
-    private PeopleDto people;
+    private List<PeopleDto> people;
 }

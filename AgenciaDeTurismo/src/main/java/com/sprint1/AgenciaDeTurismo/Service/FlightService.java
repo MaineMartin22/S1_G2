@@ -5,6 +5,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
@@ -41,7 +42,6 @@ public class FlightService implements IFlightService {
         }
 
         List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
-
         if (vueloDisponible.isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos con esos datos");
         }
@@ -52,7 +52,7 @@ public class FlightService implements IFlightService {
     // US 0006
     public FlightResponse reservationFlight(FlightRequestDto flightRequestDto) {
         FlightResponse response = new FlightResponse();
-        FlightDTO flightResponseDto = new FlightDTO();
+        FlightDTOResponse flightResponseDto = new FlightDTOResponse();
 
         if (flightRepository.dataFlights().isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos disponibles");
@@ -69,16 +69,7 @@ public class FlightService implements IFlightService {
         if (reservationTrue.isEmpty()) {
             throw new NotFoundException("Las fechas solicitadas no están disponibles");
         }
-        PeopleDto personData = flightRequestDto.getFlightReservation().getPeople();
 
-        if (personData.getMail() == null || personData.getDni() == null || personData.getName() == null ||
-                personData.getLastName() == null || personData.getBirthDate() == null || personData.getMail().length() < 10 ||
-                personData.getDni().length() < 4 || personData.getName().length() < 3 ||
-                personData.getLastName().length() < 4 || personData.getBirthDate().length() < 8) {
-            throw new BadRequestException("Debes ingresar correctamente los datos del huesped");
-
-
-        }
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
         if (paymentMethod.getNumber() == null || (paymentMethod.getDues() == null || paymentMethod.getDues() < 1) || paymentMethod.getType() == null) {
             throw new PaymentRequiredException("Debes ingresar un método de pago válido");
@@ -110,13 +101,32 @@ public class FlightService implements IFlightService {
         flightResponseDto.setDateFrom(flightRequestDto.getFlightReservation().getDateFrom());
         flightResponseDto.setDateTo(flightRequestDto.getFlightReservation().getDateTo());
         flightResponseDto.setSeats(flightRequestDto.getFlightReservation().getSeats());
-        flightResponseDto.setPeople(flightRequestDto.getFlightReservation().getPeople());
+        flightResponseDto.setPeopleDto(flightRequestDto.getFlightReservation().getPeople());
 
 
-        Integer totalPrice = (int) (reservationFlight.getPriceForPerson() * flightRequestDto.getFlightReservation().getSeats());
+        double totalPrice = (int) (reservationFlight.getPriceForPerson() * flightRequestDto.getFlightReservation().getSeats());
+        double totalIntereses = 0;
 
+
+        if (paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() <= 3){
+            totalIntereses = totalPrice * 0.05;
+        } else if (paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() <= 6) {
+            totalIntereses = totalPrice * 0.10;
+        } else if(paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() <= 12){
+            totalIntereses = totalPrice * 0.15;
+        } else if ((paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() > 12)){
+            throw new PaymentRequiredException("Las cuotas con tarjeta de crédito no pueden ser mayor a 12");
+        }
+
+        if ((paymentMethod.getType().equalsIgnoreCase("debit") && paymentMethod.getDues() != 1)){
+            throw new PaymentRequiredException("Solo se permite el pago en una sola cuota");
+        }
+
+        double totalFinal = totalPrice + totalIntereses;
         response.setUserName(flightRequestDto.getUserName());
-        response.setTotal(totalPrice);
+        response.setTotalNeto(totalPrice);
+        response.setTotalIntereses(totalIntereses);
+        response.setTotalFinal(totalFinal);
         response.setFlightReservation(flightResponseDto);
         response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
 

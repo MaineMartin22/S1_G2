@@ -2,18 +2,15 @@ package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-
+@Data
+@Builder
 public class FlightDTOResponse {
     private LocalDate dateFrom;
     private LocalDate dateTo;
@@ -22,6 +19,6 @@ public class FlightDTOResponse {
     private String flightNumber;
     private Integer seats;
     private String seatType;
-    private PeopleDto peopleDto;
+    private List<PeopleDto> peopleDto;
     private PaymentMethodDto paymentMethodDto;
 }
