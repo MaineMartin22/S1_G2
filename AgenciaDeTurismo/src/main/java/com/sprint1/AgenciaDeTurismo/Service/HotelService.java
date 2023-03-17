@@ -62,13 +62,6 @@ public class HotelService implements IHotelService {
         if (bookHotel == null) {
             throw new NotFoundException("No se encuentra hotel con ese código");
         }
-
-        List<HotelDTO> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
-                bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
-        if (reservationTrue.isEmpty()) {
-            throw new BadRequestException("Las fechas solicitadas no están disponibles");
-        }
-
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
             throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles es : " + bookHotel.getTypeRoom());
         }
@@ -76,8 +69,16 @@ public class HotelService implements IHotelService {
         if( (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Single") &&  bookingRequestDto.getBooking().getPeopleAmount() > 1) ||
                 (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Doble") &&  bookingRequestDto.getBooking().getPeopleAmount() > 2) ||
                 (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Triple") &&  bookingRequestDto.getBooking().getPeopleAmount() > 3)){
-           throw new BadRequestException("La cantidad de personas excede la capacidad de la habitación");
+            throw new BadRequestException("La cantidad de personas excede la capacidad de la habitación");
         }
+
+
+        List<HotelDTO> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
+                bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
+        if (reservationTrue.isEmpty()) {
+            throw new BadRequestException("Las fechas solicitadas no están disponibles");
+        }
+
 
         PaymentMethodDto paymentData = bookingRequestDto.getBooking().getPaymentMethod();
 

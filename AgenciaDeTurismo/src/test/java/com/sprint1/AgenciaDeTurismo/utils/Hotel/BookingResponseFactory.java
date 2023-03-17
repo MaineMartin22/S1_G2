@@ -5,8 +5,8 @@ import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import com.sprint1.AgenciaDeTurismo.utils.Data.StatusCodeDTOFactory;
 
-public class BookingResponseFactory {
-    public static BookingResponse bookingResponse(){
+/*public class BookingResponseFactory {
+    //public static BookingResponse bookingResponse(){
 
         return BookingResponse.builder()
                 .userName()
@@ -17,4 +17,4 @@ public class BookingResponseFactory {
                 .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
-}
+}*/

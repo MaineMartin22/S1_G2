@@ -6,7 +6,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import java.time.LocalDate;
 import java.util.List;
 
-public class BookingResponseDTOFactory {
+/*public class BookingResponseDTOFactory {
     public static BookingResponseDto bookingResponseDto(){
         return BookingResponseDto.builder()
                 .dateFrom()
@@ -19,4 +19,4 @@ public class BookingResponseDTOFactory {
                 .build();
     }
 }
-
+*/

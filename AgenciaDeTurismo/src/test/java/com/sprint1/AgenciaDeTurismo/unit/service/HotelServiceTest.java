@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
 
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
@@ -10,8 +11,8 @@ import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.Service.HotelService;
-import com.sprint1.AgenciaDeTurismo.utils.HotelDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.HotelFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,8 +33,8 @@ public class HotelServiceTest {
     HotelService hotelService;
 
     @Test
-    // US 0001 No hay hoteles disponibles
-    void dataNotExist(){
+        // US 0001 No hay hoteles disponibles
+    void dataNotExist() {
         //Arrange
         BookingRequestDto param = null;
 
@@ -41,13 +42,16 @@ public class HotelServiceTest {
 
 
         //Act&&Assert
-        Assertions.assertThrows(NotFoundException.class,()->
+        Assertions.assertThrows(NotFoundException.class, () ->
                 hotelService.reservationHotel(param));
 
-    };
+    }
+
+    ;
+
     @Test
-    // US 0002 No encuentra hoteles disponibles para el rango de fechas y destino seleccionados//
-    void getNoHotelDisponibles(){
+        // US 0002 No encuentra hoteles disponibles para el rango de fechas y destino seleccionados//
+    void getNoHotelDisponibles() {
 
         // Arrange
         BookingRequestDto param1 = new BookingRequestDto(); // Initialize with a valid value
@@ -61,10 +65,10 @@ public class HotelServiceTest {
         Mockito.when(hotelRepository.findHotelWhitCode(param1.getBooking().getHotelCode())).thenReturn((HotelFactory.getBristol()));
 
         Mockito.when(hotelRepository.getHotelDisponible(
-                        param1.getBooking().getDateFrom(),
-                        param1.getBooking().getDateTo(),
-                        param1.getBooking().getDestination()
-                        )).thenReturn(List.of());
+                param1.getBooking().getDateFrom(),
+                param1.getBooking().getDateTo(),
+                param1.getBooking().getDestination()
+        )).thenReturn(List.of());
 
 
         // Act & Assert
@@ -72,8 +76,10 @@ public class HotelServiceTest {
                 hotelService.reservationHotel(param1));
 
     }
+
     @Test
-    void ReservationHotelNoFinally(){
+    //US 0003 Notifica error/imposibilidad de finalizar la transacción
+    void ReservationHotelNoFinally() {
         //Arrange
         BookingRequestDto param2 = new BookingRequestDto();
         param2.setBooking(new BookingDto());
@@ -81,22 +87,16 @@ public class HotelServiceTest {
         param2.getBooking().setDateTo(LocalDate.of(2023, 3, 5));
         param2.getBooking().setDestination("Buenos Aires");
         param2.getBooking().setRoomType("DOBLE");
-        param2.getBooking().setPeopleAmount(2);
-        param2.getBooking().setPaymentMethod(PaymentMethodDto);
+        param2.getBooking().setPeopleAmount(3);
 
         // Act
         Mockito.when(hotelRepository.dataHotels()).thenReturn(List.of(HotelDTOFactory.getBristolDTO()));
         Mockito.when(hotelRepository.findHotelWhitCode(param2.getBooking().getHotelCode())).thenReturn(HotelFactory.getBristol());
-        Mockito.when(hotelRepository.getHotelDisponible(
-                param2.getBooking().getDateFrom(),
-                param2.getBooking().getDateTo(),
-                param2.getBooking().getDestination(),
-                param2.getBooking().getRoomType(),
-                param2.getBooking().getPeopleAmount(),
-                param2.getBooking().getPaymentMethod()
-        )).thenReturn(List.of());
+
 
         //Assert
-        Assertions.assertThrows(StatusCodeDto.class, () ->
+        Assertions.assertThrows(NotFoundException.class, () ->
                 hotelService.reservationHotel(param2));
+    }
+
 }
