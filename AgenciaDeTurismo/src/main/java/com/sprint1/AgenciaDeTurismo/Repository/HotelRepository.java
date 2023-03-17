@@ -41,14 +41,10 @@ public class HotelRepository {
         if (!isSameDestination(destination)){
             throw new BadRequestException("No se encuentran hoteles en ese destino");
         }
-        return dataHotels().stream()
-                .filter(hotel -> hotel.getCity().toUpperCase().contains(destination.toUpperCase()))
-                .filter(hotel -> !hotel.isReserved())
-                .filter(hotel -> (dateFrom.isAfter(hotel.getAvailabilityFrom()) || dateFrom.getDayOfMonth() == hotel.getAvailabilityFrom().getDayOfMonth()))
-                .filter(hotel -> (dateTo.isBefore(hotel.getAvailabilityUntil()) || dateTo.getDayOfMonth() == hotel.getAvailabilityUntil().getDayOfMonth()))
-                .collect(Collectors.toList());
+        return dataHotels().stream().filter(hotel ->
+                !hotel.getAvailabilityFrom().isAfter(dateFrom) &&
+                !hotel.getAvailabilityUntil().isBefore(dateTo)&& hotel.getCity().equalsIgnoreCase(destination)).collect(Collectors.toList());
     }
-
     private boolean isSameDestination(String destination){
         return dataHotels().stream().anyMatch(hotel -> hotel.getCity().equalsIgnoreCase(destination));
     }
