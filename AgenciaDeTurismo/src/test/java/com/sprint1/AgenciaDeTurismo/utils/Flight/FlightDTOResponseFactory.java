@@ -28,7 +28,6 @@ public class FlightDTOResponseFactory {
                                 PeopleDTOFactory.getPeopleTwo()
                         )
                 )
-                .paymentMethodDto(PaymentMethodDTOFactory.getPaymentDebit())
                 .build();
     }
 
@@ -48,7 +47,6 @@ public class FlightDTOResponseFactory {
                                 PeopleDTOFactory.getPeopleFour()
                         )
                 )
-                .paymentMethodDto(PaymentMethodDTOFactory.getPaymentCreditThreeDues())
                 .build();
     }
 
@@ -66,7 +64,6 @@ public class FlightDTOResponseFactory {
                                 PeopleDTOFactory.getPeopleFive()
                         )
                 )
-                .paymentMethodDto(PaymentMethodDTOFactory.getPaymentCreditSixDues())
                 .build();
     }
     public static FlightDTOResponse  flightDTOResponseCreditTwelvePIBA(){
@@ -84,7 +81,6 @@ public class FlightDTOResponseFactory {
                                 PeopleDTOFactory.getPeopleFour()
                         )
                 )
-                .paymentMethodDto(PaymentMethodDTOFactory.getPaymentCreditTwelveDues())
                 .build();
     }
 

@@ -52,10 +52,11 @@ public class GlobalHandler {
         );
     }
 
+    // investigar de cambiar el metodo HttpMessageNotReadableException
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ValidationDTO> validationException( HttpMessageNotReadableException e){
-        return ResponseEntity.ok(
-                new ValidationDTO(List.of("Formato de fecha debe ser YYYY/mm/dd")
+        return ResponseEntity.status(400).body(
+                new ValidationDTO(List.of("Formato de fecha debe ser yyyy-MM-dd" + e.getLocalizedMessage())
                 )
         );
     }

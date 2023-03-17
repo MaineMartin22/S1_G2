@@ -36,6 +36,9 @@ public class FlightService implements IFlightService {
         if (dateFrom == null && dateTo == null && origin == null && destination == null) {
             return getFlight();
         }
+        if (!isSameOriginAndDestination(origin, destination)) {
+            throw new BadRequestException("El origen y/o destino no son válidos");
+        }
 
         if (dateFrom == null || dateTo == null || origin == null || destination == null) {
             throw new BadRequestException("Los parametros de fecha (ida y vuelta), origen y destino no pueden estar vacios");
@@ -47,6 +50,10 @@ public class FlightService implements IFlightService {
         }
 
         return vueloDisponible;
+    }
+
+    private boolean isSameOriginAndDestination(String origin, String destination) {
+        return getFlight().stream().anyMatch(flight -> flight.getDestiny().equalsIgnoreCase(destination) && flight.getOrigin().equalsIgnoreCase(origin));
     }
 
     // US 0006
@@ -71,16 +78,10 @@ public class FlightService implements IFlightService {
         }
 
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
-        if (paymentMethod.getNumber() == null || (paymentMethod.getDues() == null || paymentMethod.getDues() < 1) || paymentMethod.getType() == null) {
-            throw new PaymentRequiredException("Debes ingresar un método de pago válido");
-        }
         if (!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")) {
             throw new PaymentRequiredException("No se permite este metodo de pago " + paymentMethod.getType());
         }
 
-        if (flightRequestDto.getFlightReservation().getSeats() < 1) {
-            throw new NotFoundException("La cantidad de pasajeros no puede ser menor a 1.");
-        }
         String origin = flightRequestDto.getFlightReservation().getOrigin();
         String destiny = flightRequestDto.getFlightReservation().getDestination();
         if (!origin.equalsIgnoreCase(reservationFlight.getOrigin()) && !destiny.equalsIgnoreCase(reservationFlight.getDestiny())) {
