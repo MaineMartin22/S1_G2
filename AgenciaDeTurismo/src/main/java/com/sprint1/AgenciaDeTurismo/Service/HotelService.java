@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
@@ -39,13 +40,13 @@ public class HotelService implements IHotelService {
             return findAll();
         }
 
-        boolean isDestinationAvailable = hotelRepository.dataHotels().stream()
-                .anyMatch(flight -> flight.getCity().toUpperCase().contains(destination.toUpperCase()));
+        List<HotelDTO> hotelDisponible = hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
 
-        if (!isDestinationAvailable) {
-            throw new BadRequestException("El destino proporcionado no está disponible.");
+        if (hotelDisponible.isEmpty()) {
+            throw new NotFoundException("No se encontraron vuelos con esos datos");
         }
-        return hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
+
+        return hotelDisponible;
 
     }
 
@@ -72,9 +73,6 @@ public class HotelService implements IHotelService {
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
             throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles es : " + bookHotel.getTypeRoom());
         }
-
-        PeopleDto personData = bookingRequestDto.getBooking().getPeople();
-
 
         if( (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Single") &&  bookingRequestDto.getBooking().getPeopleAmount() > 1) ||
                 (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Doble") &&  bookingRequestDto.getBooking().getPeopleAmount() > 2) ||
