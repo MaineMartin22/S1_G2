@@ -19,7 +19,6 @@ public class PeopleDto {
     private String lastName;
     @NotBlank
     private String birthDate;
-
     @Email(message="Por favor ingrese un e-mail válido")
     private String mail;
 }

@@ -39,6 +39,9 @@ public class HotelService implements IHotelService {
         if (dateFrom == null && dateTo == null && destination == null) {
             return findAll();
         }
+        if (!isSameDestination(destination)){
+            throw new BadRequestException("No se encuentran hoteles en ese destino");
+        }
 
         List<HotelDTO> hotelDisponible = hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
 
@@ -47,7 +50,9 @@ public class HotelService implements IHotelService {
         }
 
         return hotelDisponible;
-
+    }
+    private boolean isSameDestination(String destination){
+        return findAll().stream().anyMatch(hotel -> hotel.getCity().equalsIgnoreCase(destination));
     }
 
     // US 0003

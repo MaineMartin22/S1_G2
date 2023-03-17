@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
+import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import org.modelmapper.ModelMapper;
@@ -35,15 +36,20 @@ public class FlightRepository {
 
     // US 0005
     public List<FlightDto> getFlightAvailability(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
+        // Validar que el origen y destino sean los mismos que los de la lista de vuelos
+        if (!isSameOriginAndDestination(origin, destination)) {
+            throw new BadRequestException("El origen y/o destino no son válidos");
+        }
 
-        return dataFlights().stream()
-                .filter(flight -> flight.getOrigin().toUpperCase().contains(origin.toUpperCase()))
-                .filter(flight -> flight.getDestiny().toUpperCase().contains(destination.toUpperCase()))
-                .filter(flight -> flight.getDateFrom().isEqual(dateFrom))
-                .filter(flight -> flight.getDateTo().isEqual(dateTo))
-                .collect(Collectors.toList());
+        return dataFlights().stream().filter(flight -> flight.getDestiny().equalsIgnoreCase(destination) &&
+                !flight.getDateFrom().isAfter(dateFrom) &&
+                !flight.getDateTo().isBefore(dateTo) &&
+                flight.getOrigin().equalsIgnoreCase(origin)).collect(Collectors.toList());
     }
 
+    private boolean isSameOriginAndDestination(String origin, String destination) {
+        return dataFlights().stream().anyMatch(flight -> flight.getDestiny().equalsIgnoreCase(destination) && flight.getOrigin().equalsIgnoreCase(origin));
+    }
 
     // US 0006
     public FlightModel findFlight(String numberFlight){

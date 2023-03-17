@@ -1,11 +1,9 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.Service.HotelService;
-import com.sprint1.AgenciaDeTurismo.utils.FlightDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.HotelDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +45,11 @@ class HotelServiceTest {
         LocalDate dateFrom = LocalDate.of(2022,02,10);
         LocalDate dateTo= LocalDate.of(2022,02,20);
         String destination = "Puerto Iguazú";
+
+        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
         // act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
         Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(expected);
         var result = hotelService.getHotelDisponibles(dateFrom, dateTo, destination);
 
@@ -57,6 +59,7 @@ class HotelServiceTest {
 
     @Test
     void reservationHotel() {
+        // arrange
 
     }
 }
