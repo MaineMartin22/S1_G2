@@ -1,20 +1,15 @@
 package com.sprint1.AgenciaDeTurismo.unit.repository;
 
-import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
-import com.sprint1.AgenciaDeTurismo.utils.FlightDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.FlightFactory;
-import com.sprint1.AgenciaDeTurismo.utils.HotelDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightFactory;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FlightRepositoryTest {
     FlightRepository flightRepository = new FlightRepository();

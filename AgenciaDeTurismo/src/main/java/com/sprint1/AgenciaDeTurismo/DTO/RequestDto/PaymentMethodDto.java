@@ -1,14 +1,11 @@
 package com.sprint1.AgenciaDeTurismo.DTO.RequestDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 public class PaymentMethodDto {
     private String type;
     private String number;

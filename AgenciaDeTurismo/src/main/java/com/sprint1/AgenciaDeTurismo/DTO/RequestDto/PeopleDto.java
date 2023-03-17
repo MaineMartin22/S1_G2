@@ -1,17 +1,14 @@
 package com.sprint1.AgenciaDeTurismo.DTO.RequestDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 public class PeopleDto {
     private String dni;
     private String name;

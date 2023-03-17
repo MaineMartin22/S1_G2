@@ -73,9 +73,6 @@ public class HotelService implements IHotelService {
             throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles es : " + bookHotel.getTypeRoom());
         }
 
-        PeopleDto personData = bookingRequestDto.getBooking().getPeople();
-
-
         if( (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Single") &&  bookingRequestDto.getBooking().getPeopleAmount() > 1) ||
                 (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Doble") &&  bookingRequestDto.getBooking().getPeopleAmount() > 2) ||
                 (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Triple") &&  bookingRequestDto.getBooking().getPeopleAmount() > 3)){

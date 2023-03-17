@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.utils;
+package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;

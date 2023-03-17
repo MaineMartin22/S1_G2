@@ -1,17 +1,15 @@
 package com.sprint1.AgenciaDeTurismo.DTO;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 public class FlightDTO {
     private LocalDate dateFrom;
     private LocalDate dateTo;
@@ -20,6 +18,6 @@ public class FlightDTO {
     private String flightNumber;
     private Integer seats;
     private String seatType;
-    private PeopleDto people;
+    private List<PeopleDto> people;
 
 }

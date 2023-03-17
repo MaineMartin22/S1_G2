@@ -1,22 +1,16 @@
 package com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight;
 
-
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.PositiveOrZero;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 public class FlightReservationDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -32,6 +26,6 @@ public class FlightReservationDTO {
     private String destination;
     private Integer seats;
     private String seatType;
-    private PeopleDto people;
+    private List<PeopleDto> people;
     private PaymentMethodDto paymentMethod;
 }
