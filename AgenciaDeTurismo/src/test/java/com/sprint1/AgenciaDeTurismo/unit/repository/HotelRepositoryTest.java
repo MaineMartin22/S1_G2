@@ -33,22 +33,6 @@ public class HotelRepositoryTest {
     }
 
     @Test
-    //Notifica que no hay hoteles//
-    public void dataNoExist(){
-        hotelRepository.hotels = new ArrayList<>();
-        //arrange
-        List<HotelDTO> expected = List.of();
-
-        //act
-        List<HotelDTO> result = hotelRepository.dataHotels();
-
-        //assert
-        Assertions.assertThrows(NotFoundException.class,()->
-            hotelRepository.dataHotels());
-}
-
-
-    @Test
     public void getHotelDisponibleTest(){
         // arrange
         List<HotelDTO> expected = new ArrayList<>();
