@@ -79,13 +79,13 @@ public class FlightService implements IFlightService {
 
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
         if (!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")) {
-            throw new PaymentRequiredException("No se permite este metodo de pago " + paymentMethod.getType());
+            throw new PaymentRequiredException("No se permite este método de pago " + paymentMethod.getType());
         }
 
         String origin = flightRequestDto.getFlightReservation().getOrigin();
         String destiny = flightRequestDto.getFlightReservation().getDestination();
         if (!origin.equalsIgnoreCase(reservationFlight.getOrigin()) && !destiny.equalsIgnoreCase(reservationFlight.getDestiny())) {
-            throw new NotFoundException("El vuelo desde con los destinos ingresados no se encuentra disponible.");
+            throw new NotFoundException("El vuelo con el destino ingresado no se encuentra disponible.");
         }
 
         String seatTypeDisp = reservationFlight.getSeatType();

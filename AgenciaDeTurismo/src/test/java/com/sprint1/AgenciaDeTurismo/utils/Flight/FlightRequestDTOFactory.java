@@ -34,6 +34,12 @@ public class FlightRequestDTOFactory {
                 .flightReservation(FlightReservationDTOFactory.getReservationCreditTwelvePIBA())
                 .build();
     }
+    public static FlightRequestDto getNoReservation() {
+        return FlightRequestDto.builder()
+                .userName(PeopleDTOFactory.getPeopleThree().getMail())
+                .flightReservation(FlightReservationDTOFactory.getNoReservation())
+                .build();
+    }
 
 }
 

@@ -97,5 +97,24 @@ public class FlightReservationDTOFactory {
                 .paymentMethod(PaymentMethodDTOFactory.getPaymentCreditTwelveDues())
                 .build();
     }
+    public static FlightReservationDTO getNoReservation(){
+        return FlightReservationDTO.builder()
+                .dateFrom(LocalDate.of(2022,03,10))
+                .dateTo(LocalDate.of(2022,02,15))
+                .origin("Tucuman")
+                .flightNumber("BAPI-1238")
+                .destination("Purmamarca")
+                .seats(2)
+                .seatType("Economy")
+                .people(
+                        List.of(
+                                PeopleDTOFactory.getPeopleThree(),
+                                PeopleDTOFactory.getPeopleFour()
+                        )
+                )
+                .paymentMethod(PaymentMethodDTOFactory.getPaymentCreditThreeDues())
+                .build();
+    }
+
 }
 

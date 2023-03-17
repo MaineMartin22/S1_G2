@@ -34,9 +34,8 @@ class HotelServiceTest {
     @InjectMocks
     HotelService hotelService;
 
-    @Test
+    @Test// US 0001 No hay hoteles disponibles
 
-        // US 0001 No hay hoteles disponibles
     void dataNotExist() {
         //Arrange
         BookingRequestDto param = null;

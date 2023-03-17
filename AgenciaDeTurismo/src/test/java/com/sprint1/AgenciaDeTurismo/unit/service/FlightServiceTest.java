@@ -2,12 +2,17 @@ package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.*;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,8 +45,22 @@ class FlightServiceTest {
         // assert
         Assertions.assertEquals(expected, result);
     }
+    @Test
+    //US 0004 Notifica la no existencia mediante una excepción.
+    void getFlightNoExist(){
+        //Arrange
+        FlightRequestDto param = null;
+
+        Mockito.when(flightRepository.dataFlights()).thenReturn(List.of());
+
+        //Act&&Assert
+        Assertions.assertThrows(NotFoundException.class, () ->
+                flightService.reservationFlight(param));
+
+    }
 
     @Test
+
     void getFlightAvailability() {
         // arrange
         List<FlightDto> vuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -64,6 +83,7 @@ class FlightServiceTest {
     }
 
     @Test
+    //US 0005 No se encontraron vuelos disponibles para el rango de fechas seleccionado
     void getNotExistentFlightAvailability() {
         // arrange
         LocalDate dateFrom = LocalDate.of(2022,02,10);
@@ -113,6 +133,21 @@ class FlightServiceTest {
         // Assert
         Assertions.assertEquals(expected, result);
 
-
     }
+    @Test
+    //US 0006 Notifica error/imposibilidad de finalizar la transacción
+    void ReservationFlightNoFinally() {
+        //Arrange
+        FlightRequestDto param2 = FlightRequestDTOFactory.getNoReservation();
+
+        // Act
+        Mockito.when(flightRepository.dataFlights()).thenReturn(List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO()));
+        Mockito.when(flightRepository.findFlight(param2.getFlightReservation().getFlightNumber())).thenReturn(FlightFactory.getBsAsPuertoIguazu());
+
+
+        //Assert
+        Assertions.assertThrows(NotFoundException.class, () ->
+                flightService.reservationFlight(param2));
+    }
+
 }
