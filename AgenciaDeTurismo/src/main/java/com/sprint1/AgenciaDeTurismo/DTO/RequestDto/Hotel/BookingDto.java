@@ -2,21 +2,21 @@ package com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
+import lombok.*;
 import com.sprint1.AgenciaDeTurismo.Exception.Validations.HotelDateValidation;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Builder
 @HotelDateValidation
 
 public class  BookingDto {
@@ -36,7 +36,8 @@ public class  BookingDto {
         //Consensuado con Scrum, requerimiento de Tipo de habitación relacionado con cantidad de personas, no se realizará porque es una anotacion personalizada//
         private String roomType;
 
-        private PeopleDto people;
+        private List<PeopleDto> people;
+
         private PaymentMethodDto paymentMethod;
 
 }

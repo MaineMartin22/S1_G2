@@ -2,11 +2,9 @@ package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
-import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
-import com.sprint1.AgenciaDeTurismo.utils.FlightDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.FlightFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class FlightServiceTest {
 
@@ -44,16 +41,18 @@ class FlightServiceTest {
     @Test
     void getFlightAvailability() {
         // arrange
+
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
         LocalDate dateFrom = LocalDate.of(2022,02,10);
         LocalDate dateTo= LocalDate.of(2022,02,20);
         String origin= "Buenos Aires";
         String destination = "Puerto Iguazú";
+
         // act
         Mockito.when(flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)).thenReturn(expected);
         var result = flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
-
         // assert
+
         Assertions.assertEquals(expected, result);
     }
 
