@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.unit.repository;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.utils.HotelDTOFactory;
@@ -32,8 +33,24 @@ public class HotelRepositoryTest {
     }
 
     @Test
+    //Notifica que no hay hoteles//
+    public void dataNoExist(){
+        hotelRepository.hotels = new ArrayList<>();
+        //arrange
+        List<HotelDTO> expected = List.of();
+
+        //act
+        List<HotelDTO> result = hotelRepository.dataHotels();
+
+        //assert
+        Assertions.assertThrows(NotFoundException.class,()->
+            hotelRepository.dataHotels());
+}
+
+
+    @Test
     public void getHotelDisponibleTest(){
-        // arange
+        // arrange
         List<HotelDTO> expected = new ArrayList<>();
         HotelDTO cataratas = HotelDTOFactory.getCataratasHotelDTO();
 
@@ -53,7 +70,7 @@ public class HotelRepositoryTest {
 
     @Test
     public void findHotelWhitCodeTest(){
-        // arange
+        // arrange
         HotelModel expected = HotelFactory.getBristol();
 
         String code = "HB-0001";

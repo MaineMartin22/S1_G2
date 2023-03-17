@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Repository
 public class HotelRepository {
 
-    private List<HotelModel> hotels;
+    public List<HotelModel> hotels;
 
     public HotelRepository() {
         this.hotels = loadDataBase();
