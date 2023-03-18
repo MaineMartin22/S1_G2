@@ -42,38 +42,27 @@ class HotelServiceTest {
 
         Mockito.when(hotelRepository.dataHotels()).thenReturn(List.of());
 
-
         //Act&&Assert
         Assertions.assertThrows(NotFoundException.class, () ->
                 hotelService.reservationHotel(param));
-
     }
 
     @Test
         // US 0002 No encuentra hoteles disponibles para el rango de fechas y destino seleccionados//
     void getNoHotelDisponibles() {
-
         // Arrange
-        BookingRequestDto param1 = new BookingRequestDto(); // Initialize with a valid value
-        param1.setBooking(new BookingDto());
-        param1.getBooking().setDateFrom(LocalDate.of(2023, 3, 1));
-        param1.getBooking().setDateTo(LocalDate.of(2023, 3, 5));
-        param1.getBooking().setDestination("Buenos Aires");
+        BookingRequestDto entity = BookingRequestDTOFactory.getHotelesNoDisponibles();
+        List<HotelDTO> hotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+        HotelModel hotelCode = HotelFactory.getBristol();
 
         //En este caso utilizamos varios Mokitos para lograr obtener el resultado esperado
-        Mockito.when(hotelRepository.dataHotels()).thenReturn(List.of(HotelDTOFactory.getBristolDTO()));
-        Mockito.when(hotelRepository.findHotelWhitCode(param1.getBooking().getHotelCode())).thenReturn((HotelFactory.getBristol()));
-
-        Mockito.when(hotelRepository.getHotelDisponible(
-                param1.getBooking().getDateFrom(),
-                param1.getBooking().getDateTo(),
-                param1.getBooking().getDestination()
-        )).thenReturn(List.of());
-
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hotels);
+        Mockito.when(hotelRepository.findHotelWhitCode(entity.getBooking().getHotelCode())).thenReturn(hotelCode);
 
         // Act & Assert
-        Assertions.assertThrows(BadRequestException.class, () ->
-                hotelService.reservationHotel(param1));
+        Assertions.assertThrows(NotFoundException.class, () ->
+                hotelService.reservationHotel(entity));
 
     }
 

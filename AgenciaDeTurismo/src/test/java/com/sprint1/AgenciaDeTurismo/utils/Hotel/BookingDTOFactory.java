@@ -94,5 +94,23 @@ public class BookingDTOFactory {
                 .paymentMethod(PaymentMethodDTOFactory.getPaymentCreditTwelveDues())
                 .build();
     }
+
+    public static BookingDto getNoHotelesDisponibles(){
+        return BookingDto.builder()
+                .dateFrom(LocalDate.of(2023, 02, 10))
+                .dateTo(LocalDate.of(2023, 02, 20))
+                .destination("Brasilia")
+                .hotelCode("HB-0001")
+                .peopleAmount(2)
+                .roomType("Doble")
+                .people(
+                        List.of(
+                                PeopleDTOFactory.getPeopleThree(),
+                                PeopleDTOFactory.getPeopleTwo()
+                        )
+                )
+                .paymentMethod(PaymentMethodDTOFactory.getPaymentCreditTwelveDues())
+                .build();
+    }
 }
 

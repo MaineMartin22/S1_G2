@@ -6,6 +6,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
+import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
@@ -98,7 +99,7 @@ class FlightServiceTest {
         Assertions.assertThrows(
                 NotFoundException.class,
                 () -> flightService.getFlightAvailability(dateFrom, dateTo, origin, destination)
-        );
+        ); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
     }
 
 

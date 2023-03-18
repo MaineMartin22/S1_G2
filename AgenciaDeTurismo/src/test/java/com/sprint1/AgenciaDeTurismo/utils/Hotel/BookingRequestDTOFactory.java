@@ -18,20 +18,29 @@ public class BookingRequestDTOFactory {
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .booking(BookingDTOFactory.bookingDtoBuenosAiresSingleThreeDues())
                 .build();
-    }public static BookingRequestDto bookingDtoBuenosAiresSingleSixeDues(){
+    }
+    public static BookingRequestDto bookingDtoBuenosAiresSingleSixeDues(){
         return BookingRequestDto.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .booking(BookingDTOFactory.bookingDtoBuenosAiresSingleSixeDues())
                 .build();
-    }public static BookingRequestDto bookingDtoBuenosAiresSingleTwelveDues(){
+    }
+    public static BookingRequestDto bookingDtoBuenosAiresSingleTwelveDues(){
         return BookingRequestDto.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .booking(BookingDTOFactory.bookingDtoBuenosAiresSingleTwelveDues())
                 .build();
-    }public static BookingRequestDto bookingDtoPuertoIguazuDoblegetRefused(){
+    }
+    public static BookingRequestDto bookingDtoPuertoIguazuDoblegetRefused(){
         return BookingRequestDto.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .booking(BookingDTOFactory.bookingDtoPuertoIguazuDoblegetRefused())
+                .build();
+    }
+    public static BookingRequestDto getHotelesNoDisponibles(){
+        return BookingRequestDto.builder()
+                .userName(PeopleDTOFactory.getPeopleThree().getMail())
+                .booking(BookingDTOFactory.getNoHotelesDisponibles())
                 .build();
     }
 

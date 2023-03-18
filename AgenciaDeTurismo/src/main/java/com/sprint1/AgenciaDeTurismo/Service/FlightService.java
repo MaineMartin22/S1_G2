@@ -36,6 +36,11 @@ public class FlightService implements IFlightService {
         if (dateFrom == null && dateTo == null && origin == null && destination == null) {
             return getFlight();
         }
+        List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
+        if (vueloDisponible.isEmpty()) {
+            throw new NotFoundException("No se encontraron vuelos con esos datos");
+        }
+
         if (!isSameOriginAndDestination(origin, destination)) {
             throw new BadRequestException("El origen y/o destino no son válidos");
         }
@@ -44,10 +49,6 @@ public class FlightService implements IFlightService {
             throw new BadRequestException("Los parametros de fecha (ida y vuelta), origen y destino no pueden estar vacios");
         }
 
-        List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
-        if (vueloDisponible.isEmpty()) {
-            throw new NotFoundException("No se encontraron vuelos con esos datos");
-        }
 
         return vueloDisponible;
     }
