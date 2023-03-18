@@ -47,7 +47,7 @@ public class FlightRepository {
                 flight.getOrigin().equalsIgnoreCase(origin)).collect(Collectors.toList());
     }
 
-    private boolean isSameOriginAndDestination(String origin, String destination) {
+    public boolean isSameOriginAndDestination(String origin, String destination) {
         return dataFlights().stream().anyMatch(flight -> flight.getDestiny().equalsIgnoreCase(destination) && flight.getOrigin().equalsIgnoreCase(origin));
     }
 

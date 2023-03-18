@@ -36,19 +36,20 @@ public class FlightService implements IFlightService {
         if (dateFrom == null && dateTo == null && origin == null && destination == null) {
             return getFlight();
         }
+
         List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
         if (vueloDisponible.isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos con esos datos");
-        }
-
-        if (!isSameOriginAndDestination(origin, destination)) {
-            throw new BadRequestException("El origen y/o destino no son válidos");
         }
 
         if (dateFrom == null || dateTo == null || origin == null || destination == null) {
             throw new BadRequestException("Los parametros de fecha (ida y vuelta), origen y destino no pueden estar vacios");
         }
 
+
+        if (!isSameOriginAndDestination(origin, destination)) {
+            throw new BadRequestException("El origen y/o destino no son válidos");
+        }
 
         return vueloDisponible;
     }
@@ -79,20 +80,15 @@ public class FlightService implements IFlightService {
         }
 
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
+
         if (!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")) {
             throw new PaymentRequiredException("No se permite este método de pago " + paymentMethod.getType());
-        }
-
-        String origin = flightRequestDto.getFlightReservation().getOrigin();
-        String destiny = flightRequestDto.getFlightReservation().getDestination();
-        if (!origin.equalsIgnoreCase(reservationFlight.getOrigin()) && !destiny.equalsIgnoreCase(reservationFlight.getDestiny())) {
-            throw new NotFoundException("El vuelo con el destino ingresado no se encuentra disponible.");
         }
 
         String seatTypeDisp = reservationFlight.getSeatType();
         String seatResponse = "El tipo de asiento disponible para este vuelo es: " + seatTypeDisp + ".";
         if (!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType())) {
-            throw new NotFoundException("El tipo de a   siento ingresado no esta disponible." + "\n" + seatResponse);
+            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n" + seatResponse);
         }
 
 

@@ -35,7 +35,7 @@ public class FlightResponseFactory {
                 .userName(PeopleDTOFactory.getPeopleThree().getMail())
                 .totalNeto(43200)
                 .totalIntereses(4320)
-                .totalFinal(47220)
+                .totalFinal(47520)
                 .flightReservation(FlightDTOResponseFactory.flightDTOResponseCreditSixPIBA())
                 .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
