@@ -44,7 +44,7 @@ public class HotelService implements IHotelService {
         List<HotelDTO> hotelDisponible = hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
 
         if (hotelDisponible.isEmpty()) {
-            throw new NotFoundException("No se encontraron vuelos con esos datos");
+            throw new NotFoundException("No se encontraron hoteles con esos datos");
         }
 
         return hotelDisponible;
