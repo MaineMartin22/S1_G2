@@ -106,13 +106,13 @@ US 0003: Realizar una reserva de un hotel, indicando cantidad de personas, fecha
 ||||
 | :heavy_check_mark:Destino  | Que exista | El destino elegido no existe |
 ||||
-| :heavy_check_mark:Cantidad de Personas  | Que sea un valor numérico | La cantidad de personas debe ser un valor numérico | Al ser declarado como atributo integer, no se le puede hacer una anotacion para validarlo  | 
+| :heavy_check_mark:Cantidad de Personas  | Que sea un valor numérico | La cantidad de personas debe ser un valor numérico | Al ser declarado como atributo integer, no se le puede hacer una anotacion para validarlo.Lo que si se realizo fueron las excepciones.  | 
 ||||
-| :heavy_check_mark:Tipo de Habitación  | Que coincida con la cantidad de personas | El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella | Es con anotaciones personalizadas  |
+| :heavy_check_mark:Tipo de Habitación  | Que coincida con la cantidad de personas | El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella | Es con anotaciones personalizadas.Lo que si se realizo fueron las excepciones.  |
 ||||
 | :heavy_check_mark:E-mail  |  El mail cumpla con el formato de correo electrónico nombre@dominio.com (también es válido .com.ar, .com.co, etc) | Por favor ingrese un e-mail válido |
 ||||
-| :heavy_check_mark:Intereses  | En caso que la tarjeta sea de crédito verificar recargo de intereses. Ej: hasta 3 cuotas 5%, de 3 a 6 10%, etc.En caso que sea tarjeta de débito verificar que no se incorporen intereses y que permita el pago en una sola cuota | Tarjeta de crédito: Devolver porcentaje y monto de interés (recargo).Tarjeta de débito: Informar que se ha ingresado una cantidad de cuotas diferente a 1 | Sprint1 no pedia intereses por eso no se realizo,  |
+| :heavy_check_mark:Intereses  | En caso que la tarjeta sea de crédito verificar recargo de intereses. Ej: hasta 3 cuotas 5%, de 3 a 6 10%, etc.En caso que sea tarjeta de débito verificar que no se incorporen intereses y que permita el pago en una sola cuota | Tarjeta de crédito: Devolver porcentaje y monto de interés (recargo).Tarjeta de débito: Informar que se ha ingresado una cantidad de cuotas diferente a 1 | Lo que si se realizo fueron las excepciones.  |
 
 
 #### 1.2 Vuelos
@@ -147,11 +147,11 @@ US 0006: Realizar una reserva de un vuelo, indicando cantidad de personas, orige
 ||||
 | :heavy_check_mark:Destino  | Que exista | El destino elegido no existe |
 ||||
-| :heavy_check_mark:Cantidad de Personas:warning:  | Que sea un valor numérico | La cantidad de personas debe ser un valor numérico | Al ser declarado como atributo integer, no se le puede hacer una anotacion para validarlo  | 
+| :heavy_check_mark:Cantidad de Personas:warning:  | Que sea un valor numérico | La cantidad de personas debe ser un valor numérico | Al ser declarado como atributo integer, no se le puede hacer una anotacion para validarlo. Lo que si se realizo fueron las excepciones.  | 
 ||||
 | :heavy_check_mark:E-mail  |  El mail cumpla con el formato de correo electrónico nombre@dominio.com (también es válido .com.ar, .com.co, etc) | Por favor ingrese un e-mail válido |
 ||||
-| :heavy_check_mark:Intereses (Sprint1 no pedia intereses por eso no se realizo)  | En caso que la tarjeta sea de crédito verificar recargo de intereses. Ej: hasta 3 cuotas 5%, de 3 a 6 10%, etc.En caso que sea tarjeta de débito verificar que no se incorporen intereses y que permita el pago en una sola cuota | Tarjeta de crédito: Devolver porcentaje y monto de interés (recargo).Tarjeta de débito: Informar que se ha ingresado una cantidad de cuotas diferente a 1 | Sprint1 no pedia intereses por eso no se realizo  |
+| :heavy_check_mark:Intereses (Sprint1 no pedia intereses por eso no se realizo)  | En caso que la tarjeta sea de crédito verificar recargo de intereses. Ej: hasta 3 cuotas 5%, de 3 a 6 10%, etc.En caso que sea tarjeta de débito verificar que no se incorporen intereses y que permita el pago en una sola cuota | Tarjeta de crédito: Devolver porcentaje y monto de interés (recargo).Tarjeta de débito: Informar que se ha ingresado una cantidad de cuotas diferente a 1 | Lo que si se realizo fueron las excepciones.  |
 
 
 ## Tests Unitarios Sprint 2 ▶️<a name="id5"></a>
