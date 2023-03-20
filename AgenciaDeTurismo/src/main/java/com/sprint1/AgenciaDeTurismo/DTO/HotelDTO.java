@@ -3,9 +3,9 @@ package com.sprint1.AgenciaDeTurismo.DTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+
 import java.time.LocalDate;
-import java.util.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor

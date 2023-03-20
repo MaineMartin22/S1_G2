@@ -37,14 +37,16 @@ public class HotelService implements IHotelService {
         if (dateFrom == null && dateTo == null && destination == null) {
             return findAll();
         }
-        if (!isSameDestination(destination)){
-            throw new BadRequestException("No se encuentran hoteles en ese destino");
-        }
 
         List<HotelDTO> hotelDisponible = hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
 
         if (hotelDisponible.isEmpty()) {
             throw new NotFoundException("No se encontraron hoteles con esos datos");
+
+        }
+        if (!isSameDestination(destination)){
+            throw new BadRequestException("No se encuentran hoteles en ese destino");
+
         }
 
         return hotelDisponible;
