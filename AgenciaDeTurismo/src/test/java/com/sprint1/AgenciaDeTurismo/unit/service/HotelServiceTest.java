@@ -1,11 +1,13 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
+
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
+import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.Service.HotelService;
@@ -21,7 +23,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,8 +36,8 @@ class HotelServiceTest {
     @InjectMocks
     HotelService hotelService;
 
-    @Test// US 0001 No hay hoteles disponibles
-
+    @Test
+    @DisplayName("No hay hoteles disponibles")
     void dataNotExist() {
         //Arrange
         BookingRequestDto param = null;
@@ -47,9 +48,8 @@ class HotelServiceTest {
         Assertions.assertThrows(NotFoundException.class, () ->
                 hotelService.reservationHotel(param));
     }
-
     @Test
-    @DisplayName("US 0002 No encuentra hoteles disponibles para el rango de fechas y destino seleccionados")
+    @DisplayName("No encuentra hoteles disponibles para el rango de fechas y destino seleccionados")
 
     void getNoHotelDisponibles() {
         // Arrange
@@ -69,7 +69,7 @@ class HotelServiceTest {
     }
 
     @Test
-    @DisplayName("US 0003 Notifica error/imposibilidad de finalizar la transacción")
+    @DisplayName("Notifica error/imposibilidad de finalizar la transacción")
 
     void ReservationHotelNoFinally() {
         //Arrange
@@ -106,7 +106,7 @@ class HotelServiceTest {
     }
 
     @Test
-    @DisplayName("Busqueda de un hotel")
+    @DisplayName("Búsqueda de un hotel")
     void getHotelDisponibles() {
         // arrange
         List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO());
@@ -208,9 +208,232 @@ class HotelServiceTest {
                 () -> hotelService.reservationHotel(request)
         );
     }
-    @Test
-    void getHotelNotExist(){
 
+    @Test
+    @DisplayName("No se encontraron hoteles disponibles para el rango de fechas seleccionadas")
+    void getNotExistentHoteltAvailability() {
+        // arrange
+        LocalDate dateFrom = LocalDate.of(2022,02,10);
+        LocalDate dateTo= LocalDate.of(2022,02,20);
+        String destination = "Puerto Iguazú";
+
+        // act
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(List.of());
+
+        // assert
+        Assertions.assertThrows(
+                NotFoundException.class,
+                () -> hotelService.getHotelDisponibles(dateFrom, dateTo, destination)
+        ); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
+    }
+
+
+    @Test
+    @DisplayName("Ingresamos un método de pago inválido, lo que provoca que devuelva una excepción")
+    void reservationFlightPaymentNotExist() {
+        // Arrange
+        List<HotelDTO> listaHotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+        List<HotelDTO> requestHotel= List.of(HotelDTOFactory.getCataratasHotelDTO());
+
+        BookingRequestDto request = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
+
+        String code = request.getBooking().getHotelCode();
+        HotelModel expectedFindHotel = HotelFactory.getCataratasHotel();
+        request.getBooking().getPaymentMethod().setType("Cash"); //Seteamos el metodo de pago incorrecto.
+
+        LocalDate dateFrom = request.getBooking().getDateFrom();
+        LocalDate dateTo = request.getBooking().getDateTo();
+        String destination = request.getBooking().getDestination();
+
+        // Act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(listaHotels);
+        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(expectedFindHotel);
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(requestHotel);
+        Assertions.assertThrows(
+                PaymentRequiredException.class,
+                () -> hotelService.reservationHotel(request)
+        );
+    }
+    @Test
+    @DisplayName("No coincide el tipo de habitación con la cantidad de personas")
+
+    void ReservationHotelRoomNotExist() {
+        //Arrange
+        BookingRequestDto param2 = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
+        List<HotelDTO> expectedDataHotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),HotelDTOFactory.getBristolDTO());
+        param2.getBooking().setPeopleAmount(10);
+        // Act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(expectedDataHotels);
+        Mockito.when(hotelRepository.findHotelWhitCode(param2.getBooking().getHotelCode())).thenReturn(HotelFactory.getCataratasHotel());
+
+
+        //Assert
+        Assertions.assertThrows(BadRequestException.class, () ->
+                hotelService.reservationHotel(param2));
+    }
+    @Test
+    @DisplayName("Las fechas solicitadas no están disponibles")
+    void ReservationHotelDateNotAvailable() {
+        //Arrange
+        BookingRequestDto param2 = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
+        List<HotelDTO> expectedDataHotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),HotelDTOFactory.getBristolDTO());
+        param2.getBooking().setDateTo(LocalDate.of(2024, 06, 03));
+        // Act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(expectedDataHotels);
+        Mockito.when(hotelRepository.findHotelWhitCode(param2.getBooking().getHotelCode())).thenReturn(HotelFactory.getCataratasHotel());
+
+
+        //Assert
+        Assertions.assertThrows(BadRequestException.class, () ->
+                hotelService.reservationHotel(param2));
+    }
+    @Test
+    @DisplayName("Al ingresar una reserva con pago en mas de una cuota con debito, lanza una excepción")
+    void reservationHotelDebitRefused() {
+        // arrange
+        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+
+        List<HotelDTO> hotelDisponible = List.of(HotelDTOFactory.getCataratasHotelDTO());
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 03, 20);
+        String destination = "Puerto Iguazú";
+
+        String code = "CH-0002";
+        HotelModel hotelCode = HotelFactory.getCataratasHotel();
+
+        BookingResponse expected = BookingResponseFactory.getReservationHotelIguazuDebit();
+
+        BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
+        bookingRequestDto.getBooking().getPaymentMethod().setDues(2);
+
+        // act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
+        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(hotelCode);
+
+
+        // assert
+        Assertions.assertThrows(PaymentRequiredException.class, () ->
+                hotelService.reservationHotel(bookingRequestDto));
+
+    }
+    @Test
+    @DisplayName("Al ingresar una reserva con pago en mas de doce cuotas con crédito, lanza una excepción")
+    void reservationHotelCreditRefused() {
+        // arrange
+        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+
+        List<HotelDTO> hotelDisponible = List.of(HotelDTOFactory.getCataratasHotelDTO());
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 03, 20);
+        String destination = "Puerto Iguazú";
+
+        String code = "CH-0002";
+        HotelModel hotelCode = HotelFactory.getCataratasHotel();
+
+        BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDoblegetRefused();
+
+        // act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
+        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(hotelCode);
+
+
+        // assert
+        Assertions.assertThrows(PaymentRequiredException.class, () ->
+                hotelService.reservationHotel(bookingRequestDto));
+
+    }
+    @Test
+    @DisplayName("Solicitud de reserva de hotel, con tarjeta de crédito")
+    void reservationHotelCredit() {
+        // arrange
+        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+
+        List<HotelDTO> hotelDisponible = List.of(HotelDTOFactory.getBristolDTO());
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 20);
+        String destination = "Buenos Aires";
+
+        String code = HotelDTOFactory.getBristolDTO().getHotelCode();
+        HotelModel hotelCode = HotelFactory.getBristol();
+
+        BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsThreeDues();
+        BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleThreeDues();
+
+        // act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
+        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(hotelCode);
+        var result = hotelService.reservationHotel(bookingRequestDto);
+
+        // assert
+        Assertions.assertEquals(expected, result);
+
+    }
+    @Test
+    @DisplayName("Corresponde a un pago con tarjeta de crédito superior a tres cuotas, donde se aplicará un 10% de interés")
+    void reservationHotelCreditSixDues() {
+        // arrange
+        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+
+        List<HotelDTO> hotelDisponible = List.of(HotelDTOFactory.getBristolDTO());
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 20);
+        String destination = "Buenos Aires";
+
+        String code = HotelDTOFactory.getBristolDTO().getHotelCode();
+        HotelModel hotelCode = HotelFactory.getBristol();
+
+        BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsSixDues();
+        BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleSixeDues();
+
+        // act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
+        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(hotelCode);
+        var result = hotelService.reservationHotel(bookingRequestDto);
+
+        // assert
+        Assertions.assertEquals(expected, result);
+
+    }
+    @Test
+    @DisplayName("Corresponde a un pago con tarjeta de crédito superior a seis cuotas, donde se aplicará un 15% de interés")
+    void reservationHotelCreditTwelveDues() {
+        // arrange
+        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
+                HotelDTOFactory.getBristolDTO());
+
+        List<HotelDTO> hotelDisponible = List.of(HotelDTOFactory.getBristolDTO());
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 20);
+        String destination = "Buenos Aires";
+
+        String code = HotelDTOFactory.getBristolDTO().getHotelCode();
+        HotelModel hotelCode = HotelFactory.getBristol();
+
+        BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsTwelveDues();
+        BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleTwelveDues();
+
+        // act
+        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
+        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
+        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(hotelCode);
+        var result = hotelService.reservationHotel(bookingRequestDto);
+
+        // assert
+        Assertions.assertEquals(expected, result);
 
     }
 }

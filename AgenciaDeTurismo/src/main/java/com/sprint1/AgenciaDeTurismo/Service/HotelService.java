@@ -42,9 +42,11 @@ public class HotelService implements IHotelService {
 
         if (hotelDisponible.isEmpty()) {
             throw new NotFoundException("No se encontraron hoteles con esos datos");
+
         }
         if (!isSameDestination(destination)){
-            throw new BadRequestException("No se encontraron hoteles con ese destino");
+
+            throw new BadRequestException("No se encuentran hoteles con ese destino");
         }
 
         return hotelDisponible;
