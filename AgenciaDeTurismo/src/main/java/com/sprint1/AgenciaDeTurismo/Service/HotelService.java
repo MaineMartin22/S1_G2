@@ -1,10 +1,8 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;

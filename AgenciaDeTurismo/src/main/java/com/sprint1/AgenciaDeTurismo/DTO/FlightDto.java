@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight;
+package com.sprint1.AgenciaDeTurismo.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;

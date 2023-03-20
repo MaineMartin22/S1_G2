@@ -1,10 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
@@ -13,8 +10,6 @@ import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.*;
-import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

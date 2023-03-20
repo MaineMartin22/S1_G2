@@ -3,9 +3,8 @@ package com.sprint1.AgenciaDeTurismo.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sprint1.AgenciaDeTurismo.DTO.FlightDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
@@ -29,10 +28,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
