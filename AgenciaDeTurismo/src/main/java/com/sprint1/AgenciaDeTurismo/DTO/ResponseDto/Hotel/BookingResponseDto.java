@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import lombok.*;
 
@@ -11,7 +12,9 @@ import java.util.List;
 @Data
 @Builder
 public class BookingResponseDto {
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate dateFrom;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate dateTo;
     private String destination;
     private String hotelCode;

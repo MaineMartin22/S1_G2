@@ -1,7 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
-import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 
 import java.time.LocalDate;
 

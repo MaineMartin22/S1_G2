@@ -1,6 +1,5 @@
 package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.FlightDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import lombok.*;
 
