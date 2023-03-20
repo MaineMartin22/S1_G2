@@ -1,8 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
@@ -11,13 +9,12 @@ import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
 import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
 import com.sprint1.AgenciaDeTurismo.Service.HotelService;
-import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightRequestDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.BookingRequestDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.BookingResponseFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,7 +49,8 @@ class HotelServiceTest {
     }
 
     @Test
-        // US 0002 No encuentra hoteles disponibles para el rango de fechas y destino seleccionados//
+    @DisplayName("US 0002 No encuentra hoteles disponibles para el rango de fechas y destino seleccionados")
+
     void getNoHotelDisponibles() {
         // Arrange
         BookingRequestDto entity = BookingRequestDTOFactory.getHotelesNoDisponibles();
@@ -71,7 +69,8 @@ class HotelServiceTest {
     }
 
     @Test
-        //US 0003 Notifica error/imposibilidad de finalizar la transacción
+    @DisplayName("US 0003 Notifica error/imposibilidad de finalizar la transacción")
+
     void ReservationHotelNoFinally() {
         //Arrange
         BookingRequestDto param2 = new BookingRequestDto();
@@ -93,6 +92,7 @@ class HotelServiceTest {
     }
 
     @Test
+    @DisplayName("Listado de todos los hoteles")
     void findAll() {
         // arrange
         List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO(),
@@ -106,6 +106,7 @@ class HotelServiceTest {
     }
 
     @Test
+    @DisplayName("Busqueda de un hotel")
     void getHotelDisponibles() {
         // arrange
         List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO());
@@ -126,6 +127,7 @@ class HotelServiceTest {
     }
 
     @Test
+    @DisplayName("Solicitud de reserva de hotel")
     void reservationHotel() {
         // arrange
         List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
@@ -155,6 +157,7 @@ class HotelServiceTest {
 
     }
     @Test
+    @DisplayName("Si no se pasan parámetros, devuelve listado completo de hoteles")
     void getHotelAvailabilityNull() {
         // arrange
         List<HotelDTO> hotels = List.of(HotelDTOFactory.getBristolDTO(),
@@ -173,6 +176,7 @@ class HotelServiceTest {
 
     }
     @Test
+    @DisplayName("Si al menos un parámetro es nulo, lanza una excepción")
     void getHotelAvailabilityNullOneParameter() {
         // arrange
         List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO());
@@ -188,6 +192,7 @@ class HotelServiceTest {
         );
     }
     @Test
+    @DisplayName("Si el código de hotel no existe, lanza una excepción")
     void reservationHotelCodeNotExist() {
         // Arrange
         List<HotelDTO> listaHotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),
@@ -202,6 +207,11 @@ class HotelServiceTest {
                 NotFoundException.class,
                 () -> hotelService.reservationHotel(request)
         );
+    }
+    @Test
+    void getHotelNotExist(){
+
+
     }
 }
 

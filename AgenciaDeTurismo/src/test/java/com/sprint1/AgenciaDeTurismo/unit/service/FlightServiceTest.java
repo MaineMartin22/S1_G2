@@ -12,6 +12,7 @@ import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,6 +33,7 @@ class FlightServiceTest {
     FlightService flightService;
 
     @Test
+    @DisplayName("Devuelve el listado de todos los vuelos")
     void getFlight() {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -44,7 +46,7 @@ class FlightServiceTest {
         Assertions.assertEquals(expected, result);
     }
     @Test
-    //US 0004 Notifica la no existencia mediante una excepción.
+    @DisplayName("Notifica la no existencia de un vuelo mediante una excepción")
     void getFlightNoExist(){
         //Arrange
         FlightRequestDto param = null;
@@ -58,7 +60,7 @@ class FlightServiceTest {
     }
 
     @Test
-
+    @DisplayName("Con los datos ingresados, verifica vuelos disponibles")
     void getFlightAvailability() {
         // arrange
         List<FlightDto> vuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -79,7 +81,8 @@ class FlightServiceTest {
 
         Assertions.assertEquals(expected, result);
     }
-    @Test // Al no enviar ninguno de los datos(es decir todos son nulos) debe retornar la lista de vuelos.
+    @Test
+    @DisplayName("Al no enviar ninguno de los datos(es decir todos son nulos), debe retornar la lista de vuelos")
     void getFlightAvailabilityNull() {
         // arrange
         List<FlightDto> vuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -99,7 +102,8 @@ class FlightServiceTest {
 
 
     }
-    @Test // En este caso al no pasar un dato o el mismo sea null, va a dar una BadRequestException Linea 46 FlightService.
+    @Test
+    @DisplayName("Al no pasar un dato o el mismo sea null, lanza una excepción")
     void getFlightAvailabilityNullOneParameter() {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
@@ -115,7 +119,8 @@ class FlightServiceTest {
                 () -> flightService.getFlightAvailability(dateFrom, dateTo, origin, destination)
         );
     }
-    @Test // Al ingresar origen o destino que no existen, debe devolver una BadRequestException
+    @Test
+    @DisplayName("Al ingresar origen o destino que no existen, devuelve una excepción")
     void getFlightAvailabilityOrigenNotExist() {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
@@ -132,7 +137,7 @@ class FlightServiceTest {
         );
     }
     @Test
-    //US 0005 No se encontraron vuelos disponibles para el rango de fechas seleccionado
+    @DisplayName("No se encontraron vuelos disponibles para el rango de fechas seleccionadas")
     void getNotExistentFlightAvailability() {
         // arrange
         LocalDate dateFrom = LocalDate.of(2022,02,10);
@@ -152,6 +157,7 @@ class FlightServiceTest {
 
 
     @Test
+    @DisplayName("Verifica la reserva del vuelo con tarjeta de débito")
     void reservationFlightDebit() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -174,7 +180,8 @@ class FlightServiceTest {
         Assertions.assertEquals(expected, result);
 
     }
-    @Test // Ingresamos mal el codigo del vuelo en el request, lo que provoca que devuelva una NotFoundException
+    @Test
+    @DisplayName("Al ingresar erróneamente el código del vuelo en el request, lanza una excepción")
     void reservationFlightCodeNotExist() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -190,7 +197,8 @@ class FlightServiceTest {
                 () -> flightService.reservationFlight(request)
         );
     }
-    @Test // Ingresamos un metodo de pago no valido, lo que provoca que devuelva una PaymentRequiredException
+    @Test
+    @DisplayName("Al ingresar un método de pago invalido, lanza una excepción")
     void reservationFlightPaymentNotExist() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -218,7 +226,8 @@ class FlightServiceTest {
         );
     }
 
-    @Test // Ingresamos un tipo de asiento no disponible, lo que provoca que devuelva una NotFoundException
+    @Test
+    @DisplayName("Al ingresar un tipo de asiento no disponible, lanza una excepción")
     void reservationFlightSeatNotAvailable() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -245,7 +254,8 @@ class FlightServiceTest {
         );
     }
 
-    @Test // Cuando ingresamos una reserva con pago en debito en mas de una cuota tira una PaymentRequiredException
+    @Test
+    @DisplayName("Al ingresar una reserva con pago en mas de una cuota con debito, lanza una PaymentRequiredException")
     void reservationFlightTypeDebitRefused() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -273,7 +283,7 @@ class FlightServiceTest {
     }
 
     @Test
-    //US 0006 Notifica error/imposibilidad de finalizar la transacción
+    @DisplayName("Notifica error/imposibilidad de finalizar la transacción")
     void ReservationFlightNoFinally() {
         //Arrange
         FlightRequestDto param2 = FlightRequestDTOFactory.getNoReservation();
@@ -285,7 +295,8 @@ class FlightServiceTest {
                 flightService.reservationFlight(param2));
     }
 
-    @Test// En este metodo probamos que aplique el interes al pagar con tarjeta de credito, (Agrega un 5% al valor del vuelo)
+    @Test
+    @DisplayName("A través de este método probamos que aplique el interés al pagar con tarjeta de crédito (Agrega un 5% al valor del vuelo)")
     void reservationFlightCredit() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -308,7 +319,8 @@ class FlightServiceTest {
         Assertions.assertEquals(expected, result);
 
     }
-    @Test// En este metodo probamos que aplique el interes al exceder la 3 cuotas, (Agrega un 10% al valor del vuelo)
+    @Test
+    @DisplayName("A través de este método, verificamos que aplique el interés al exceder la 3 cuotas (Agrega un 10% al valor del vuelo)")
     void reservationFlightCreditSixDues() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -331,7 +343,8 @@ class FlightServiceTest {
         Assertions.assertEquals(expected, result);
 
     }
-    @Test // En este metodo probamos que aplique el interes al exceder la 6 cuotas, (Agrega un 15% al valor del vuelo)
+    @Test
+    @DisplayName("A través de método, verificamos que aplique el interés al exceder la 6 cuotas (Agrega un 15% al valor del vuelo)")
     void reservationFlightCreditTwelveDues() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
@@ -354,7 +367,8 @@ class FlightServiceTest {
         Assertions.assertEquals(expected, result);
 
     }
- @Test // Al cambiar el tipo de pago a credit y exceder el límite de cutoas que está permitido tira un PaymentRequiredException
+ @Test
+ @DisplayName("Al modificar el tipo de pago a credit y exceder el límite de cuotas que está permitido, lanza una Excepción")
  void reservationFlightTypeCreditRefused() {
      // Arrange
      List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),

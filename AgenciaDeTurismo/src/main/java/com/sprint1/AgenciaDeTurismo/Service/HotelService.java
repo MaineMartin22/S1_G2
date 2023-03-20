@@ -44,7 +44,7 @@ public class HotelService implements IHotelService {
             throw new NotFoundException("No se encontraron hoteles con esos datos");
         }
         if (!isSameDestination(destination)){
-            throw new BadRequestException("No se encuentran hoteles en ese destino");
+            throw new BadRequestException("No se encontraron hoteles con ese destino");
         }
 
         return hotelDisponible;
@@ -67,7 +67,7 @@ public class HotelService implements IHotelService {
             throw new NotFoundException("No se encuentra hotel con ese código");
         }
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
-            throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles es : " + bookHotel.getTypeRoom());
+            throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles son : " + bookHotel.getTypeRoom());
         }
 
         if( (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Single") &&  bookingRequestDto.getBooking().getPeopleAmount() > 1) ||
@@ -87,7 +87,7 @@ public class HotelService implements IHotelService {
         PaymentMethodDto paymentData = bookingRequestDto.getBooking().getPaymentMethod();
 
         if (!paymentData.getType().equalsIgnoreCase("credit") && !paymentData.getType().equalsIgnoreCase("debit")) {
-            throw new PaymentRequiredException("El método de pago " + paymentData.getType() + " no esta disponible. Solo se permite tarjetas de crédito o débito" );
+            throw new PaymentRequiredException("El método de pago " + paymentData.getType() + " no está disponible. Solo se permiten tarjetas de crédito o débito" );
         }
 
         bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());
