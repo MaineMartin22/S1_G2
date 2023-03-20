@@ -23,5 +23,5 @@ public class FlightDTOResponse {
     private Integer seats;
     private String seatType;
     private List<PeopleDto> peopleDto;
-    private PaymentMethodDto paymentMethodDto;
+
 }
