@@ -100,7 +100,7 @@ class FlightServiceTest {
         // assert
 
         Assertions.assertEquals(expected, result);
-        //BadRequestException
+
 
     }
     @Test // En este caso al no pasar un dato o el mismo sea null, va a dar una BadRequestException Linea 46 FlightService.
@@ -249,7 +249,7 @@ class FlightServiceTest {
         );
     }
 
-    @Test // Ingresamos un tipo de asiento no disponible, lo que provoca que devuelva una NotFoundException
+    @Test // Cuando ingresamos una reserva con pago en debito en mas de una cuota tira una PaymentRequiredException
     void reservationFlightTypeDebitRefused() {
         // Arrange
         List<FlightDto> listaVuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
