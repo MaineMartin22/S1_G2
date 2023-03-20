@@ -1,10 +1,8 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
@@ -39,14 +37,14 @@ public class HotelService implements IHotelService {
         if (dateFrom == null && dateTo == null && destination == null) {
             return findAll();
         }
-        if (!isSameDestination(destination)){
-            throw new BadRequestException("No se encuentran hoteles en ese destino");
-        }
 
         List<HotelDTO> hotelDisponible = hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
 
         if (hotelDisponible.isEmpty()) {
-            throw new NotFoundException("No se encontraron vuelos con esos datos");
+            throw new NotFoundException("No se encontraron hoteles con esos datos");
+        }
+        if (!isSameDestination(destination)){
+            throw new BadRequestException("No se encuentran hoteles en ese destino");
         }
 
         return hotelDisponible;
