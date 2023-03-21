@@ -11,13 +11,13 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class PeopleDto {
-    @NotBlank
+    @NotBlank(message = "El dni no puede estar vacío")
     private String dni;
-    @NotBlank
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String name;
-    @NotBlank
+    @NotBlank(message = "El apellido no puede estar vacío")
     private String lastName;
-    @NotBlank
+    @NotBlank(message = "La fecha de cumpleaños no puede estar vacía")
     private String birthDate;
     @Email(message="Por favor ingrese un e-mail válido")
     private String mail;
