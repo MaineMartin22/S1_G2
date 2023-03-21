@@ -28,7 +28,7 @@ public class HotelRepository {
     public HotelRepository() {
         this.hotels = loadDataBase();
     }
-
+    String classpath = "classpath:dataHotels.json";
     ModelMapper modelMapper = new ModelMapper();
 
     public List<HotelDTO> dataHotels() {
@@ -53,7 +53,7 @@ public class HotelRepository {
         return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElseThrow(() -> new NotFoundException("No se encontró el hotel"));
     }
 
-    private List<HotelModel> loadDataBase() {
+    public List<HotelModel> loadDataBase() {
         List<HotelModel> hotels = null;
 
         File file;

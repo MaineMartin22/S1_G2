@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.unit.repository;
 
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
+import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
 import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
@@ -55,5 +56,19 @@ class FlightRepositoryTest {
         // assert
         Assertions.assertEquals(expected, result);
 
+    }
+    @Test
+    public void getFlightDisponibleExceptionDestination(){
+        //arrage
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 03, 20);
+        String destination = "Bolivia";
+        String origin = "Argentina";
+        // assert
+        Assertions.assertThrows(
+                BadRequestException.class,
+                () -> flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)
+        );
     }
 }
