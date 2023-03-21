@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class FlightRepository {
     private List<FlightModel> flights;
 
-    public FlightRepository() {
-        this.flights=loadDataBase();
+    public FlightRepository() throws IOException {
+        this.flights=loadDataBase("classpath:dataFlights.json");
     }
     ModelMapper modelMapper = new ModelMapper();
 
@@ -59,7 +59,7 @@ public class FlightRepository {
 
     }
 
-    private List<FlightModel> loadDataBase() {
+    public List<FlightModel> loadDataBase(String classpath) throws IOException {
         List<FlightModel> flights = null;
 
         File file;
@@ -69,9 +69,10 @@ public class FlightRepository {
         TypeReference<List<FlightModel>> typeRef = new TypeReference<>() {};
 
         try {
-            file = ResourceUtils.getFile("classpath:dataFlights.json");
+            file = ResourceUtils.getFile(classpath);
             flights = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {e.printStackTrace();
+        } catch (IOException e) {
+            throw e;
         }
 
         return flights;

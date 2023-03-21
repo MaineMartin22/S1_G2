@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ import java.util.List;
 public class HotelRepositoryTest {
 
     HotelRepository hotelRepository = new HotelRepository();
+
+    public HotelRepositoryTest() throws IOException {
+    }
 
     @Test
     public void dataHotelsTest(){
@@ -84,5 +88,16 @@ public class HotelRepositoryTest {
                 BadRequestException.class,
                 () -> hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)
            );
+    }
+    @Test
+    public void loadDataBaseException(){
+        //arrage
+        String classpath = "NOT-EXIST";
+
+        // assert
+        Assertions.assertThrows(
+                IOException.class,
+                () -> hotelRepository.loadDataBase(classpath)
+        );
     }
 }

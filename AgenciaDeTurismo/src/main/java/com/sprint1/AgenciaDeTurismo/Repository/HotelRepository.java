@@ -25,10 +25,10 @@ public class HotelRepository {
 
     public List<HotelModel> hotels;
 
-    public HotelRepository() {
-        this.hotels = loadDataBase();
+    public HotelRepository() throws IOException {
+        this.hotels = loadDataBase("classpath:dataHotels.json");
     }
-    String classpath = "classpath:dataHotels.json";
+
     ModelMapper modelMapper = new ModelMapper();
 
     public List<HotelDTO> dataHotels() {
@@ -52,8 +52,7 @@ public class HotelRepository {
     public HotelModel findHotelWhitCode(String code) {
         return hotels.stream().filter(hotel -> hotel.getHotelCode().equalsIgnoreCase(code)).findFirst().orElseThrow(() -> new NotFoundException("No se encontró el hotel"));
     }
-
-    public List<HotelModel> loadDataBase() {
+    public List<HotelModel> loadDataBase(String classpath) throws IOException {
         List<HotelModel> hotels = null;
 
         File file;
@@ -64,9 +63,10 @@ public class HotelRepository {
         };
 
         try {
-            file = ResourceUtils.getFile("classpath:dataHotels.json");
+            file = ResourceUtils.getFile(classpath);
             hotels = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {e.printStackTrace();
+        } catch (IOException e) {
+            throw e;
         }
 
         return hotels;

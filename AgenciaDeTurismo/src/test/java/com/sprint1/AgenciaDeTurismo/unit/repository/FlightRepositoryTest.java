@@ -9,11 +9,15 @@ import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 class FlightRepositoryTest {
     FlightRepository flightRepository = new FlightRepository();
+
+    FlightRepositoryTest() throws IOException {
+    }
 
     @Test
     void dataFlights() {
@@ -69,6 +73,17 @@ class FlightRepositoryTest {
         Assertions.assertThrows(
                 BadRequestException.class,
                 () -> flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)
+        );
+    }
+    @Test
+    public void loadDataBaseException(){
+        //arrage
+        String classpath = "NOT-EXIST";
+
+        // assert
+        Assertions.assertThrows(
+                IOException.class,
+                () -> flightRepository.loadDataBase(classpath)
         );
     }
 }
