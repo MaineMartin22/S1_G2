@@ -1,5 +1,4 @@
 # S1_G2
-Trello Daily : https://trello.com/b/QEQDbLOv/dailybootcamp
 
 <h1 align="center"> AGENCIA DE TURISMO </h1>
 <h1 align="center"> SPRINT 2 </h1>
@@ -72,7 +71,7 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 ## Especificación de Requerimientos Funcionales Sprint 2 📝<a name="id4"></a>
 
 ### VALIDACIONES:
-Iconos indicadores :
+Iconos indicadores:
 
 :heavy_check_mark:Tarea cumplida.
 
@@ -164,7 +163,7 @@ US 0006: Realizar una reserva de un vuelo, indicando cantidad de personas, orige
 
 La lista de requerimientos que habían sido solicitados por la Agencia de turismo eran los siguientes:
 
-US  0001: Obtener un listado de todos los hoteles registrados
+US 0001: Obtener un listado de todos los hoteles registrados
 
 US 0002: Obtener un listado de todos los hoteles disponibles en un determinado rango de fechas y según el destino seleccionado.
 
@@ -195,4 +194,6 @@ US 0006: Realizar una reserva de un vuelo, indicando cantidad de personas, orige
 
 Siguiendo con el principio de que la agencia posee unos estándares de calidad muy altos, un especialista sugirió la posibilidad de contar también con diferentes tests de integración además de los tests unitarios mencionados anteriormente; sin embargo, el especialista conoce que los tiempos son acotados, por lo que sugiere llevar a cabo esta implementación solo en caso de que alcancen los tiempos y se pueda cumplir con la fecha de entrega estimada.
 
-Dificultad: En lo DTO de Hotel y FLights no teniamos la anotación @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING). Que tuvimos que agregarla.
+Dificultad: En lo DTO de Hotel y FLights no teníamos la anotación @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING). Que tuvimos que agregarla.
+
+
