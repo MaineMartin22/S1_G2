@@ -1,23 +1,23 @@
 <h1 align="center"> AGENCIA DE TURISMO </h1>
-<h1 align="center"> SPRINT 2 </h1>
+<h1 align="center"> SPRINT 3 </h1>
 
 **Índice**   
-1. [Objetivo  Sprint 2 💡](#id1)
-2. [Dependencias Sprint 2 🛠️](#id2)
-3. [Contribuyentes Sprint 2 ✒️](#id3)
-4. [Especificación de Requerimientos Funcionales Sprint 2 📝](#id4)
-5. [Tests Unitarios Sprint 2 ▶️](#id5)
-6. [Bonus Sprint 2 ▶️](#id6)
+1. [Objetivo  Sprint 3 💡](#id1)
+2. [Dependencias Sprint 3 🛠️](#id2)
+3. [Contribuyentes Sprint 3 ✒️](#id3)
+4. [Especificación de Requerimiento Nº 1 Sprint 3 📝](#id4)
+5. [Especificación de Requerimiento Nº 2 Sprint 3 📝](#id5)
+6. [Especificación de Requerimiento Nº 3 Sprint 3 📝](#id6)
 
 
 :bangbang:[**Link de Tablero de trabajo de daily en Trello**](https://trello.com/b/QEQDbLOv/dailybootcamp):bangbang:
-:bangbang:[**Link de Tablero de trabajo en Trello**](https://trello.com/b/272x0iIb/bootcamp-java):bangbang:
 
-## Objetivo  Sprint 2 💡<a name="id1"></a>
 
-El objetivo de este desafío es aplicar los contenidos dados hasta el momento durante el BOOTCAMP (Git, Java, Spring y Testing) en la implementación de una API REST a partir de un enunciado propuesto, una especificación de requisitos técnico-funcionales y documentación anexada.
+## Objetivo  Sprint 3 💡<a name="id1"></a>
 
-## Dependencias Sprint 2 🛠️<a name="id2"></a>
+El objetivo de este desafío es aplicar los contenidos dados hasta el momento durante el BOOTCAMP (Git, Java, Spring Boot, Testing, JPA y Hibernate) en la implementación de una API REST a partir de un enunciado propuesto, una especificación de requisitos técnico-funcionales y documentación anexada.
+
+## Dependencias Sprint 3 🛠️<a name="id2"></a>
  ```
    <dependencies>
         <dependency>
@@ -58,7 +58,7 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 
 -Java:11.
 
-## Contribuyentes Sprint 2 ✒️<a name="id3"></a>
+## Contribuyentes Sprint 3 ✒️<a name="id3"></a>
   ```
   Alvarez Lucas
   Ataides Nicolas
@@ -66,130 +66,165 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
   Maine Martin
   Vallejos Podio Valentina
   ```
-## Especificación de Requerimientos Funcionales Sprint 2 📝<a name="id4"></a>
+## Especificación de Requerimiento Nº 1 Sprint 3 📝<a name="id4"></a>
 
-### VALIDACIONES:
+### Requerimiento Nº 1:
+
+En las versiones anteriores de la aplicación, el manejo de datos se llevó a cabo con una “base de datos” lógica, implementada mediante collections o maps y en algunos casos JSON. Llegó el momento de implementar una base de datos relacional que permita realizar operaciones CRUD/ABM.
+
 Iconos indicadores :
 
 :heavy_check_mark:Tarea cumplida.
 
-:heavy_check_mark:No se realizo debido a indicaciones Scrum Master. Ya que contienen anotaciones personalizadas o por otro motivo. Lo que si se realizo fueron las excepciones.
 
 
-#### 1.1 Hoteles
+####  User Story:
+
+COMO encargado de la empresa de turismo QUIERO poder realizar operaciones de alta, baja, modificación y lectura sobre una base de datos PARA poder almacenar cada uno de los datos necesarios para la administración de las reservas de mi empresa.
 
 
-US 0002: Obtener un listado de todos los hoteles disponibles en un determinado rango de fechas y según el destino seleccionado. 
+OPERACIONES/ACCIONES TÉCNICAS Y FUNCIONALES  NECESARIAS:
+
+Configuración de conexión de base de datos y dependencias
+
+Mapeo de entidades JPA + Hibernate
+
+Se debe permitir el alta, baja, modificación y consulta de vuelos.
+
+Se debe permitir el alta, baja, modificación y consulta de hoteles
+
+Se debe permitir el alta, baja, modificación y consulta de reservas.
 
 
-| Parámetros   |     Validación    | Mensaje de error | Dificultad |
+ROLES Y PERMISOS:
+
+Para esta US aún no se aplicarán roles o permisos de ningún tipo. Se deberán generar únicamente los endpoints correspondientes.
+
+
+VALIDACIONES NECESARIAS:
+
+Para bajas y modificaciones debe existir el hotel, reserva o vuelo correspondiente. Caso contrario, se debe retornar el correspondiente status code y msje.
+
+Para las consultas, en caso de no encontrar resultados se debe informar dicha situación mediante un mensaje.
+
+Para altas, validar que no exista anteriormente una reserva con idénticas características.
+
+Antes de dar de baja un vuelo o un hotel, validar que no se encuentre actualmente en una reserva. En caso de que sea así, no se podrá eliminar el registro, sin antes haber cancelado/eliminado la reserva.
+
+Especificaciones Técnicas necesarias: 
+
+
+| HTTP   |     Plantilla URI   | Descripción | Dificultad |
 |--------------|:-----------------:|-----------------:|-----------:|
-| :heavy_check_mark:Fecha Entrada | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Entrada | Fecha de entrada < a fecha de salida | La fecha de entrada debe ser menor a la de salida | Se realizo con anotaciones personalizadas  |  
+||ALTAS|
+| POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | -----------  |  
+| POST| /api/v1/flights/new | Alta de un nuevo vuelo | -----------  |  
+| POST | /api/v1/hotel-booking/new | Alta de una reserva de hotel | ----------- |  
+| POST | /api/v1/flight-reservation/new | Alta de una reserva de vuelo | -----------  |  
 ||||
-| :heavy_check_mark:Fecha Salida  | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Salida  | Fecha de salida > a fecha de entrada | La fecha de entrada debe ser mayor a la de entrada | Se realizo con anotaciones personalizadas  |  
+||MODIFICACIONES|
+| PUT | /api/v1/flights/edit?flightNumber=number | Modificación de un vuelo | -----------  |  
+| PUT| /api/v1/hotels/edit?hotelCode=code | Modificación de un hotel | -----------  |  
+| PUT | /api/v1/hotel-booking/edit?id=num_id | Modificación de una reserva de hotel | ----------- |  
+| PUT | /api/v1/flight-reservation/edit?id=num_id | Modificación de una reserva de vuelo | -----------  |  
 ||||
-| Destino  | Que exista | El destino elegido no existe |
-
-
-US 0003: Realizar una reserva de un hotel, indicando cantidad de personas, fecha de entrada, fecha de salida y tipo de habitación. Obtener como respuesta el monto total de la reserva realizada
-
-
-| Parámetros   |     Validación    | Mensaje de error | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------------:|
-| :heavy_check_mark:Fecha Entrada | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Entrada | Fecha de entrada < a fecha de salida | La fecha de entrada debe ser menor a la de salida | Se realizo con anotaciones personalizadas  |  
+||CONSULTAS/LECTURAS|
+| GET |/api/v1/hotels | Listado de todos los hoteles  | -----------  |  
+| GET| /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=destination_name | Listado de hoteles según filtros | -----------  |  
+| GET | /api/v1/flights | Listado de todos los vuelos | ----------- |  
+| GET | /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=origin_name&destination=destination_name  | Listado de vuelos según filtros | -----------  |  
+| GET | /api/v1/hotel-bookings/ | Listado de todas las reservas de hotel | ----------- |  
+| GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos | ----------- |
 ||||
-| :heavy_check_mark:Fecha Salida  | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Salida  | Fecha de salida > a fecha de entrada | La fecha de entrada debe ser mayor a la de entrada | Se realizo con anotaciones personalizadas  |  
-||||
-| :heavy_check_mark:Destino  | Que exista | El destino elegido no existe |
-||||
-| :heavy_check_mark:Cantidad de Personas  | Que sea un valor numérico | La cantidad de personas debe ser un valor numérico | Al ser declarado como atributo integer, no se le puede hacer una anotacion para validarlo.Lo que si se realizo fueron las excepciones.  | 
-||||
-| :heavy_check_mark:Tipo de Habitación  | Que coincida con la cantidad de personas | El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella | Es con anotaciones personalizadas.Lo que si se realizo fueron las excepciones.  |
-||||
-| :heavy_check_mark:E-mail  |  El mail cumpla con el formato de correo electrónico nombre@dominio.com (también es válido .com.ar, .com.co, etc) | Por favor ingrese un e-mail válido |
-||||
-| :heavy_check_mark:Intereses  | En caso que la tarjeta sea de crédito verificar recargo de intereses. Ej: hasta 3 cuotas 5%, de 3 a 6 10%, etc.En caso que sea tarjeta de débito verificar que no se incorporen intereses y que permita el pago en una sola cuota | Tarjeta de crédito: Devolver porcentaje y monto de interés (recargo).Tarjeta de débito: Informar que se ha ingresado una cantidad de cuotas diferente a 1 | Lo que si se realizo fueron las excepciones.  |
+||BAJAS|
+| DELETE | /api/v1/hotels/delete?hotelCode=code | Baja de un hotel | -----------  |  
+| DELETE| /api/v1/flights/delete?flightNumber=number | Baja de un vuelo | -----------  |  
+| DELETE | /api/v1/hotel-booking/delete?id=num_id | Baja de una reserva de hotel | ----------- |  
+| DELETE | /api/v1/flight-reservation/delete?id=num_id | Baja de una reserva de vuelo | -----------  |  
 
 
-#### 1.2 Vuelos
+## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id5"></a>
+
+### Requerimiento Nº 2:
+
+La agencia de viajes y turismo desea empezar a implementar el armado de paquetes turísticos; para esto, especificó que cada paquete turístico podrá estar conformado de la siguiente manera:
+Dos reservas de vuelos
+Dos reservas de hotel
+Una reserva de vuelo y una reserva de hotel
+Los paquetes turísticos ofrecen como beneficio al cliente, un descuento del 10% sobre el valor total de la sumatoria de los dos ítems que tenga incorporado. Por ejemplo: Si se tiene una reserva de vuelo por $30.000 y una reserva de hotel por $15.000, la sumatoria total es de $45.000. Si aplicamos el descuento del 10% tendremos $45.000 - $4500, por lo que el precio total del paquete sería de $40.500.
+Cabe destacar que antes de armar el paquete turístico ya deben estar ambas reservas registradas y el descuento se aplica sobre la sumatoria del total de ambas.
+
+Iconos indicadores :
+
+:heavy_check_mark:Tarea cumplida.
 
 
-US 0005: Obtener un listado de todos los vuelos disponibles en un determinado rango de fechas y según el destino y el origen seleccionados. 
+
+####  User Story:
+
+COMO empleado de la agencia de turismo QUIERO poder manejar paquetes turísticos PARA poder realizar las operaciones CRUD correspondientes.
 
 
-| Parámetros   |     Validación    | Mensaje de error | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------------:|
-| :heavy_check_mark:Fecha Entrada | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Entrada | Fecha de entrada < a fecha de salida | La fecha de entrada debe ser menor a la de salida | Se realizo con anotaciones personalizadas  |  
-||||
-| :heavy_check_mark:Fecha Salida  | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Salida  | Fecha de salida > a fecha de entrada | La fecha de entrada debe ser mayor a la de entrada | Se realizo con anotaciones personalizadas  |  
-||||
-| Origen  | Que exista | El Origen elegido no existe |
-||||
-| Destino  | Que exista | El destino elegido no existe |
+OPERACIONES/ACCIONES TÉCNICAS Y FUNCIONALES  NECESARIAS:
+
+Implementación de una nueva clase PaqueteTuristico
+
+Configuración de operaciones CRUD para Paquetes turísticos
+
+Actualización del modelado
 
 
-US 0006: Realizar una reserva de un vuelo, indicando cantidad de personas, origen, destino, fecha de ida y fecha de vuelta. Obtener como respuesta el monto total de la reserva realizada.
+VALIDACIONES NECESARIAS:
+
+En todo paquete turístico solo pueden haber dos reservas (ni más, ni menos).
 
 
-| Parámetros   |     Validación    | Mensaje de error | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------------:|
-| :heavy_check_mark:Fecha Entrada | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Entrada | Fecha de entrada < a fecha de salida | La fecha de entrada debe ser menor a la de salida | Se realizo con anotaciones personalizadas  |  
-||||
-| :heavy_check_mark:Fecha Salida  | Formato correcto | Formato de fecha debe ser yyyy/mm/dd | Se realizo con anotaciones personalizadas  |  
-| :heavy_check_mark:Fecha Salida  | Fecha de salida > a fecha de entrada | La fecha de entrada debe ser mayor a la de entrada | Se realizo con anotaciones personalizadas  |  
-||||
-| :heavy_check_mark:Destino  | Que exista | El destino elegido no existe |
-||||
-| :heavy_check_mark:Cantidad de Personas:warning:  | Que sea un valor numérico | La cantidad de personas debe ser un valor numérico | Al ser declarado como atributo integer, no se le puede hacer una anotacion para validarlo. Lo que si se realizo fueron las excepciones.  | 
-||||
-| :heavy_check_mark:E-mail  |  El mail cumpla con el formato de correo electrónico nombre@dominio.com (también es válido .com.ar, .com.co, etc) | Por favor ingrese un e-mail válido |
-||||
-| :heavy_check_mark:Intereses (Sprint1 no pedia intereses por eso no se realizo)  | En caso que la tarjeta sea de crédito verificar recargo de intereses. Ej: hasta 3 cuotas 5%, de 3 a 6 10%, etc.En caso que sea tarjeta de débito verificar que no se incorporen intereses y que permita el pago en una sola cuota | Tarjeta de crédito: Devolver porcentaje y monto de interés (recargo).Tarjeta de débito: Informar que se ha ingresado una cantidad de cuotas diferente a 1 | Lo que si se realizo fueron las excepciones.  |
+Especificaciones Técnicas necesarias: 
 
 
-## Tests Unitarios Sprint 2 ▶️<a name="id5"></a>
+| HTTP   |     Plantilla URI   | Descripción | Dificultad |
+|--------------|:-----------------:|-----------------:|-----------:|
+| POST | /api/v1/touristicpackage/new/ | Alta de un nuevo paquete | -----------  |  
+| PUT| /api/v1/touristicpackage/edit?packageNumber=number | Modificación de un paquete | -----------  |  
+| GET | /api/v1/touristicpackages | Listado de todos los paquetes dados de alta | ----------- |  
+| DELETE | /api/v1/touristicpackage/delete?packageNumber=number | Baja de un paquete | -----------  |  
 
 
-#### User Stories
-
-La lista de requerimientos que habían sido solicitados por la Agencia de turismo eran los siguientes:
-
-US  0001: Obtener un listado de todos los hoteles registrados
-
-US 0002: Obtener un listado de todos los hoteles disponibles en un determinado rango de fechas y según el destino seleccionado.
-
-US 0003: Realizar una reserva de un hotel, indicando cantidad de personas, fecha de entrada, fecha de salida y tipo de habitación. Obtener como respuesta el monto total de la reserva realizada
-
-US 0004: Obtener un listado de todos los vuelos registrados.
-
-US 0005: Obtener un listado de todos los vuelos disponibles en un determinado rango de fechas y según el destino y el origen seleccionados. 
-
-US 0006: Realizar una reserva de un vuelo, indicando cantidad de personas, origen, destino y fecha de ida. Obtener como respuesta el monto total de la reserva realizada.
+## Especificación de Requerimiento Nº 3 Sprint 3 📝<a name="id6"></a>
 
 
-| User Story(* Requerido) |    Situaciones/Datos de entrada   | Comportamiento Esperado | Dificultad |
-|-------------------------|:---------------------------------:|------------------------:|-----------:|
-| US-0001 | Se envía solicitud de listado de todos los hoteles registrados | Si hay hoteles registrados: Permite continuar con normalidad y muestra listado completo. Si no hay hoteles: Notifica la no existencia mediante una excepción |
-||||
-| US 0002 | Se envía solicitud de listado de todos los hoteles disponibles en determinado rango de fechas y destinos. Datos de entrada:Fecha Desde,Fecha Hasta,Destinos |Si hay registros que cumplan el criterio: Se debe obtener un listado de los hoteles disponibles en ese rango de fechas en esos destinos.No se cumple:Notifica la situación mediante una excepción  |inconvenientes al momento de realizar varios when, en la implementacion de test con mocks para el segundo requisito|
-||||
-| US-0003 | Se envía solicitud de reserva de un hotel.Datos de entrada:Id hotel,Cantidad de personas,Fecha Entrada,Fecha Salida,Tipo de habitación  |Se cumplen todos los criterios:Responde un Status code 200 con el monto total de la reserva.Da de alta una nueva reserva.No se cumple:Notifica error/imposibilidad de finalizar la transacción  |inconvenientes al momento de realizar varios when, en la implementacion de test con mocks para el segundo requisito|
-||||
-| US 0004  | Se envía solicitud de listado de todos los vuelos registrados |Si hay vuelos registrados:Permite continuar con normalidad y muestra listado completo.Si no hay vuelos registrados:Notifica la no existencia mediante una excepción |
-||||
-| US 0005 | Se envía solicitud de listado de todos los vuelos disponibles en determinado rango de fechas y según un origen y destino.Datos de entrada:Fecha Desde,Fecha Hasta,Origen,Destino  |Si hay registros que cumplan el criterio:Se debe obtener un listado de los vuelos disponibles en ese rango de fechas en esos destinos.No se cumple:Notifica la situación mediante una excepción  |
-||||
-| US 0006 | Se envía solicitud de reserva de un vuelo.Datos de entrada:Id vuelo,Cantidad de personas,Origen,Destino,Fecha de ida  |Se cumplen todos los criterios:Responde un Status code 200 con el monto total de la reserva.Da de alta una nueva reserva.No se cumple:Notifica error/imposibilidad de finalizar la transacción  |El primer requisito se nos dificulto ya que habia un inconeniente en la factory.Inconvenientes al momento de realizar varios when, en la implementacion de test con mocks para el segundo requisito|
+### Requerimiento Nº 3:
 
-## Bonus Sprint 2 ▶️<a name="id6"></a>
+El dueño de la agencia de turismo manifestó la necesidad de conocer los montos brutos totales que ingresan en un determinado día o mes a partir de cada una de las reservas realizadas. Para ello solicita que sus empleados sean capaces de realizar consultas por día o mes y brindarle dicha información.
 
-Siguiendo con el principio de que la agencia posee unos estándares de calidad muy altos, un especialista sugirió la posibilidad de contar también con diferentes tests de integración además de los tests unitarios mencionados anteriormente; sin embargo, el especialista conoce que los tiempos son acotados, por lo que sugiere llevar a cabo esta implementación solo en caso de que alcancen los tiempos y se pueda cumplir con la fecha de entrega estimada.
 
-Dificultad: En lo DTO de Hotel y FLights no teniamos la anotación @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING). Que tuvimos que agregarla.
+Iconos indicadores :
+
+:heavy_check_mark:Tarea cumplida.
+
+
+
+####  User Story:
+
+COMO empleado de la agencia de turismo QUIERO poder obtener la sumatoria de los montos totales por día a partir de las reservas PARA informar los ingresos de un determinado día al dueño de la agencia.
+
+
+VALIDACIONES NECESARIAS
+
+Corroborar que la fecha ingresada (para la consulta por determinado día) cumpla con el formato dd/mm/yyyy
+
+Corroborar que el mes ingresado sea un número del 1 al 12 (siendo enero=1, febrero=2, etc). Recordar que será necesario también indicar el año del mes que se requiere conocer los ingresos.
+
+
+Especificaciones Técnicas necesarias: 
+
+
+| HTTP   |     Plantilla URI   | Descripción | Dificultad |
+|--------------|:-----------------:|-----------------:|-----------:|
+| GET | /api/v1/income?date=dd/mm/yyyy | Total de ingresos brutos para un día en particular  a partir de reservas | -----------  |  
+| GET| /api/v1/income?month=1&year=2021 | Total de ingresos brutos para un mes y año en particular  a partir de reservas | -----------  |  
+
+
+
+
+
