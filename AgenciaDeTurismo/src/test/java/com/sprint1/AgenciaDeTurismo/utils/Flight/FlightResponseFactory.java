@@ -1,16 +1,13 @@
 package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
-import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Data.StatusCodeDTOFactory;
 
 public class FlightResponseFactory {
 
-    public static FlightResponse flightDTOResponseDebitBAPI(){
-        return FlightResponse.builder()
+    public static FlightResponseDTO flightDTOResponseDebitBAPI(){
+        return FlightResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .totalNeto(13000)
                 .totalIntereses(0)
@@ -19,8 +16,8 @@ public class FlightResponseFactory {
                 .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
-    public static FlightResponse flightDTOResponseCreditThreeBAPI(){
-        return FlightResponse.builder()
+    public static FlightResponseDTO flightDTOResponseCreditThreeBAPI(){
+        return FlightResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleThree().getMail())
                 .totalNeto(13000)
                 .totalIntereses(650)
@@ -30,8 +27,8 @@ public class FlightResponseFactory {
                 .build();
     }
 
-    public static FlightResponse flightDTOResponseCreditSixPIBA(){
-        return FlightResponse.builder()
+    public static FlightResponseDTO flightDTOResponseCreditSixPIBA(){
+        return FlightResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleThree().getMail())
                 .totalNeto(43200)
                 .totalIntereses(4320)
@@ -40,8 +37,8 @@ public class FlightResponseFactory {
                 .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
-    public static FlightResponse flightDTOResponseCreditTwelvePIBA(){
-        return FlightResponse.builder()
+    public static FlightResponseDTO flightDTOResponseCreditTwelvePIBA(){
+        return FlightResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleThree().getMail())
                 .totalNeto(86400)
                 .totalIntereses(12960)

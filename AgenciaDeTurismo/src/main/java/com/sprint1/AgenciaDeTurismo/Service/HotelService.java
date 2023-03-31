@@ -1,16 +1,15 @@
-package com.sprint1.AgenciaDeTurismo.Service;
+/* package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
-import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
-import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
-import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
+import com.sprint1.AgenciaDeTurismo.Entity.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +63,7 @@ public class HotelService implements IHotelService {
         BookingResponse response = new BookingResponse();
         BookingResponseDto bookingResponse = new BookingResponseDto();
 
-        HotelModel bookHotel = hotelRepository.findHotelWhitCode(bookingRequestDto.getBooking().getHotelCode());
+        Hotel bookHotel = hotelRepository.findHotelWhitCode(bookingRequestDto.getBooking().getHotelCode());
         if (bookHotel == null) {
             throw new NotFoundException("No se encuentra hotel con ese código");
         }
@@ -126,12 +125,33 @@ public class HotelService implements IHotelService {
         response.setTotalIntereses(totalIntereses);
         response.setTotalFinal(totalFinal);
         response.setBooking(bookingResponse);
-        response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
+        //response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
 
         return response;
     }
 
 
+    @Override
+    public HotelDTO saveEntity(HotelDTO objectDTO) {
+        return null;
+    }
 
-}
+    @Override
+    public List<HotelDTO> getAllEntities() {
+        return null;
+    }
+
+    @Override
+    public HotelDTO getEntityByCode(String code) {
+        return null;
+    }
+
+    @Override
+    public ErrorDTO deleteEntity(String code) {
+        return null;
+    }
+
+ */
+
+
 

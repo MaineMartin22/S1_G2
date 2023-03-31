@@ -25,7 +25,7 @@ public class FlightReservationDTO {
     private String flightNumber;
 
     @NotNull(message ="El destino no puede estar vacío")
-    private String destination;
+    private String destiny;
     private Integer seats;
     private String seatType;
     private List<PeopleDto> people;

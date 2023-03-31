@@ -1,18 +1,13 @@
 package com.sprint1.AgenciaDeTurismo.unit.repository;
 
-import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
-import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
-import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
-import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
+import com.sprint1.AgenciaDeTurismo.Entity.Hotel;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +54,7 @@ public class HotelRepositoryTest {
     @Test
     public void findHotelWhitCodeTest(){
         // arrange
-        HotelModel expected = HotelFactory.getBristol();
+        Hotel expected = HotelFactory.getBristol();
 
         String code = "HB-0001";
 

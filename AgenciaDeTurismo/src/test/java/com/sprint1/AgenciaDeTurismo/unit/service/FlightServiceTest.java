@@ -3,12 +3,11 @@ package com.sprint1.AgenciaDeTurismo.unit.service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
-import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
-import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
+import com.sprint1.AgenciaDeTurismo.Entity.Flight;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.*;
 import org.junit.jupiter.api.Assertions;
@@ -173,8 +172,8 @@ class FlightServiceTest {
         String origin= "Buenos Aires";
         String destination = "Puerto Iguazú";
         String code = FlightFactory.getBsAsPuertoIguazu().getNumberFlight();
-        FlightModel returnCodigoVuelo = FlightFactory.getBsAsPuertoIguazu();
-        FlightResponse expected = FlightResponseFactory.flightDTOResponseDebitBAPI(); // FlightDTOResponseFactory
+        Flight returnCodigoVuelo = FlightFactory.getBsAsPuertoIguazu();
+        FlightResponseDTO expected = FlightResponseFactory.flightDTOResponseDebitBAPI(); // FlightDTOResponseFactory
         FlightRequestDto param = FlightRequestDTOFactory.getReservationDebitBAPI(); // FlightReservationDTOFactory
         // Act
         Mockito.when(flightRepository.dataFlights()).thenReturn(listaVuelos);
@@ -213,7 +212,7 @@ class FlightServiceTest {
         FlightRequestDto request = FlightRequestDTOFactory.getReservationDebitBAPI();
 
         String code = request.getFlightReservation().getFlightNumber();
-        FlightModel expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
+        Flight expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
         request.getFlightReservation().getPaymentMethod().setType("Cash"); //Seteamos el metodo de pago incorrecto.
 
         LocalDate dateFrom = request.getFlightReservation().getDateFrom();
@@ -242,7 +241,7 @@ class FlightServiceTest {
         FlightRequestDto request = FlightRequestDTOFactory.getReservationDebitBAPI();
 
         String code = request.getFlightReservation().getFlightNumber();
-        FlightModel expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
+        Flight expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
 
         LocalDate dateFrom = request.getFlightReservation().getDateFrom();
         LocalDate dateTo = request.getFlightReservation().getDateTo();
@@ -270,7 +269,7 @@ class FlightServiceTest {
         FlightRequestDto request = FlightRequestDTOFactory.getReservationDebitBAPI();
 
         String code = request.getFlightReservation().getFlightNumber();
-        FlightModel expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
+        Flight expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
 
         LocalDate dateFrom = request.getFlightReservation().getDateFrom();
         LocalDate dateTo = request.getFlightReservation().getDateTo();
@@ -312,8 +311,8 @@ class FlightServiceTest {
         String origin= "Buenos Aires";
         String destination = "Puerto Iguazú";
         String code = FlightFactory.getBsAsPuertoIguazu().getNumberFlight();
-        FlightModel returnCodigoVuelo = FlightFactory.getBsAsPuertoIguazu();
-        FlightResponse expected = FlightResponseFactory.flightDTOResponseCreditThreeBAPI(); // FlightDTOResponseFactory
+        Flight returnCodigoVuelo = FlightFactory.getBsAsPuertoIguazu();
+        FlightResponseDTO expected = FlightResponseFactory.flightDTOResponseCreditThreeBAPI(); // FlightDTOResponseFactory
         FlightRequestDto param = FlightRequestDTOFactory.getReservationCreditThreeBAPI(); // FlightReservationDTOFactory
         // Act
         Mockito.when(flightRepository.dataFlights()).thenReturn(listaVuelos);
@@ -336,8 +335,8 @@ class FlightServiceTest {
         String origin= "Puerto Iguazú";
         String destination = "Bogotá";
         String code = FlightFactory.getPuertoIguazuBogota().getNumberFlight();
-        FlightModel returnCodigoVuelo = FlightFactory.getPuertoIguazuBogota();
-        FlightResponse expected = FlightResponseFactory.flightDTOResponseCreditSixPIBA(); // FlightDTOResponseFactory
+        Flight returnCodigoVuelo = FlightFactory.getPuertoIguazuBogota();
+        FlightResponseDTO expected = FlightResponseFactory.flightDTOResponseCreditSixPIBA(); // FlightDTOResponseFactory
         FlightRequestDto param = FlightRequestDTOFactory.getReservationCreditSixPIBA(); // FlightReservationDTOFactory
         // Act
         Mockito.when(flightRepository.dataFlights()).thenReturn(listaVuelos);
@@ -360,8 +359,8 @@ class FlightServiceTest {
         String origin= "Puerto Iguazú";
         String destination = "Bogotá";
         String code = FlightFactory.getPuertoIguazuBogota().getNumberFlight();
-        FlightModel returnCodigoVuelo = FlightFactory.getPuertoIguazuBogota();
-        FlightResponse expected = FlightResponseFactory.flightDTOResponseCreditTwelvePIBA(); // FlightDTOResponseFactory
+        Flight returnCodigoVuelo = FlightFactory.getPuertoIguazuBogota();
+        FlightResponseDTO expected = FlightResponseFactory.flightDTOResponseCreditTwelvePIBA(); // FlightDTOResponseFactory
         FlightRequestDto param = FlightRequestDTOFactory.getReservationCreditTwelvePIBA(); // FlightReservationDTOFactory
         // Act
         Mockito.when(flightRepository.dataFlights()).thenReturn(listaVuelos);
@@ -383,7 +382,7 @@ class FlightServiceTest {
      FlightRequestDto request = FlightRequestDTOFactory.getReservationDebitBAPI();
 
      String code = request.getFlightReservation().getFlightNumber();
-     FlightModel expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
+     Flight expectedFindFlight = FlightFactory.getBsAsPuertoIguazu();
 
      LocalDate dateFrom = request.getFlightReservation().getDateFrom();
      LocalDate dateTo = request.getFlightReservation().getDateTo();

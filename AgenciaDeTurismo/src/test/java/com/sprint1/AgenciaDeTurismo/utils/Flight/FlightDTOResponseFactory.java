@@ -1,11 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
-import com.sprint1.AgenciaDeTurismo.utils.Data.PaymentMethodDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 
 import java.time.LocalDate;

@@ -12,13 +12,16 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class FlightDto {
+
+     private Integer id;
      private String numberFlight;
      private String origin;
      private String destiny;
      private String seatType;
      private double priceForPerson;
-     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+     @JsonFormat(pattern = "yyyy-MM-dd")
      private LocalDate dateFrom;
-     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+     @JsonFormat(pattern = "yyyy-MM-dd")
      private LocalDate dateTo;
+
 }

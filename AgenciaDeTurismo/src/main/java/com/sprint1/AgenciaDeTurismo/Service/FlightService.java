@@ -1,121 +1,124 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
-import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
+import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlight;
+import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlightDetails;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
-import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
-import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
+import com.sprint1.AgenciaDeTurismo.Entity.Flight;
+
+import com.sprint1.AgenciaDeTurismo.Repository.IFlightRepository;
+import com.sprint1.AgenciaDeTurismo.Repository.IReservationFlight;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService implements IFlightService {
     @Autowired
-    FlightRepository flightRepository;
-    // US 0004
+    IFlightRepository flightRepository;
 
-    public List<FlightDto> getFlight() {
-        return flightRepository.dataFlights();
+    @Autowired
+    IReservationFlight reservationFlight;
+
+    ModelMapper mapper = new ModelMapper();
+
+    public List<FlightDto> findFlightAvailable(LocalDate dateFrom, LocalDate dateTo, String origin, String destiny) {
+
+        var list = flightRepository.findFlightByDateFromAndDateToAndOriginAndDestiny(dateFrom, dateTo, origin, destiny);
+
+        if (list.isEmpty())
+            throw new NotFoundException("NO se encontró vuelos con esos datos");
+
+        return list.stream().map(
+                flight -> mapper.map(flight, FlightDto.class)
+        ).collect(Collectors.toList());
     }
 
-    // US 0005
-    public List<FlightDto> getFlightAvailability(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
-        // Si no se pasan parametros, devuevle la lista completa
-        if (dateFrom == null && dateTo == null && origin == null && destination == null) {
-            return getFlight();
-        }
+    @Override
+    public FlightDto saveEntity(FlightDto objectDTO) {
+        // mappear de dto a entity para llevar al repo
+        var entity = mapper.map(objectDTO, Flight.class);
 
-        List<FlightDto> vueloDisponible = flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination);
-        if (vueloDisponible.isEmpty()) {
-            throw new NotFoundException("No se encontraron vuelos con esos datos");
-        }
+        // guardar
+        flightRepository.save(entity);
 
-        if (dateFrom == null || dateTo == null || origin == null || destination == null) {
-            throw new BadRequestException("Los parametros de fecha (ida y vuelta), origen y destino no pueden estar vacios");
-        }
+        // mappear de entity a dto para llevar al controller
 
-
-        if (!isSameOriginAndDestination(origin, destination)) {
-            throw new BadRequestException("El origen y/o destino no son válidos");
-        }
-
-        return vueloDisponible;
+        return mapper.map(entity, FlightDto.class);
     }
 
-    private boolean isSameOriginAndDestination(String origin, String destination) {
-        return getFlight().stream().anyMatch(flight -> flight.getDestiny().equalsIgnoreCase(destination) && flight.getOrigin().equalsIgnoreCase(origin));
+    @Override
+    public List<FlightDto> getAllEntities() {
+        // buscar todos los resultados en el repo
+        var list = flightRepository.findAll();
+        // luego convertir de entidad a DTO
+        return list.stream().map(
+                        flight -> mapper.map(flight, FlightDto.class)
+                )
+                .collect(Collectors.toList());
     }
 
-    // US 0006
-    public FlightResponse reservationFlight(FlightRequestDto flightRequestDto) {
-        FlightResponse response = new FlightResponse();
-        FlightDTOResponse flightResponseDto = new FlightDTOResponse();
+    @Override
+    public FlightDto getEntityByCode(String code) {
+        Flight flight = flightRepository.findFlightByNumberFlight(code)
+                .orElseThrow(() -> {
+                    throw new NotFoundException("NO encontre ningún vuelo con ese código");
+                });
+        // mapeo de entidad a dto.
+        return mapper.map(flight, FlightDto.class);
+    }
 
-        if (flightRepository.dataFlights().isEmpty()) {
+    @Override
+    public ErrorDTO deleteEntity(String code) {
+        Flight flight = flightRepository.findFlightByNumberFlight(code)
+                .orElseThrow(() -> {
+                    throw new NotFoundException("NO encontre ningún vuelo con ese código");
+                });
+
+        flightRepository.delete(flight);
+
+        return ErrorDTO.builder()
+                .explanation("ELIMINACIÓN")
+                .messages(List.of("Se elimino el vuelo con código " + code))
+                .build();
+    }
+
+    @Override
+    public FlightResponseDTO reservationFlight(FlightRequestDto flightRequestDto) {
+        ReservationFlight response =new ReservationFlight();
+
+        if (flightRepository.findAll().isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos disponibles");
         }
 
-        FlightModel reservationFlight = flightRepository.findFlight(flightRequestDto.getFlightReservation().getFlightNumber());
+        FlightDto reservation = getEntityByCode(flightRequestDto.getFlightReservation().getFlightNumber());
 
-        if (reservationFlight == null) {
-            throw new NotFoundException("No se encuentro un vuelo con ese código");
+        findFlightAvailable(flightRequestDto.getFlightReservation().getDateFrom(),
+                flightRequestDto.getFlightReservation().getDateTo(),
+                flightRequestDto.getFlightReservation().getOrigin(),
+                flightRequestDto.getFlightReservation().getDestiny());
+
+        if (!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservation.getSeatType())) {
+            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n"
+                    + "El tipo de asiento disponible para este vuelo es: " + reservation.getSeatType() + ".");
         }
 
-        List<FlightDto> reservationTrue = flightRepository.getFlightAvailability(flightRequestDto.getFlightReservation().getDateFrom(), flightRequestDto.getFlightReservation().getDateTo(),
-                flightRequestDto.getFlightReservation().getOrigin(), flightRequestDto.getFlightReservation().getDestination());
-        if (reservationTrue.isEmpty()) {
-            throw new NotFoundException("Las fechas solicitadas no están disponibles");
-        }
+        var flightResponseDto = mapper.map(flightRequestDto.getFlightReservation(), ReservationFlightDetails.class);
+
+        double totalPrice = reservation.getPriceForPerson() * flightRequestDto.getFlightReservation().getSeats();
 
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
 
-        if (!paymentMethod.getType().equalsIgnoreCase("credit") && !paymentMethod.getType().equalsIgnoreCase("debit")) {
-            throw new PaymentRequiredException("No se permite este método de pago " + paymentMethod.getType());
-        }
-
-        String seatTypeDisp = reservationFlight.getSeatType();
-        String seatResponse = "El tipo de asiento disponible para este vuelo es: " + seatTypeDisp + ".";
-        if (!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservationFlight.getSeatType())) {
-            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n" + seatResponse);
-        }
-
-
-        flightResponseDto.setFlightNumber(flightRequestDto.getFlightReservation().getFlightNumber());
-        flightResponseDto.setOrigin(flightRequestDto.getFlightReservation().getOrigin());
-        flightResponseDto.setDestination(flightRequestDto.getFlightReservation().getDestination());
-        flightResponseDto.setSeatType(flightRequestDto.getFlightReservation().getSeatType());
-        flightResponseDto.setDateFrom(flightRequestDto.getFlightReservation().getDateFrom());
-        flightResponseDto.setDateTo(flightRequestDto.getFlightReservation().getDateTo());
-        flightResponseDto.setSeats(flightRequestDto.getFlightReservation().getSeats());
-        flightResponseDto.setPeopleDto(flightRequestDto.getFlightReservation().getPeople());
-
-
-        double totalPrice = (int) (reservationFlight.getPriceForPerson() * flightRequestDto.getFlightReservation().getSeats());
-        double totalIntereses = 0;
-
-
-        if (paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() <= 3){
-            totalIntereses = totalPrice * 0.05;
-        } else if (paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() <= 6) {
-            totalIntereses = totalPrice * 0.10;
-        } else if(paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() <= 12){
-            totalIntereses = totalPrice * 0.15;
-        } else if ((paymentMethod.getType().equalsIgnoreCase("credit") && paymentMethod.getDues() > 12)){
-            throw new PaymentRequiredException("Las cuotas con tarjeta de crédito no pueden ser mayor a 12");
-        }
-
-        if ((paymentMethod.getType().equalsIgnoreCase("debit") && paymentMethod.getDues() != 1)){
-            throw new PaymentRequiredException("Solo se permite el pago en una sola cuota");
-        }
+        var totalIntereses = calculateInterest(paymentMethod, totalPrice);
 
         double totalFinal = totalPrice + totalIntereses;
         response.setUserName(flightRequestDto.getUserName());
@@ -123,8 +126,32 @@ public class FlightService implements IFlightService {
         response.setTotalIntereses(totalIntereses);
         response.setTotalFinal(totalFinal);
         response.setFlightReservation(flightResponseDto);
-        response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
 
-        return response;
+        reservationFlight.save(response);
+
+        return  mapper.map(response, FlightResponseDTO.class);
+    }
+
+    private static double calculateInterest(PaymentMethodDto paymentData, double totalPrice){
+        if (paymentData.getType().equalsIgnoreCase("credit")) {
+            if (paymentData.getDues() > 12) {
+                throw new PaymentRequiredException("Las cuotas con tarjeta de crédito no pueden ser mayor a 12");
+            } else if (paymentData.getDues() <= 3) {
+                return totalPrice * 0.05;
+            } else if (paymentData.getDues() <= 6) {
+                return totalPrice * 0.10;
+            } else {
+                return totalPrice * 0.15;
+            }
+        } else if (paymentData.getType().equalsIgnoreCase("debit")) {
+            if (paymentData.getDues() != 1) {
+                throw new PaymentRequiredException("Solo se permite el pago en una sola cuota");
+            } else {
+                return 0.0;
+            }
+        } else {
+            throw new PaymentRequiredException("Tipo de pago no válido");
+        }
     }
 }
+

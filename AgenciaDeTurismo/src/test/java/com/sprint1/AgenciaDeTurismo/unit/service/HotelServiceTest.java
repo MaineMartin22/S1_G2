@@ -8,8 +8,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
-import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
-import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
+import com.sprint1.AgenciaDeTurismo.Entity.Hotel;
 import com.sprint1.AgenciaDeTurismo.Service.HotelService;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.BookingRequestDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.BookingResponseFactory;
@@ -131,7 +130,7 @@ class HotelServiceTest {
         BookingRequestDto entity = BookingRequestDTOFactory.getHotelesNoDisponibles();
         List<HotelDTO> hotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),
                 HotelDTOFactory.getBristolDTO());
-        HotelModel hotelCode = HotelFactory.getBristol();
+        Hotel hotelCode = HotelFactory.getBristol();
 
         //En este caso utilizamos varios Mokitos para lograr obtener el resultado esperado
         Mockito.when(hotelRepository.dataHotels()).thenReturn(hotels);
@@ -193,7 +192,7 @@ class HotelServiceTest {
         String destination = "Puerto Iguazú";
 
         String code = "CH-0002";
-        HotelModel hotelCode = HotelFactory.getCataratasHotel();
+        Hotel hotelCode = HotelFactory.getCataratasHotel();
 
         BookingResponse expected = BookingResponseFactory.getReservationHotelIguazuDebit();
 
@@ -262,7 +261,7 @@ class HotelServiceTest {
         BookingRequestDto request = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
 
         String code = request.getBooking().getHotelCode();
-        HotelModel expectedFindHotel = HotelFactory.getCataratasHotel();
+        Hotel expectedFindHotel = HotelFactory.getCataratasHotel();
         request.getBooking().getPaymentMethod().setType("Cash"); //Seteamos el metodo de pago incorrecto.
 
         LocalDate dateFrom = request.getBooking().getDateFrom();
@@ -310,7 +309,7 @@ class HotelServiceTest {
         String destination = "Puerto Iguazú";
 
         String code = "CH-0002";
-        HotelModel hotelCode = HotelFactory.getCataratasHotel();
+        Hotel hotelCode = HotelFactory.getCataratasHotel();
 
         BookingResponse expected = BookingResponseFactory.getReservationHotelIguazuDebit();
 
@@ -342,7 +341,7 @@ class HotelServiceTest {
         String destination = "Puerto Iguazú";
 
         String code = "CH-0002";
-        HotelModel hotelCode = HotelFactory.getCataratasHotel();
+        Hotel hotelCode = HotelFactory.getCataratasHotel();
 
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDoblegetRefused();
 
@@ -371,7 +370,7 @@ class HotelServiceTest {
         String destination = "Buenos Aires";
 
         String code = HotelDTOFactory.getBristolDTO().getHotelCode();
-        HotelModel hotelCode = HotelFactory.getBristol();
+        Hotel hotelCode = HotelFactory.getBristol();
 
         BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsThreeDues();
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleThreeDues();
@@ -400,7 +399,7 @@ class HotelServiceTest {
         String destination = "Buenos Aires";
 
         String code = HotelDTOFactory.getBristolDTO().getHotelCode();
-        HotelModel hotelCode = HotelFactory.getBristol();
+        Hotel hotelCode = HotelFactory.getBristol();
 
         BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsSixDues();
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleSixeDues();
@@ -429,7 +428,7 @@ class HotelServiceTest {
         String destination = "Buenos Aires";
 
         String code = HotelDTOFactory.getBristolDTO().getHotelCode();
-        HotelModel hotelCode = HotelFactory.getBristol();
+        Hotel hotelCode = HotelFactory.getBristol();
 
         BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsTwelveDues();
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleTwelveDues();

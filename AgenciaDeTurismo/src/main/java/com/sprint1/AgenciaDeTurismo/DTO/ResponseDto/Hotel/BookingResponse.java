@@ -1,6 +1,5 @@
 package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel;
 
-import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import lombok.*;
 
 @AllArgsConstructor
@@ -15,5 +14,4 @@ public class BookingResponse {
 
     private double totalFinal;
     private BookingResponseDto booking;
-    private StatusCodeDto statusCode;
 }

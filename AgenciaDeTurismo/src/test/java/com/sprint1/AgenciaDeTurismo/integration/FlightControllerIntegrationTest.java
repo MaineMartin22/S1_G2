@@ -7,7 +7,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightRequestDTOFactory;
@@ -32,7 +32,7 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AgencyControllerIntegrationTest {
+class FlightControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -226,7 +226,7 @@ class AgencyControllerIntegrationTest {
     @Test
     void flightReservation() throws Exception {
         // arrange
-        FlightResponse expected = FlightResponseFactory.flightDTOResponseDebitBAPI();
+        FlightResponseDTO expected = FlightResponseFactory.flightDTOResponseDebitBAPI();
 
         FlightRequestDto flightRequestDto = FlightRequestDTOFactory.getReservationDebitBAPI();
 

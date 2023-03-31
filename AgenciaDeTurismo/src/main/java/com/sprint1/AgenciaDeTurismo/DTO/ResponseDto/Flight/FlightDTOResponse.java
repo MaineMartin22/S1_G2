@@ -18,10 +18,10 @@ public class FlightDTOResponse {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate dateTo;
     private String origin;
-    private String destination;
+    private String destiny;
     private String flightNumber;
     private Integer seats;
     private String seatType;
-    private List<PeopleDto> peopleDto;
+    private List<PeopleDto> people;
 
 }
