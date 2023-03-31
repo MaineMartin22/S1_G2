@@ -7,6 +7,8 @@
 3. [Contribuyentes Sprint 3 ✒️](#id3)
 4. [Especificación de Requerimiento Nº 1 Sprint 3 📝](#id4)
 5. [Especificación de Requerimiento Nº 2 Sprint 3 📝](#id5)
+6. [Entregables Sprint 3 📝](#id6)
+
 
 
 
@@ -154,28 +156,7 @@ Agregar valor a la implementación propuesta en los requerimientos anteriores (p
 Plantear y resolver un problema que se corresponda con una situación posible del negocio propuesto (Puede ser un requerimiento totalmente nuevo pero debe de tener relación con los anteriores).
 Considerar la posibilidad de que la propuesta deba ser presentada (o “vendida”) al dueño de la agencia, por lo cual, la sugerencia debe estar bien presentada y poder llamar la atención o “interés” de esta persona para lograr convencer a éste.
 
-Entregables:
 
-Este requerimiento libre contará con dos posibles formas de entrega, la primera de ellas de caracter OBLIGATORIO y la segunda en caracter de BONUS (opcional). Las mismas se citan a continuación:
-
-Opción 1 - Entregable Obligatorio:
-
-Se deberá entregar el proyecto completo (incluido el nuevo requerimiento planteado) mediante Github. Entiéndase por proyecto completo TODOS LOS ARCHIVOS relacionados al mismo.
-Se deberá incorporar un archivo Readme.txt descriptivo incluido en el repositorio de Github.
-Documentación en PDF en formato de User Stories y especificaciones técnicas  funcionales (teniendo en cuenta el template que será otorgado por los facilitadores).
-El nuevo requerimiento deberá contar con al menos 3 nuevos endpoints o en su defecto 3 modificaciones sobre endpoints ya existentes que permitan nuevas funcionalidades.
-Colección de Postman con casos de prueba para cada end-point.
-Al menos 4 tests unitarios implementados en total.
-Como información adicional se puede proporcionar nombre de la bd creada, algún archivo SQL con datos de ejemplo o toda información de respaldo que pueda facilitar la conexión con la base de datos.
-
-Opción 2 - Entregable Bonus (Opcional):
-
-Todos los entregables mencionados en la Opción 1
-Diagrama de clases (UML) completo del Proyecto.
-Diagrama Entidad-Relación (DER) completo de la base de datos implementada.
-Requerimiento Nº 5 con 4 end-points nuevos o más.
-Cobertura total de testeo superior a un 80%.
-Documentación completa a través de Swagger
 
 
 Especificaciones Técnicas necesarias: 
@@ -197,6 +178,27 @@ Especificaciones Técnicas necesarias:
 | GET| /api/v1/income?month=1&year=2021 | Total de ingresos brutos para un mes y año en particular  a partir de reservas | -----------  |  
 
 
+## Entregables:  Sprint 3 💡<a name="id6"></a>
 
+Este requerimiento libre contará con dos posibles formas de entrega, la primera de ellas de caracter OBLIGATORIO y la segunda en caracter de BONUS (opcional). Las mismas se citan a continuación:
+
+Opción 1 - Entregable Obligatorio:
+
+Se deberá entregar el proyecto completo (incluido el nuevo requerimiento planteado) mediante Github. Entiéndase por proyecto completo TODOS LOS ARCHIVOS relacionados al mismo.
+Se deberá incorporar un archivo Readme.txt descriptivo incluido en el repositorio de Github.
+Documentación en PDF en formato de User Stories y especificaciones técnicas  funcionales (teniendo en cuenta el template que será otorgado por los facilitadores).
+El nuevo requerimiento deberá contar con al menos 3 nuevos endpoints o en su defecto 3 modificaciones sobre endpoints ya existentes que permitan nuevas funcionalidades.
+Colección de Postman con casos de prueba para cada end-point.
+Al menos 4 tests unitarios implementados en total.
+Como información adicional se puede proporcionar nombre de la bd creada, algún archivo SQL con datos de ejemplo o toda información de respaldo que pueda facilitar la conexión con la base de datos.
+
+Opción 2 - Entregable Bonus (Opcional):
+
+Todos los entregables mencionados en la Opción 1
+Diagrama de clases (UML) completo del Proyecto.
+Diagrama Entidad-Relación (DER) completo de la base de datos implementada.
+Requerimiento Nº 5 con 4 end-points nuevos o más.
+Cobertura total de testeo superior a un 80%.
+Documentación completa a través de Swagger
 
 
