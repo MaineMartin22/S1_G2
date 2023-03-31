@@ -7,7 +7,7 @@
 3. [Contribuyentes Sprint 3 ✒️](#id3)
 4. [Especificación de Requerimiento Nº 1 Sprint 3 📝](#id4)
 5. [Especificación de Requerimiento Nº 2 Sprint 3 📝](#id5)
-6. [Especificación de Requerimiento Nº 3 Sprint 3 📝](#id6)
+
 
 
 :bangbang:[**Link de Tablero de trabajo de daily en Trello**](https://trello.com/b/QEQDbLOv/dailybootcamp):bangbang:
@@ -189,33 +189,6 @@ Especificaciones Técnicas necesarias:
 | DELETE | /api/v1/touristicpackage/delete?packageNumber=number | Baja de un paquete | -----------  |  
 
 
-## Especificación de Requerimiento Nº 3 Sprint 3 📝<a name="id6"></a>
-
-
-### Requerimiento Nº 3:
-
-El dueño de la agencia de turismo manifestó la necesidad de conocer los montos brutos totales que ingresan en un determinado día o mes a partir de cada una de las reservas realizadas. Para ello solicita que sus empleados sean capaces de realizar consultas por día o mes y brindarle dicha información.
-
-
-Iconos indicadores :
-
-:heavy_check_mark:Tarea cumplida.
-
-
-
-####  User Story:
-
-COMO empleado de la agencia de turismo QUIERO poder obtener la sumatoria de los montos totales por día a partir de las reservas PARA informar los ingresos de un determinado día al dueño de la agencia.
-
-
-VALIDACIONES NECESARIAS
-
-Corroborar que la fecha ingresada (para la consulta por determinado día) cumpla con el formato dd/mm/yyyy
-
-Corroborar que el mes ingresado sea un número del 1 al 12 (siendo enero=1, febrero=2, etc). Recordar que será necesario también indicar el año del mes que se requiere conocer los ingresos.
-
-
-Especificaciones Técnicas necesarias: 
 
 
 | HTTP   |     Plantilla URI   | Descripción | Dificultad |
