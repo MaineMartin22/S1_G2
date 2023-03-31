@@ -147,36 +147,35 @@ Especificaciones Técnicas necesarias:
 
 ### Requerimiento Nº 2:
 
-La agencia de viajes y turismo desea empezar a implementar el armado de paquetes turísticos; para esto, especificó que cada paquete turístico podrá estar conformado de la siguiente manera:
-Dos reservas de vuelos
-Dos reservas de hotel
-Una reserva de vuelo y una reserva de hotel
-Los paquetes turísticos ofrecen como beneficio al cliente, un descuento del 10% sobre el valor total de la sumatoria de los dos ítems que tenga incorporado. Por ejemplo: Si se tiene una reserva de vuelo por $30.000 y una reserva de hotel por $15.000, la sumatoria total es de $45.000. Si aplicamos el descuento del 10% tendremos $45.000 - $4500, por lo que el precio total del paquete sería de $40.500.
-Cabe destacar que antes de armar el paquete turístico ya deben estar ambas reservas registradas y el descuento se aplica sobre la sumatoria del total de ambas.
+La agencia de turismo está dispuesta a escuchar sugerencias que provengan de los desarrolladores del proyecto para implementar nuevas funcionalidades que se adapten al desarrollo del sistema actual.
+Para ello, se sugiere tener en cuenta los siguientes criterios:
+Ser consistente con la lógica de negocios ya existente (se deberán tomar como base todos los requerimientos ya implementados, siendo la nueva implementación un “incremento” de las anteriores).
+Agregar valor a la implementación propuesta en los requerimientos anteriores (puede ser un agregado a un requerimiento ya existente que proporcione un PLUS).
+Plantear y resolver un problema que se corresponda con una situación posible del negocio propuesto (Puede ser un requerimiento totalmente nuevo pero debe de tener relación con los anteriores).
+Considerar la posibilidad de que la propuesta deba ser presentada (o “vendida”) al dueño de la agencia, por lo cual, la sugerencia debe estar bien presentada y poder llamar la atención o “interés” de esta persona para lograr convencer a éste.
 
-Iconos indicadores :
+Entregables:
 
-:heavy_check_mark:Tarea cumplida.
+Este requerimiento libre contará con dos posibles formas de entrega, la primera de ellas de caracter OBLIGATORIO y la segunda en caracter de BONUS (opcional). Las mismas se citan a continuación:
 
+Opción 1 - Entregable Obligatorio:
 
+Se deberá entregar el proyecto completo (incluido el nuevo requerimiento planteado) mediante Github. Entiéndase por proyecto completo TODOS LOS ARCHIVOS relacionados al mismo.
+Se deberá incorporar un archivo Readme.txt descriptivo incluido en el repositorio de Github.
+Documentación en PDF en formato de User Stories y especificaciones técnicas  funcionales (teniendo en cuenta el template que será otorgado por los facilitadores).
+El nuevo requerimiento deberá contar con al menos 3 nuevos endpoints o en su defecto 3 modificaciones sobre endpoints ya existentes que permitan nuevas funcionalidades.
+Colección de Postman con casos de prueba para cada end-point.
+Al menos 4 tests unitarios implementados en total.
+Como información adicional se puede proporcionar nombre de la bd creada, algún archivo SQL con datos de ejemplo o toda información de respaldo que pueda facilitar la conexión con la base de datos.
 
-####  User Story:
+Opción 2 - Entregable Bonus (Opcional):
 
-COMO empleado de la agencia de turismo QUIERO poder manejar paquetes turísticos PARA poder realizar las operaciones CRUD correspondientes.
-
-
-OPERACIONES/ACCIONES TÉCNICAS Y FUNCIONALES  NECESARIAS:
-
-Implementación de una nueva clase PaqueteTuristico
-
-Configuración de operaciones CRUD para Paquetes turísticos
-
-Actualización del modelado
-
-
-VALIDACIONES NECESARIAS:
-
-En todo paquete turístico solo pueden haber dos reservas (ni más, ni menos).
+Todos los entregables mencionados en la Opción 1
+Diagrama de clases (UML) completo del Proyecto.
+Diagrama Entidad-Relación (DER) completo de la base de datos implementada.
+Requerimiento Nº 5 con 4 end-points nuevos o más.
+Cobertura total de testeo superior a un 80%.
+Documentación completa a través de Swagger
 
 
 Especificaciones Técnicas necesarias: 
