@@ -7,6 +7,7 @@ import lombok.*;
 @Data
 @Builder
 public class BookingResponse {
+    private Integer id;
     private String userName;
     private double totalNeto;
 

@@ -1,20 +1,23 @@
 package com.sprint1.AgenciaDeTurismo.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 
 @Entity
-public class Booking {
+@Table(name = "booking_hotel_detalle")
+public class BookingHotelDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,9 +35,7 @@ public class Booking {
     private Integer peopleAmount;
     @Column(name = "tipo_habitacion")
     private String roomType;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<People> people;
-    @OneToOne
-    private PaymentMethod paymentMethod;
 
 }

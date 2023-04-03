@@ -3,12 +3,12 @@ package com.sprint1.AgenciaDeTurismo.Service;
 import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
+import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlight;
 import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlightDetails;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
-import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Entity.Flight;
 
 import com.sprint1.AgenciaDeTurismo.Repository.IFlightRepository;
@@ -67,6 +67,7 @@ public class FlightService implements IFlightService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public FlightDto getEntityByCode(String code) {
         Flight flight = flightRepository.findFlightByNumberFlight(code)
@@ -89,6 +90,20 @@ public class FlightService implements IFlightService {
         return ErrorDTO.builder()
                 .explanation("ELIMINACIÓN")
                 .messages(List.of("Se elimino el vuelo con código " + code))
+                .build();
+    }
+    @Override
+    public ErrorDTO deleteEntity(Integer id) {
+        ReservationFlight reservation = reservationFlight.findById(id)
+                .orElseThrow(() -> {
+                    throw new NotFoundException("NO encontre ninguna reserva con ese id");
+                });
+
+        reservationFlight.delete(reservation);
+
+        return ErrorDTO.builder()
+                .explanation("ELIMINACIÓN")
+                .messages(List.of("Se elimino la reserva con id " + reservation))
                 .build();
     }
 
@@ -118,7 +133,7 @@ public class FlightService implements IFlightService {
 
         PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
 
-        var totalIntereses = calculateInterest(paymentMethod, totalPrice);
+        var totalIntereses = CalcularInteres.calculateInterest(paymentMethod, totalPrice);
 
         double totalFinal = totalPrice + totalIntereses;
         response.setUserName(flightRequestDto.getUserName());
@@ -132,26 +147,6 @@ public class FlightService implements IFlightService {
         return  mapper.map(response, FlightResponseDTO.class);
     }
 
-    private static double calculateInterest(PaymentMethodDto paymentData, double totalPrice){
-        if (paymentData.getType().equalsIgnoreCase("credit")) {
-            if (paymentData.getDues() > 12) {
-                throw new PaymentRequiredException("Las cuotas con tarjeta de crédito no pueden ser mayor a 12");
-            } else if (paymentData.getDues() <= 3) {
-                return totalPrice * 0.05;
-            } else if (paymentData.getDues() <= 6) {
-                return totalPrice * 0.10;
-            } else {
-                return totalPrice * 0.15;
-            }
-        } else if (paymentData.getType().equalsIgnoreCase("debit")) {
-            if (paymentData.getDues() != 1) {
-                throw new PaymentRequiredException("Solo se permite el pago en una sola cuota");
-            } else {
-                return 0.0;
-            }
-        } else {
-            throw new PaymentRequiredException("Tipo de pago no válido");
-        }
-    }
+
 }
 

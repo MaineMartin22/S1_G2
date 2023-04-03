@@ -55,6 +55,11 @@ public class FlightController {
         return flightService.deleteEntity(code);
     }
 
+    @DeleteMapping("/api/v1/flight-reservation/delete")
+    // /api/v1/flights/delete?flightNumber=number
+    public ErrorDTO deleteReservationByID(@RequestParam Integer id){
+        return flightService.deleteEntity(id);
+    }
 
 }
 
