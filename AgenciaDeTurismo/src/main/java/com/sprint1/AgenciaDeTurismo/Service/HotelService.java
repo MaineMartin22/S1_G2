@@ -4,8 +4,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Entity.*;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
@@ -52,13 +51,26 @@ public class HotelService implements IHotelService {
                 )
                 .collect(Collectors.toList());
     }
+
     @Override
-    public List<BookingResponse> getAllEntitiesResponse() {
+    public HotelDTO updateEntity(HotelDTO objectDTO, String code) {
+        var hotel = getEntityByCode(code);
+        if(hotel.getId() == objectDTO.getId()){
+
+            var entity = mapper.map(objectDTO, Hotel.class);
+            hotelRepository.save(entity);
+            return mapper.map(entity, HotelDTO.class);
+        } else throw new NotFoundException("No encontre hotel con ese código");
+
+    }
+
+    @Override
+    public List<BookingResponseDTO> getAllEntitiesResponse() {
         // buscar todos los resultados en el repo
         var list = bookingHotel.findAll();
         // luego convertir de entidad a DTO
         return list.stream().map(
-                        booking -> mapper.map(booking, BookingResponse.class)
+                        booking -> mapper.map(booking, BookingResponseDTO.class)
                 )
                 .collect(Collectors.toList());
     }
@@ -88,7 +100,7 @@ public class HotelService implements IHotelService {
                 .build();
     }
     @Override
-    public ErrorDTO deleteEntity(Integer id) {
+    public ErrorDTO deleteReservaEntity(Integer id) {
         BookingHotel booking = bookingHotel.findById(id)
                 .orElseThrow(() -> {
                     throw new NotFoundException("No se encontró ninguna reserva con ese id");
@@ -120,7 +132,7 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    public BookingResponse reservationHotel(BookingRequestDto bookingRequestDto) {
+    public BookingResponseDTO reservationHotel(BookingRequestDto bookingRequestDto) {
         if (getAllEntities().isEmpty()) {
             throw new NotFoundException("No se encontraron hoteles disponibles");
         }
@@ -161,7 +173,17 @@ public class HotelService implements IHotelService {
         response.setBooking(bookingResponse);
 
         bookingHotel.save(response);
-        return mapper.map(response, BookingResponse.class);
+        return mapper.map(response, BookingResponseDTO.class);
+    }
+
+    @Override
+    public BookingResponseDTO updateReservaEntity(BookingResponseDTO bookingResponseDTO, Integer id) {
+        if (id == bookingResponseDTO.getId()) {
+            var entity = mapper.map(bookingResponseDTO, BookingHotel.class);
+            bookingHotel.save(entity);
+            return mapper.map(entity, BookingResponseDTO.class);
+        } else
+            throw new NotFoundException("No existe reserva con ese ID");
     }
 }
 

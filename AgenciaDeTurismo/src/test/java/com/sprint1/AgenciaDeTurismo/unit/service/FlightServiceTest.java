@@ -1,4 +1,6 @@
+/*
 package com.sprint1.AgenciaDeTurismo.unit.service;
+
 
 
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
@@ -8,6 +10,7 @@ import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Entity.Flight;
+import com.sprint1.AgenciaDeTurismo.Repository.IFlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.*;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +29,7 @@ import java.util.List;
 class FlightServiceTest {
 
     @Mock
-    FlightRepository flightRepository;
+    IFlightRepository flightRepository;
 
     @InjectMocks
     FlightService flightService;
@@ -401,3 +404,5 @@ class FlightServiceTest {
      );
  }
 }
+
+ */

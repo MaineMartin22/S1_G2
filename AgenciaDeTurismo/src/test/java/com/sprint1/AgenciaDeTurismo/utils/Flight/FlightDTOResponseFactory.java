@@ -1,6 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponseDetails;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 
 import java.time.LocalDate;
@@ -8,8 +8,8 @@ import java.util.List;
 
 public class FlightDTOResponseFactory {
 
-    public static FlightDTOResponse flightDTOResponseDebitBAPI() {
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseDebitBAPI() {
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
@@ -27,8 +27,8 @@ public class FlightDTOResponseFactory {
     }
 
 
-    public static FlightDTOResponse flightDTOResponseCreditThreeBAPI() {
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseCreditThreeBAPI() {
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
@@ -45,8 +45,8 @@ public class FlightDTOResponseFactory {
                 .build();
     }
 
-    public static FlightDTOResponse flightDTOResponseCreditSixPIBA(){
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseCreditSixPIBA(){
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
@@ -61,8 +61,8 @@ public class FlightDTOResponseFactory {
                 )
                 .build();
     }
-    public static FlightDTOResponse  flightDTOResponseCreditTwelvePIBA(){
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseCreditTwelvePIBA(){
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")

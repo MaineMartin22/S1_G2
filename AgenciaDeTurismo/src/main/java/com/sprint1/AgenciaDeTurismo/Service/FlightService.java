@@ -3,7 +3,6 @@ package com.sprint1.AgenciaDeTurismo.Service;
 import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlight;
@@ -32,6 +31,9 @@ public class FlightService implements IFlightService {
     ModelMapper mapper = new ModelMapper();
 
     public List<FlightDto> findFlightAvailable(LocalDate dateFrom, LocalDate dateTo, String origin, String destiny) {
+        if (dateFrom == null && dateTo == null && destiny == null && origin == null) {
+            return getAllEntities();
+        }
 
         var list = flightRepository.findFlightByDateFromAndDateToAndOriginAndDestiny(dateFrom, dateTo, origin, destiny);
 
@@ -67,6 +69,27 @@ public class FlightService implements IFlightService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public FlightDto updateEntity(FlightDto flightDto, String code) {
+        var flight = getEntityByCode(code);
+        if (flight.getId().equals(flightDto.getId())) {
+            var entity = mapper.map(flightDto, Flight.class);
+            flightRepository.save(entity);
+            return mapper.map(entity, FlightDto.class);
+        } else
+            throw new NotFoundException("No existe vuelo con ese ID");
+    }
+
+    @Override
+    public FlightResponseDTO updateReservaEntity(FlightResponseDTO flightResponseDTO, Integer id) {
+        if (id.equals(flightResponseDTO.getId())) {
+            var entity = mapper.map(flightResponseDTO, ReservationFlight.class);
+            reservationFlight.save(entity);
+            return mapper.map(entity, FlightResponseDTO.class);
+        } else
+            throw new NotFoundException("No existe reserva con ese ID");
+    }
+
 
     @Override
     public FlightDto getEntityByCode(String code) {
@@ -92,8 +115,10 @@ public class FlightService implements IFlightService {
                 .messages(List.of("Se elimino el vuelo con código " + code))
                 .build();
     }
+
+    // se elimina una reserva por id.
     @Override
-    public ErrorDTO deleteEntity(Integer id) {
+    public ErrorDTO deleteReservaEntity(Integer id) {
         ReservationFlight reservation = reservationFlight.findById(id)
                 .orElseThrow(() -> {
                     throw new NotFoundException("NO encontre ninguna reserva con ese id");
@@ -108,8 +133,19 @@ public class FlightService implements IFlightService {
     }
 
     @Override
+    public List<FlightResponseDTO> getAllEntitiesResponse() {
+        // buscar todos los resultados en el repo
+        var list = reservationFlight.findAll();
+        // luego convertir de entidad a DTO
+        return list.stream().map(
+                        flight -> mapper.map(flight, FlightResponseDTO.class)
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public FlightResponseDTO reservationFlight(FlightRequestDto flightRequestDto) {
-        ReservationFlight response =new ReservationFlight();
+        ReservationFlight response = new ReservationFlight();
 
         if (flightRepository.findAll().isEmpty()) {
             throw new NotFoundException("No se encontraron vuelos disponibles");
@@ -144,7 +180,7 @@ public class FlightService implements IFlightService {
 
         reservationFlight.save(response);
 
-        return  mapper.map(response, FlightResponseDTO.class);
+        return mapper.map(response, FlightResponseDTO.class);
     }
 
 

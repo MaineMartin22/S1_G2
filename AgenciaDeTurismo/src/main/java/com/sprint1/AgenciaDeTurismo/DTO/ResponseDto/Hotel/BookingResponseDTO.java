@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 @Builder
-public class BookingResponse {
+public class BookingResponseDTO {
     private Integer id;
     private String userName;
     private double totalNeto;
@@ -14,5 +14,5 @@ public class BookingResponse {
     private double totalIntereses;
 
     private double totalFinal;
-    private BookingResponseDto booking;
+    private BookingResponseDetailsDTO booking;
 }

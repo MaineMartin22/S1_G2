@@ -4,7 +4,7 @@ package com.sprint1.AgenciaDeTurismo.unit.service;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
@@ -194,7 +194,7 @@ class HotelServiceTest {
         String code = "CH-0002";
         Hotel hotelCode = HotelFactory.getCataratasHotel();
 
-        BookingResponse expected = BookingResponseFactory.getReservationHotelIguazuDebit();
+        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelIguazuDebit();
 
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
 
@@ -311,7 +311,7 @@ class HotelServiceTest {
         String code = "CH-0002";
         Hotel hotelCode = HotelFactory.getCataratasHotel();
 
-        BookingResponse expected = BookingResponseFactory.getReservationHotelIguazuDebit();
+        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelIguazuDebit();
 
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
         bookingRequestDto.getBooking().getPaymentMethod().setDues(2);
@@ -372,7 +372,7 @@ class HotelServiceTest {
         String code = HotelDTOFactory.getBristolDTO().getHotelCode();
         Hotel hotelCode = HotelFactory.getBristol();
 
-        BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsThreeDues();
+        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelBsAsThreeDues();
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleThreeDues();
 
         // act
@@ -401,7 +401,7 @@ class HotelServiceTest {
         String code = HotelDTOFactory.getBristolDTO().getHotelCode();
         Hotel hotelCode = HotelFactory.getBristol();
 
-        BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsSixDues();
+        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelBsAsSixDues();
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleSixeDues();
 
         // act
@@ -430,7 +430,7 @@ class HotelServiceTest {
         String code = HotelDTOFactory.getBristolDTO().getHotelCode();
         Hotel hotelCode = HotelFactory.getBristol();
 
-        BookingResponse expected = BookingResponseFactory.getReservationHotelBsAsTwelveDues();
+        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelBsAsTwelveDues();
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoBuenosAiresSingleTwelveDues();
 
         // act

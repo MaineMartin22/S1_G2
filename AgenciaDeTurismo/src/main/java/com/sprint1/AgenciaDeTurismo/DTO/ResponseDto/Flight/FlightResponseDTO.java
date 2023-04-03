@@ -15,6 +15,6 @@ public class FlightResponseDTO {
     private double totalIntereses;
 
     private double totalFinal;
-    private FlightDTOResponse flightReservation;
+    private FlightDTOResponseDetails flightReservation;
 
 }

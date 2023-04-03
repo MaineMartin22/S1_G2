@@ -21,7 +21,7 @@ public class FlightController {
     @Autowired
     FlightService flightService;
 
-    // US 0004 & 0005
+    //Lista de todos los vuelos y vuelos según filtros.
     @GetMapping("/api/v1/flights")
     // /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=Buenos Aires&destination=Puerto Iguazú
     public List<FlightDto> flightAvailability(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
@@ -31,35 +31,52 @@ public class FlightController {
         return flightService.findFlightAvailable(dateFrom, dateTo, origin, destiny);
     }
 
-    // US 0006
-
+    // Alta de un nuevo vuelo.
     @PostMapping("/api/v1/flights/new")
     public FlightDto saveEntity(@RequestBody FlightDto flightDto) {
         return flightService.saveEntity(flightDto);
     }
 
-
+    // Reserva de un vuelo.
     @PostMapping("/api/v1/flight-reservation")
     public FlightResponseDTO flightReservation(@RequestBody @Valid FlightRequestDto flightRequestDto) {
         return flightService.reservationFlight(flightRequestDto);
     }
 
+    // Busca vuelo por el código.
     @GetMapping("/api/v1/flights/findOneWhit")
     public FlightDto findFlightByCode(@RequestParam String code) {
         return flightService.getEntityByCode(code);
     }
 
+    // Elimina un vuelo.
     @DeleteMapping("/api/v1/flights/delete")
-    // /api/v1/flights/delete?flightNumber=number
     public ErrorDTO deleteByCode(@RequestParam String code){
         return flightService.deleteEntity(code);
     }
 
+    // Elimina una reserva de vuelo.
     @DeleteMapping("/api/v1/flight-reservation/delete")
-    // /api/v1/flights/delete?flightNumber=number
     public ErrorDTO deleteReservationByID(@RequestParam Integer id){
-        return flightService.deleteEntity(id);
+        return flightService.deleteReservaEntity(id);
     }
 
+    //Devuelve la lista de las reservas de vuelos
+    @GetMapping("/api/v1/flight-reservations/")
+    public List<FlightResponseDTO> reservasEnLaDB() {
+        return flightService.getAllEntitiesResponse();
+    }
+
+    // Actualiza un vuelo.
+    @PutMapping("/api/v1/flights/edit")
+    public FlightDto updateFlight(@RequestParam String code,@RequestBody FlightDto flightDto) {
+        return flightService.updateEntity(flightDto, code);
+    }
+
+    // Actualiza una reserva de vuelo.
+    @PutMapping("/api/v1/flight-reservation/edit")
+    public FlightResponseDTO updateReservaFlight(@RequestParam Integer id,@RequestBody FlightResponseDTO flightResponseDTO) {
+        return flightService.updateReservaEntity(flightResponseDTO, id);
+    }
 }
 

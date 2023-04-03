@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel;
+package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
@@ -11,14 +11,16 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class BookingResponseDto {
+public class FlightDTOResponseDetails {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate dateFrom;
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate dateTo;
-    private String destination;
-    private String hotelCode;
-    private Integer peopleAmount;
-    private String roomType;
+    private String origin;
+    private String destiny;
+    private String flightNumber;
+    private Integer seats;
+    private String seatType;
     private List<PeopleDto> people;
+
 }

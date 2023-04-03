@@ -1,6 +1,5 @@
 package com.sprint1.AgenciaDeTurismo.Entity;
 
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

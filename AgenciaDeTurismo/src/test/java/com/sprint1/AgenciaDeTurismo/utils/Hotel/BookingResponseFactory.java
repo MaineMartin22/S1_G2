@@ -1,7 +1,7 @@
 
 package com.sprint1.AgenciaDeTurismo.utils.Hotel;
 
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Data.StatusCodeDTOFactory;
@@ -11,8 +11,8 @@ import com.sprint1.AgenciaDeTurismo.utils.Data.StatusCodeDTOFactory;
 public class BookingResponseFactory {
 
 
-public static BookingResponse getReservationHotelIguazuDebit() {
-    return BookingResponse.builder()
+public static BookingResponseDTO getReservationHotelIguazuDebit() {
+    return BookingResponseDTO.builder()
             .userName(PeopleDTOFactory.getPeopleOne().getMail())
             .totalNeto(239400)
             .totalIntereses(0)
@@ -21,8 +21,8 @@ public static BookingResponse getReservationHotelIguazuDebit() {
             .statusCode(StatusCodeDTOFactory.getStatusCode())
             .build();
     }
-    public static BookingResponse getReservationHotelBsAsThreeDues() {
-        return BookingResponse.builder()
+    public static BookingResponseDTO getReservationHotelBsAsThreeDues() {
+        return BookingResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .totalNeto(54350)
                 .totalIntereses(2717.5)
@@ -33,8 +33,8 @@ public static BookingResponse getReservationHotelIguazuDebit() {
     }
 
 
-    public static BookingResponse getReservationHotelBsAsSixDues() {
-        return BookingResponse.builder()
+    public static BookingResponseDTO getReservationHotelBsAsSixDues() {
+        return BookingResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .totalNeto(54350)
                 .totalIntereses(5435)
@@ -43,8 +43,8 @@ public static BookingResponse getReservationHotelIguazuDebit() {
                 .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
-    public static BookingResponse getReservationHotelBsAsTwelveDues() {
-        return BookingResponse.builder()
+    public static BookingResponseDTO getReservationHotelBsAsTwelveDues() {
+        return BookingResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())
                 .totalNeto(54350)
                 .totalIntereses(8152.5)

@@ -8,7 +8,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightRequestDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightResponseFactory;
@@ -115,7 +115,7 @@ class FlightControllerIntegrationTest {
     @Test
     void reservaHotel() throws Exception {
         // arrange
-        BookingResponse expected = BookingResponseFactory.getReservationHotelIguazuDebit();
+        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelIguazuDebit();
 
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
 
