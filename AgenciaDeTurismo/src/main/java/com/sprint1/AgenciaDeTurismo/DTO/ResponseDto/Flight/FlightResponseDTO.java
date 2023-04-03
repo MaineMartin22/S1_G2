@@ -1,13 +1,13 @@
 package com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class FlightResponse {
+public class FlightResponseDTO {
+    private Integer id;
     private String userName;
 
     private double totalNeto;
@@ -15,11 +15,6 @@ public class FlightResponse {
     private double totalIntereses;
 
     private double totalFinal;
-    private FlightDTOResponse flightReservation;
-
-    private StatusCodeDto statusCode;
-
-
-
+    private FlightDTOResponseDetails flightReservation;
 
 }

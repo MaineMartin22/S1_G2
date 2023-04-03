@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class FlightDTOFactory {
     public static FlightDto getBsAsPuertoIguazuDTO(){
         return FlightDto.builder()
+                .id(1)
                 .numberFlight("BAPI-1235")
                 .origin("Buenos Aires")
                 .destiny("Puerto Iguazú")
@@ -18,6 +19,7 @@ public class FlightDTOFactory {
     }
     public static FlightDto getPuertoIguazuBogotaDTO(){
         return FlightDto.builder()
+                .id(2)
                 .numberFlight("PIBA-1420")
                 .origin("Puerto Iguazú")
                 .destiny("Bogotá")

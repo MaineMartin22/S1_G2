@@ -1,16 +1,16 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
-import com.sprint1.AgenciaDeTurismo.DTO.StatusCodeDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
+import com.sprint1.AgenciaDeTurismo.Entity.*;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
-import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
-import com.sprint1.AgenciaDeTurismo.Model.HotelModel;
-import com.sprint1.AgenciaDeTurismo.Repository.HotelRepository;
+import com.sprint1.AgenciaDeTurismo.Repository.IBookingHotel;
+import com.sprint1.AgenciaDeTurismo.Repository.IHotelRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,56 +18,134 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class HotelService implements IHotelService {
     @Autowired
-    HotelRepository hotelRepository;
+    IHotelRepository hotelRepository;
+    @Autowired
+    IBookingHotel bookingHotel;
 
-    // US 0001
+    ModelMapper mapper = new ModelMapper();
 
     @Override
-    public List<HotelDTO> findAll() {
-        return hotelRepository.dataHotels();
+    public HotelDTO saveEntity(HotelDTO objectDTO) {
+        // mappear de dto a entity para llevar al repo
+        var entity = mapper.map(objectDTO, Hotel.class);
+        // guardar
+        hotelRepository.save(entity);
+        // mappear de entity a dto para llevar al controller
+
+        return mapper.map(entity, HotelDTO.class);
     }
 
-    // US 0002
-    public List<HotelDTO> getHotelDisponibles(LocalDate dateFrom, LocalDate dateTo, String destination) {
+    @Override
+    public List<HotelDTO> getAllEntities() {
+        // buscar todos los resultados en el repo
+        var list = hotelRepository.findAll();
+        // luego convertir de entidad a DTO
+        return list.stream().map(
+                        hotel -> mapper.map(hotel, HotelDTO.class)
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public HotelDTO updateEntity(HotelDTO objectDTO, String code) {
+        var hotel = getEntityByCode(code);
+        if(hotel.getId() == objectDTO.getId()){
+
+            var entity = mapper.map(objectDTO, Hotel.class);
+            hotelRepository.save(entity);
+            return mapper.map(entity, HotelDTO.class);
+        } else throw new NotFoundException("No encontre hotel con ese código");
+
+    }
+
+    @Override
+    public List<BookingResponseDTO> getAllEntitiesResponse() {
+        // buscar todos los resultados en el repo
+        var list = bookingHotel.findAll();
+        // luego convertir de entidad a DTO
+        return list.stream().map(
+                        booking -> mapper.map(booking, BookingResponseDTO.class)
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public HotelDTO getEntityByCode(String code) {
+        Hotel hotel = hotelRepository.findHotelByHotelCode(code)
+                .orElseThrow(() -> {
+                    throw new NotFoundException("No se encuentra hotel con ese código");
+                });
+        // mapeo de entidad a dto.
+        return mapper.map(hotel, HotelDTO.class);
+    }
+
+    @Override
+    public ErrorDTO deleteEntity(String code) {
+        Hotel hotel = hotelRepository.findHotelByHotelCode(code)
+                .orElseThrow(() -> {
+                    throw new NotFoundException("No se encuentra hotel con ese código");
+                });
+
+        hotelRepository.delete(hotel);
+
+        return ErrorDTO.builder()
+                .explanation("ELIMINACIÓN")
+                .messages(List.of("Se elimino el hotel con código " + code))
+                .build();
+    }
+    @Override
+    public ErrorDTO deleteReservaEntity(Integer id) {
+        BookingHotel booking = bookingHotel.findById(id)
+                .orElseThrow(() -> {
+                    throw new NotFoundException("No se encontró ninguna reserva con ese id");
+                });
+
+        bookingHotel.delete(booking);
+
+        return ErrorDTO.builder()
+                .explanation("ELIMINACIÓN")
+                .messages(List.of("Se elimino la reserva con id " + id))
+                .build();
+    }
+
+    public List<HotelDTO> findHotelAvailable(LocalDate dateFrom, LocalDate dateTo, String destination) {
         if (dateFrom == null && dateTo == null && destination == null) {
-            return findAll();
+            return getAllEntities();
         }
 
-        List<HotelDTO> hotelDisponible = hotelRepository.getHotelDisponible(dateFrom, dateTo, destination);
-
-        if (hotelDisponible.isEmpty()) {
-            throw new NotFoundException("No se encontraron hoteles con esos datos");
-
-        }
-        if (!isSameDestination(destination)){
-
-            throw new BadRequestException("No se encuentran hoteles con ese destino");
+        if (dateFrom == null || dateTo == null || destination == null) {
+            throw new BadRequestException("Los datos no están completos");
         }
 
-        return hotelDisponible;
+
+        var list = hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(
+                dateFrom.plusDays(1),
+                dateTo.minusDays(1), destination);
+
+
+        if (list.isEmpty())
+            throw new NotFoundException("NO se encontró hoteles con esos datos");
+
+        return list.stream().map(
+                hotel -> mapper.map(hotel, HotelDTO.class)
+        ).collect(Collectors.toList());
     }
-    private boolean isSameDestination(String destination){
-        return findAll().stream().anyMatch(hotel -> hotel.getCity().equalsIgnoreCase(destination));
-    }
 
-    // US 0003
-    public BookingResponse reservationHotel(BookingRequestDto bookingRequestDto) {
-
-        if (hotelRepository.dataHotels().isEmpty()) {
+    @Override
+    public BookingResponseDTO reservationHotel(BookingRequestDto bookingRequestDto) {
+        if (getAllEntities().isEmpty()) {
             throw new NotFoundException("No se encontraron hoteles disponibles");
         }
-        BookingResponse response = new BookingResponse();
-        BookingResponseDto bookingResponse = new BookingResponseDto();
+        BookingHotel response = new BookingHotel();
 
-        HotelModel bookHotel = hotelRepository.findHotelWhitCode(bookingRequestDto.getBooking().getHotelCode());
-        if (bookHotel == null) {
-            throw new NotFoundException("No se encuentra hotel con ese código");
-        }
+        HotelDTO bookHotel = getEntityByCode(bookingRequestDto.getBooking().getHotelCode());
+
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
             throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles son : " + bookHotel.getTypeRoom());
         }
@@ -78,46 +156,22 @@ public class HotelService implements IHotelService {
             throw new BadRequestException("La cantidad de personas excede la capacidad de la habitación");
         }
 
+        List<Hotel> reservationTrue = hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(
+                bookingRequestDto.getBooking().getDateFrom().plusDays(1),
+                bookingRequestDto.getBooking().getDateTo().minusDays(1),
+                bookingRequestDto.getBooking().getDestination());
 
-        List<HotelDTO> reservationTrue = hotelRepository.getHotelDisponible(bookingRequestDto.getBooking().getDateFrom(),
-                bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
         if (reservationTrue.isEmpty()) {
             throw new BadRequestException("Las fechas solicitadas no están disponibles");
         }
 
+        var bookingResponse = mapper.map(bookingRequestDto.getBooking(), BookingHotelDetails.class);
 
-        PaymentMethodDto paymentData = bookingRequestDto.getBooking().getPaymentMethod();
+        PaymentMethodDto paymentMethod = bookingRequestDto.getBooking().getPaymentMethod();
 
-        if (!paymentData.getType().equalsIgnoreCase("credit") && !paymentData.getType().equalsIgnoreCase("debit")) {
-            throw new PaymentRequiredException("El método de pago " + paymentData.getType() + " no está disponible. Solo se permiten tarjetas de crédito o débito" );
-        }
+        double totalPrice = Math.round(ChronoUnit.DAYS.between(bookingRequestDto.getBooking().getDateFrom(), bookingRequestDto.getBooking().getDateTo()))*  bookHotel.getPriceForNight();
 
-        bookingResponse.setDateFrom(bookingRequestDto.getBooking().getDateFrom());
-        bookingResponse.setDateTo(bookingRequestDto.getBooking().getDateTo());
-        bookingResponse.setDestination(bookingRequestDto.getBooking().getDestination());
-        bookingResponse.setHotelCode(bookingRequestDto.getBooking().getHotelCode());
-        bookingResponse.setPeopleAmount(bookingRequestDto.getBooking().getPeopleAmount());
-        bookingResponse.setRoomType(bookingRequestDto.getBooking().getRoomType());
-        bookingResponse.setPeople(bookingRequestDto.getBooking().getPeople());
-
-
-        double totalPrice = Math.toIntExact(ChronoUnit.DAYS.between(bookingRequestDto.getBooking().getDateFrom(), bookingRequestDto.getBooking().getDateTo()) * bookHotel.getPriceForNight());
-        double totalIntereses = 0;
-
-
-        if (paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() <= 3){
-            totalIntereses = totalPrice * 0.05;
-        } else if (paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() <= 6) {
-            totalIntereses = totalPrice * 0.10;
-        } else if(paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() <= 12){
-            totalIntereses = totalPrice * 0.15;
-        } else if ((paymentData.getType().equalsIgnoreCase("credit") && paymentData.getDues() > 12)){
-            throw new PaymentRequiredException("Las cuotas con tarjeta de crédito no pueden ser mayor a 12");
-        }
-
-        if ((paymentData.getType().equalsIgnoreCase("debit") && paymentData.getDues() != 1)){
-            throw new PaymentRequiredException("Solo se permite el pago en una sola cuota");
-        }
+        var totalIntereses = CalcularInteres.calculateInterest(paymentMethod, totalPrice);
 
         double totalFinal = totalPrice + totalIntereses;
 
@@ -126,12 +180,23 @@ public class HotelService implements IHotelService {
         response.setTotalIntereses(totalIntereses);
         response.setTotalFinal(totalFinal);
         response.setBooking(bookingResponse);
-        response.setStatusCode(new StatusCodeDto(200, "Proceso termino satisfactoriamente"));
 
-        return response;
+        bookingHotel.save(response);
+        return mapper.map(response, BookingResponseDTO.class);
     }
 
-
-
+    @Override
+    public BookingResponseDTO updateReservaEntity(BookingResponseDTO bookingResponseDTO, Integer id) {
+        if (id == bookingResponseDTO.getId()) {
+            var entity = mapper.map(bookingResponseDTO, BookingHotel.class);
+            bookingHotel.save(entity);
+            return mapper.map(entity, BookingResponseDTO.class);
+        } else
+            throw new NotFoundException("No existe reserva con ese ID");
+    }
 }
+
+
+
+
 

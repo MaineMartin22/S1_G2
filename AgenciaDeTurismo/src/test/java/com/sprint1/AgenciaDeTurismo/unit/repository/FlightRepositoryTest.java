@@ -3,7 +3,6 @@ package com.sprint1.AgenciaDeTurismo.unit.repository;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
-import com.sprint1.AgenciaDeTurismo.Repository.FlightRepository;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightFactory;
 import org.junit.jupiter.api.Assertions;

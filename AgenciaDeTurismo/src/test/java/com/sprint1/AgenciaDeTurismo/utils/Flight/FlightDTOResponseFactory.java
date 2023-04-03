@@ -1,11 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightReservationDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PeopleDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponse;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponse;
-import com.sprint1.AgenciaDeTurismo.utils.Data.PaymentMethodDTOFactory;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightDTOResponseDetails;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 
 import java.time.LocalDate;
@@ -13,16 +8,16 @@ import java.util.List;
 
 public class FlightDTOResponseFactory {
 
-    public static FlightDTOResponse flightDTOResponseDebitBAPI() {
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseDebitBAPI() {
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleOne(),
                                 PeopleDTOFactory.getPeopleTwo()
@@ -32,16 +27,16 @@ public class FlightDTOResponseFactory {
     }
 
 
-    public static FlightDTOResponse flightDTOResponseCreditThreeBAPI() {
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseCreditThreeBAPI() {
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleThree(),
                                 PeopleDTOFactory.getPeopleFour()
@@ -50,32 +45,32 @@ public class FlightDTOResponseFactory {
                 .build();
     }
 
-    public static FlightDTOResponse flightDTOResponseCreditSixPIBA(){
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseCreditSixPIBA(){
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
                 .flightNumber("PIBA-1420")
-                .destination("Bogotá")
+                .destiny("Bogotá")
                 .seats(1)
                 .seatType("Business")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleFive()
                         )
                 )
                 .build();
     }
-    public static FlightDTOResponse  flightDTOResponseCreditTwelvePIBA(){
-        return FlightDTOResponse.builder()
+    public static FlightDTOResponseDetails flightDTOResponseCreditTwelvePIBA(){
+        return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
                 .flightNumber("PIBA-1420")
-                .destination("Bogotá")
+                .destiny("Bogotá")
                 .seats(2)
                 .seatType("Business")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleThree(),
                                 PeopleDTOFactory.getPeopleFour()

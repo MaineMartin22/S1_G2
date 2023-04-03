@@ -1,13 +1,13 @@
 package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
-import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.Model.FlightModel;
+import com.sprint1.AgenciaDeTurismo.Entity.Flight;
 
 import java.time.LocalDate;
 
 public class FlightFactory {
-    public static FlightModel getBsAsPuertoIguazu(){
-        return FlightModel.builder()
+    public static Flight getBsAsPuertoIguazu(){
+        return Flight.builder()
+                .id(1)
                 .numberFlight("BAPI-1235")
                 .origin("Buenos Aires")
                 .destiny("Puerto Iguazú")
@@ -17,8 +17,9 @@ public class FlightFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .build();
     }
-    public static FlightModel getPuertoIguazuBogota(){
-        return FlightModel.builder()
+    public static Flight getPuertoIguazuBogota(){
+        return Flight.builder()
+                .id(2)
                 .numberFlight("PIBA-1420")
                 .origin("Puerto Iguazú")
                 .destiny("Bogotá")

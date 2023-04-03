@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class HotelDTO {
-
+    private Integer id;
     private String hotelCode;
     private String name;
     private String city;

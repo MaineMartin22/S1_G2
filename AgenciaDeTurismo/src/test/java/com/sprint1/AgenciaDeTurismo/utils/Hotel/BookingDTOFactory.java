@@ -22,8 +22,7 @@ public class BookingDTOFactory {
                 .roomType("Doble")
                 .people(
                         List.of(
-                                PeopleDTOFactory.getPeopleOne(),
-                                PeopleDTOFactory.getPeopleTwo()
+                                PeopleDTOFactory.getPeopleOne()
                         )
                 )
                 .paymentMethod(PaymentMethodDTOFactory.getPaymentCreditRefused())
@@ -39,8 +38,7 @@ public class BookingDTOFactory {
                 .roomType("Doble")
                 .people(
                         List.of(
-                                PeopleDTOFactory.getPeopleOne(),
-                                PeopleDTOFactory.getPeopleTwo()
+                                PeopleDTOFactory.getPeopleOne()
                         )
                 )
                 .paymentMethod(PaymentMethodDTOFactory.getPaymentDebit())

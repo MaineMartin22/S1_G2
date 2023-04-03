@@ -1,6 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils.Hotel;
 
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDto;
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDetailsDTO;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,24 +8,28 @@ import java.util.List;
 
 
 public class BookingResponseDTOFactory {
-    public static BookingResponseDto bookingResponseDtoIguazuDoble(){
-        return BookingResponseDto.builder()
-                .dateFrom(LocalDate.of(2022, 02, 10))
-                .dateTo(LocalDate.of(2022, 03, 20))
+    public static BookingResponseDetailsDTO bookingResponseDtoIguazuDoble(){
+        return BookingResponseDetailsDTO.builder()
+                .dateFrom(LocalDate.of(2022, 02, 12))
+                .dateTo(LocalDate.of(2022, 03, 19))
                 .destination("Puerto Iguazú")
                 .hotelCode("CH-0002")
-                .peopleAmount(2)
-                .roomType("Doble")
+                .peopleAmount(1)
+                .roomType("doble")
                 .people(
                         List.of(
-                                PeopleDTOFactory.getPeopleOne(),
-                                PeopleDTOFactory.getPeopleTwo()
+                                PeopleDTOFactory.getPeopleOne()
                         )
                 )
                 .build();
     }
-    public static BookingResponseDto bookingResponseDtoBuenosAiresSinlge(){
-        return BookingResponseDto.builder()
+
+
+
+
+
+    public static BookingResponseDetailsDTO bookingResponseDtoBuenosAiresSinlge(){
+        return BookingResponseDetailsDTO.builder()
                 .dateFrom(LocalDate.of(2022, 02, 10))
                 .dateTo(LocalDate.of(2022, 02, 20))
                 .destination("Buenos Aires")

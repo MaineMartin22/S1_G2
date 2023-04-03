@@ -13,7 +13,7 @@ public class FlightReservationDTOFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
                 .people(
@@ -31,7 +31,7 @@ public class FlightReservationDTOFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
                 .people(
@@ -49,7 +49,7 @@ public class FlightReservationDTOFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
                 .people(
@@ -68,7 +68,7 @@ public class FlightReservationDTOFactory {
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
                 .flightNumber("PIBA-1420")
-                .destination("Bogotá")
+                .destiny("Bogotá")
                 .seats(1)
                 .seatType("Business")
                 .people(
@@ -85,7 +85,7 @@ public class FlightReservationDTOFactory {
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
                 .flightNumber("PIBA-1420")
-                .destination("Bogotá")
+                .destiny("Bogotá")
                 .seats(2)
                 .seatType("Business")
                 .people(
@@ -103,7 +103,7 @@ public class FlightReservationDTOFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Tucuman")
                 .flightNumber("BAPI-1238")
-                .destination("Purmamarca")
+                .destiny("Purmamarca")
                 .seats(2)
                 .seatType("Economy")
                 .people(
