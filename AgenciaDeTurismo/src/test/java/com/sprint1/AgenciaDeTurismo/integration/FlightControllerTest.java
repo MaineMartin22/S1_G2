@@ -3,9 +3,14 @@ package com.sprint1.AgenciaDeTurismo.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
-import com.sprint1.AgenciaDeTurismo.utils.Hotel.*;
+import com.sprint1.AgenciaDeTurismo.utils.Data.ErrorDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,70 +23,48 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureMockMvc
-class HotelControllerTest {
+class FlightControllerTest {
     @Autowired
     MockMvc mockMvc;
 
     ObjectWriter writer = new ObjectMapper()
             .registerModule(new JavaTimeModule()) // convertir fechas
             .writer();
+    List<FlightDto> flights;
+
+    @BeforeEach
+    void setup() {
+        // Inicializar el estado antes de cada test
+        flights = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(), FlightDTOFactory.getPuertoIguazuBogotaDTO());
+    }
+
+    @AfterEach
+    void teardown() {
+        // Limpiar el estado después de cada test
+        flights = null;
+    }
 
     @Test
-    void findHotelByCode() throws Exception {
-        // arrange
-        HotelDTO expected = HotelDTOFactory.getCataratasHotelDTO();
+    void flightAvailability() throws Exception{
+        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 15);
+        String origin = "Buenos Aires";
+        String destiny = "Puerto Iguazú";
 
         // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
         // aca vamos a declarar la request que vamos a llamar o hacer
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/hotels/findOneWhit")
-                .param("code", expected.getHotelCode());
-
-
-        // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
-        // STATUS
-        ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
-        // BODY
-        ResultMatcher bodyExpected = MockMvcResultMatchers.content().json(
-                writer.writeValueAsString(expected)
-        );
-
-        // CONTENT-TYPE
-        ResultMatcher contentTypeExpected = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
-
-        // act & assert con mockmvc
-
-        mockMvc.perform(request)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(statusExpected)
-                .andExpect(bodyExpected)
-                .andExpect(contentTypeExpected);
-    }
-
-    @Test
-    void bookingResponse() {
-    }
-
-    @Test
-    void deleteByCode() {
-    }
-
-    @Test
-    void deleteBookingByID() {
-    }
-
-    @Test
-    void hotelesDisponibles() throws Exception {
-        // arrange
-        List<HotelDTO> expected = List.of(HotelDTOFactory.getCataratasHotelDTO(), HotelDTOFactory.getBristolDTO()) ;
-
-        // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
-        // aca vamos a declarar la request que vamos a llamar o hacer
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/hotels");
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/flights")
+                .param("dateFrom", dateFrom.toString())
+                .param("dateTo", dateTo.toString())
+                .param("origin", origin)
+                .param("destiny", destiny);
 
 
         // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
@@ -100,19 +83,20 @@ class HotelControllerTest {
 
         mockMvc.perform(request)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(statusExpected)
-                .andExpect(bodyExpected)
-                .andExpect(contentTypeExpected);
+                .andExpectAll(statusExpected,
+                        bodyExpected,
+                        contentTypeExpected);
     }
 
     @Test
-    void reservasEnLaDB() throws Exception {
+    void flightAll() throws Exception{
         // arrange
-        List<BookingResponseDTO>  expected = List.of(BookingResponseFactory.getReservationHotelIguazuDebit());
+        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
+                FlightDTOFactory.getPuertoIguazuBogotaDTO());
 
         // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
         // aca vamos a declarar la request que vamos a llamar o hacer
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/hotel-bookings");
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/flights");
 
 
         // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
@@ -131,13 +115,38 @@ class HotelControllerTest {
 
         mockMvc.perform(request)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(statusExpected)
-                .andExpect(bodyExpected)
-                .andExpect(contentTypeExpected);
+                .andExpectAll(statusExpected,
+                        bodyExpected,
+                        contentTypeExpected);
+    }
+
+
+
+
+    @Test
+    void saveEntity()throws Exception {
     }
 
     @Test
-    void updateHotel() {
+    void flightReservation() throws Exception{
+    }
+
+    @Test
+    void findFlightByCode()throws Exception {
+    }
+
+
+
+    @Test
+    void deleteReservationByID()throws Exception {
+    }
+
+    @Test
+    void reservasEnLaDB()throws Exception {
+    }
+
+    @Test
+    void updateFlight() throws Exception{
     }
 
     @Test

@@ -32,4 +32,17 @@ public class HotelFactory {
                 .build();
 
     }
+    public static Hotel getHotelEntity() {
+        return Hotel.builder().hotelCode("HB-0001")
+                .id(3)
+                .name("Nuevo hotel")
+                .city("Rafaela")
+                .typeRoom("Triple")
+                .priceForNight(5005)
+                .availabilityFrom(LocalDate.of(2022, 02, 10))
+                .availabilityUntil(LocalDate.of(2022, 03, 23))
+                .reserved(false)
+                .build();
+
+    }
 }
