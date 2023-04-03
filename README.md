@@ -137,30 +137,30 @@ Especificaciones Técnicas necesarias:
 | HTTP   |     Plantilla URI   | Descripción | Dificultad |
 |--------------|:-----------------:|-----------------:|-----------:|
 ||ALTAS|
-| POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
-| POST| /api/v1/flights/new | Alta de un nuevo vuelo | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |  
-| POST | /api/v1/hotel-booking/new | Alta de una reserva de hotel | ----------- |  
-| POST | /api/v1/flight-reservation/new | Alta de una reserva de vuelo | -----------  |  
+| :heavy_check_mark: POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
+| :heavy_check_mark: POST| /api/v1/flights/new | Alta de un nuevo vuelo | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |  
+| :heavy_check_mark: POST | /api/v1/hotel-booking/new | Alta de una reserva de hotel | ----------- |  
+| :heavy_check_mark: POST | /api/v1/flight-reservation/new | Alta de una reserva de vuelo | -----------  |  
 ||||
 ||MODIFICACIONES|
-| PUT | /api/v1/flights/edit?flightNumber=number | Modificación de un vuelo | -----------  |  
-| PUT| /api/v1/hotels/edit?hotelCode=code | Modificación de un hotel | -----------  |  
-| PUT | /api/v1/hotel-booking/edit?id=num_id | Modificación de una reserva de hotel | ----------- |  
-| PUT | /api/v1/flight-reservation/edit?id=num_id | Modificación de una reserva de vuelo | -----------  |  
+| :heavy_check_mark: PUT | /api/v1/flights/edit?flightNumber=number | Modificación de un vuelo | -----------  |  
+| :heavy_check_mark: PUT| /api/v1/hotels/edit?hotelCode=code | Modificación de un hotel | -----------  |  
+| :heavy_check_mark: PUT | /api/v1/hotel-booking/edit?id=num_id | Modificación de una reserva de hotel | ----------- |  
+| :heavy_check_mark: PUT | /api/v1/flight-reservation/edit?id=num_id | Modificación de una reserva de vuelo | -----------  |  
 ||||
 ||CONSULTAS/LECTURAS|
-| GET |/api/v1/hotels | Listado de todos los hoteles  |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
-| GET| /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=destination_name | Listado de hoteles según filtros | -----------  |  
-| GET | /api/v1/flights | Listado de todos los vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior. - |  
-| GET | /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=origin_name&destination=destination_name  | Listado de vuelos según filtros | -----------  |  
-| GET | /api/v1/hotel-bookings/ | Listado de todas las reservas de hotel | ----------- |  
-| GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |
+| :heavy_check_mark: GET |/api/v1/hotels | Listado de todos los hoteles  |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
+| :heavy_check_mark: GET| /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=destination_name | Listado de hoteles según filtros | -----------  |  
+| :heavy_check_mark: GET | /api/v1/flights | Listado de todos los vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior. - |  
+| :heavy_check_mark: GET | /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=origin_name&destination=destination_name  | Listado de vuelos según filtros | -----------  |  
+| :heavy_check_mark: GET | /api/v1/hotel-bookings/ | Listado de todas las reservas de hotel | ----------- |  
+| :heavy_check_mark: GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |
 ||||
 ||BAJAS|
-| DELETE | /api/v1/hotels/delete?hotelCode=code | Baja de un hotel | -----------  |  
-| DELETE| /api/v1/flights/delete?flightNumber=number | Baja de un vuelo | -----------  |  
-| DELETE | /api/v1/hotel-booking/delete?id=num_id | Baja de una reserva de hotel | ----------- |  
-| DELETE | /api/v1/flight-reservation/delete?id=num_id | Baja de una reserva de vuelo | -----------  |  
+| :heavy_check_mark: DELETE | /api/v1/hotels/delete?hotelCode=code | Baja de un hotel | -----------  |  
+| :heavy_check_mark: DELETE| /api/v1/flights/delete?flightNumber=number | Baja de un vuelo | -----------  |  
+| :heavy_check_mark: DELETE | /api/v1/hotel-booking/delete?id=num_id | Baja de una reserva de hotel | ----------- |  
+| :heavy_check_mark: DELETE | /api/v1/flight-reservation/delete?id=num_id | Baja de una reserva de vuelo | -----------  |  
 
 
 ## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id5"></a>
