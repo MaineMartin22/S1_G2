@@ -1,6 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.utils.Hotel;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.Entity.Hotel;
 
 import java.time.LocalDate;
 
@@ -25,6 +26,19 @@ public class HotelDTOFactory {
                 .city("Buenos Aires")
                 .typeRoom("Single")
                 .priceForNight(5435)
+                .availabilityFrom(LocalDate.of(2022, 02, 10))
+                .availabilityUntil(LocalDate.of(2022, 03, 23))
+                .reserved(false)
+                .build();
+
+    }
+    public static HotelDTO getHotelEntity() {
+        return HotelDTO.builder().hotelCode("HB-0001")
+                .id(3)
+                .name("Nuevo hotel")
+                .city("Rafaela")
+                .typeRoom("Triple")
+                .priceForNight(5005)
                 .availabilityFrom(LocalDate.of(2022, 02, 10))
                 .availabilityUntil(LocalDate.of(2022, 03, 23))
                 .reserved(false)

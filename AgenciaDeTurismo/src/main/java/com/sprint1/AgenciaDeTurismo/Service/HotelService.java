@@ -156,8 +156,11 @@ public class HotelService implements IHotelService {
             throw new BadRequestException("La cantidad de personas excede la capacidad de la habitación");
         }
 
-        List<Hotel> reservationTrue = hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(bookingRequestDto.getBooking().getDateFrom(),
-                bookingRequestDto.getBooking().getDateTo(), bookingRequestDto.getBooking().getDestination());
+        List<Hotel> reservationTrue = hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(
+                bookingRequestDto.getBooking().getDateFrom().plusDays(1),
+                bookingRequestDto.getBooking().getDateTo().minusDays(1),
+                bookingRequestDto.getBooking().getDestination());
+
         if (reservationTrue.isEmpty()) {
             throw new BadRequestException("Las fechas solicitadas no están disponibles");
         }
