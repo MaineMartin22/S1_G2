@@ -85,11 +85,23 @@
 				},
 				{
 					"name": "allReservation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/api/v1/flight-reservations/",
+							"raw": "localhost:8080/api/v1/hotel-bookings",
 							"host": [
 								"localhost"
 							],
@@ -97,8 +109,7 @@
 							"path": [
 								"api",
 								"v1",
-								"flight-reservations",
-								""
+								"hotel-bookings"
 							]
 						}
 					},
@@ -111,7 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"booking\" : {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-03-20\",\r\n        \"destination\": \"Puerto Iguazú\",\r\n        \"hotelCode\": \"CH-0002\",\r\n        \"peopleAmount\": 1,\r\n        \"roomType\": \"Doble\",\r\n        \"people\":[ { \r\n            \"dni\": \"1241\",\r\n            \"name\":\"pepito\",\r\n            \"lastName\": \"maine\",\r\n            \"birthDate\": \"22-12-2002\",\r\n            \"mail\": \"mm@gmial.com\"\r\n        }] ,\r\n        \"paymentMethod\": {\r\n        \"type\":\"credit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 6\r\n    }\r\n    }\r\n}",
+							"raw": "{\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"booking\" : {\r\n        \"dateFrom\": \"2022-02-11\",\r\n        \"dateTo\": \"2022-03-19\",\r\n        \"destination\": \"Puerto Iguazú\",\r\n        \"hotelCode\": \"CH-0002\",\r\n        \"peopleAmount\": 1,\r\n        \"roomType\": \"doble\",\r\n        \"people\":[{ \r\n            \"dni\": \"12421\",\r\n            \"name\":\"pepsadito\",\r\n            \"lastName\": \"sdmaine\",\r\n            \"birthDate\": \"2022-02-02\",\r\n            \"mail\": \"mmasdasd@gmial.com\"\r\n        }],\r\n        \"paymentMethod\": {\r\n        \"type\":\"credit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 6\r\n    }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -119,7 +130,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/booking",
+							"raw": "http://localhost:8080/api/v1/hotel-booking/new",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -128,7 +139,8 @@
 							"path": [
 								"api",
 								"v1",
-								"booking"
+								"hotel-booking",
+								"new"
 							]
 						}
 					},
@@ -141,7 +153,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"numberFlight\": \"Martincito-123\",\r\n        \"origin\": \"Rafaela\",\r\n        \"destiny\": \"Susana\",\r\n        \"seatType\": \"Premium\",\r\n        \"priceForPerson\": 150.0,\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\"\r\n    }",
+							"raw": "{\r\n        \"hotelCode\": \"Martincito-123\",\r\n        \"name\": \"HOTEL TOSCANO\",\r\n        \"city\": \"Rafaela\",\r\n        \"tupeRoom\": \"Premium\",\r\n        \"priceForNight\": 300000.0,\r\n        \"availabilityFrom\": \"2022-02-10\",\r\n        \"availabilityUntil\": \"2022-02-15\",\r\n        \"reserved\": false\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -149,7 +161,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/flights/new",
+							"raw": "http://localhost:8080/api/v1/hotels/new",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -158,7 +170,7 @@
 							"path": [
 								"api",
 								"v1",
-								"flights",
+								"hotels",
 								"new"
 							]
 						}
@@ -208,7 +220,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"totalNeto\": 13000.0,\r\n    \"totalIntereses\": 0.0,\r\n    \"totalFinal\": 13000.0,\r\n    \"flightReservation\": {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\": [\r\n            {\r\n                \"dni\": \"12411234\",\r\n                \"name\": \"pepito\",\r\n                \"lastName\": \"Gomez\",\r\n                \"birthDate\": \"10-11-1982\",\r\n                \"mail\": \"arjonamiguel@gmail.com\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"totalNeto\": 500000.0,\r\n    \"totalIntereses\": 0.0,\r\n    \"totalFinal\": 500000.0,\r\n    \"flightReservation\": {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Rafaela\",\r\n        \"destiny\": \"Miami\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\": [\r\n            {\r\n                \"dni\": \"12411234\",\r\n                \"name\": \"pepito\",\r\n                \"lastName\": \"Gomez\",\r\n                \"birthDate\": \"10-11-1982\",\r\n                \"mail\": \"arjonamiguel@gmail.com\"\r\n            }\r\n        ]\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -238,19 +250,27 @@
 					"response": []
 				},
 				{
-					"name": "deleteById",
+					"name": "deleteByHotelCode",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/delete/BAPI-1235",
+							"raw": "localhost:8080/api/v1/hotels/delete?code=BG-0004",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"delete",
-								"BAPI-1235"
+								"api",
+								"v1",
+								"hotels",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "BG-0004"
+								}
 							]
 						}
 					},
@@ -288,7 +308,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/flights?dateFrom=2022-02-10&dateTo=2022-02-15&origin=Rafaela&destination=Puerto Iguazú",
+							"raw": "http://localhost:8080/api/v1/flights?dateFrom=2022-02-10&dateTo=2022-02-15&origin=Buenos Aires&destiny=Puerto Iguazú",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -310,10 +330,10 @@
 								},
 								{
 									"key": "origin",
-									"value": "Rafaela"
+									"value": "Buenos Aires"
 								},
 								{
-									"key": "destination",
+									"key": "destiny",
 									"value": "Puerto Iguazú"
 								}
 							]
@@ -349,7 +369,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"flightReservation\" : {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\":[\r\n            { \r\n            \"dni\": \"12411234\",\r\n            \"name\":\"pepito\",\r\n            \"lastName\": \"Gomez\",\r\n            \"birthDate\": \"10-11-1982\",\r\n            \"mail\": \"arjonamiguel@gmail.com\"\r\n             }\r\n        ]\r\n    , \"paymentMethod\": {\r\n        \"type\":\"debit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 1\r\n    }\r\n    }\r\n}",
+							"raw": "{\r\n    \"userName\": \"mm22l@gmail.com\",\r\n    \"flightReservation\" : {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"flightNumber\": \"BOBA-6568\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\":[\r\n            { \r\n            \"dni\": \"12411234\",\r\n            \"name\":\"pepito\",\r\n            \"lastName\": \"Gomez\",\r\n            \"birthDate\": \"10-11-1982\",\r\n            \"mail\": \"arjonamiguel@gmail.com\"\r\n             }\r\n        ]\r\n    , \"paymentMethod\": {\r\n        \"type\":\"debit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 1\r\n    }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -404,19 +424,27 @@
 					"response": []
 				},
 				{
-					"name": "deleteById",
+					"name": "deleteByFLightNumber",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/delete/BAPI-1235",
+							"raw": "localhost:8080/api/v1/flights/delete?code=BAPI-1235",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"delete",
-								"BAPI-1235"
+								"api",
+								"v1",
+								"flights",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "BAPI-1235"
+								}
 							]
 						}
 					},
@@ -429,7 +457,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 13,\r\n    \"numberFlight\": \"lucas\",\r\n    \"origin\": \"Buenos Aires\",\r\n    \"destiny\": \"Puerto Iguazú\",\r\n    \"seatType\": \"Economy\",\r\n    \"priceForPerson\": 6500.0,\r\n    \"dateFrom\": \"2022-02-10\",\r\n    \"dateTo\": \"2022-02-15\"\r\n}",
+							"raw": "{\r\n    \"id\": 12,\r\n    \"numberFlight\": \"lucas\",\r\n    \"origin\": \"Buenos Aires\",\r\n    \"destiny\": \"Puerto Iguazú\",\r\n    \"seatType\": \"Economy\",\r\n    \"priceForPerson\": 6500.0,\r\n    \"dateFrom\": \"2022-02-10\",\r\n    \"dateTo\": \"2022-02-15\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -437,18 +465,21 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/update?code=lucas",
+							"raw": "localhost:8080/api/v1/flights/edit?code=MEPI-9986",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"update"
+								"api",
+								"v1",
+								"flights",
+								"edit"
 							],
 							"query": [
 								{
 									"key": "code",
-									"value": "lucas"
+									"value": "MEPI-9986"
 								}
 							]
 						}
@@ -462,7 +493,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"totalNeto\": 13000.0,\r\n    \"totalIntereses\": 0.0,\r\n    \"totalFinal\": 13000.0,\r\n    \"flightReservation\": {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\": [\r\n            {\r\n                \"dni\": \"12411234\",\r\n                \"name\": \"pepito\",\r\n                \"lastName\": \"Gomez\",\r\n                \"birthDate\": \"10-11-1982\",\r\n                \"mail\": \"arjonamiguel@gmail.com\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"totalNeto\": 13000.0,\r\n    \"totalIntereses\": 0.0,\r\n    \"totalFinal\": 13000.0,\r\n    \"flightReservation\": {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"MIAMI\",\r\n        \"destiny\": \"ORLANDO\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\": [\r\n            {\r\n                \"dni\": \"12411234\",\r\n                \"name\": \"pepito\",\r\n                \"lastName\": \"Gomez\",\r\n                \"birthDate\": \"10-11-1982\",\r\n                \"mail\": \"arjonamiguel@gmail.com\"\r\n            }\r\n        ]\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
