@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class PeopleDto {
+    private Integer id;
     @NotBlank(message = "El dni no puede estar vacío")
     private String dni;
     @NotBlank(message = "El nombre no puede estar vacío")

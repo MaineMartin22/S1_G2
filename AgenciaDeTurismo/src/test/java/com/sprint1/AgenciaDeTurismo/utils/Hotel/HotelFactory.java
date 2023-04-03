@@ -8,6 +8,7 @@ public class HotelFactory {
 
     public static Hotel getCataratasHotel() {
         return Hotel.builder().hotelCode("CH-0002")
+                .id(1)
                 .name("Cataratas Hotel")
                 .city("Puerto Iguazú")
                 .typeRoom("Doble")
@@ -20,6 +21,7 @@ public class HotelFactory {
     }
     public static Hotel getBristol() {
         return Hotel.builder().hotelCode("HB-0001")
+                .id(2)
                 .name("Hotel Bristol")
                 .city("Buenos Aires")
                 .typeRoom("Single")

@@ -6,11 +6,12 @@ public class PeopleDTOFactory {
 
     public static PeopleDto getPeopleOne(){
         return PeopleDto.builder()
-                .dni("39902892")
-                .name("Lucas")
-                .lastName("Alvarez")
-                .birthDate("20-05-1994")
-                .mail("lucaas@gmail.com")
+                .id(1)
+                .dni("12421")
+                .name("pepsadito")
+                .lastName("sdmaine")
+                .birthDate("2022-02-02")
+                .mail("mmasdasd@gmial.com")
                 .build();
     }
     public static PeopleDto getPeopleTwo(){

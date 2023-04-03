@@ -2,7 +2,6 @@ package com.sprint1.AgenciaDeTurismo.utils.Flight;
 
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.Data.StatusCodeDTOFactory;
 
 public class FlightResponseFactory {
 
@@ -13,7 +12,6 @@ public class FlightResponseFactory {
                 .totalIntereses(0)
                 .totalFinal(13000)
                 .flightReservation(FlightDTOResponseFactory.flightDTOResponseDebitBAPI())
-                .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
     public static FlightResponseDTO flightDTOResponseCreditThreeBAPI(){
@@ -23,7 +21,6 @@ public class FlightResponseFactory {
                 .totalIntereses(650)
                 .totalFinal(13650)
                 .flightReservation(FlightDTOResponseFactory.flightDTOResponseCreditThreeBAPI())
-                .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
 
@@ -34,7 +31,6 @@ public class FlightResponseFactory {
                 .totalIntereses(4320)
                 .totalFinal(47520)
                 .flightReservation(FlightDTOResponseFactory.flightDTOResponseCreditSixPIBA())
-                .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
     public static FlightResponseDTO flightDTOResponseCreditTwelvePIBA(){
@@ -44,7 +40,6 @@ public class FlightResponseFactory {
                 .totalIntereses(12960)
                 .totalFinal(99360)
                 .flightReservation(FlightDTOResponseFactory.flightDTOResponseCreditTwelvePIBA())
-                .statusCode(StatusCodeDTOFactory.getStatusCode())
                 .build();
     }
 }

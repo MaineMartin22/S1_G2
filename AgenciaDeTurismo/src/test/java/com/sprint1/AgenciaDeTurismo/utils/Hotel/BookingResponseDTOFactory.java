@@ -18,8 +18,7 @@ public class BookingResponseDTOFactory {
                 .roomType("Doble")
                 .people(
                         List.of(
-                                PeopleDTOFactory.getPeopleOne(),
-                                PeopleDTOFactory.getPeopleTwo()
+                                PeopleDTOFactory.getPeopleOne()
                         )
                 )
                 .build();

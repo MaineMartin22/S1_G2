@@ -18,7 +18,7 @@ public class ReservationFlight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "nombre_usuario", unique = true)
+    @Column(name = "nombre_usuario")
     private String userName;
     @Column(name = "total_neto")
     private double totalNeto;

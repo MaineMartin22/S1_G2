@@ -14,10 +14,10 @@ public class FlightDTOResponseFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleOne(),
                                 PeopleDTOFactory.getPeopleTwo()
@@ -33,10 +33,10 @@ public class FlightDTOResponseFactory {
                 .dateTo(LocalDate.of(2022,02,15))
                 .origin("Buenos Aires")
                 .flightNumber("BAPI-1235")
-                .destination("Puerto Iguazú")
+                .destiny("Puerto Iguazú")
                 .seats(2)
                 .seatType("Economy")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleThree(),
                                 PeopleDTOFactory.getPeopleFour()
@@ -51,10 +51,10 @@ public class FlightDTOResponseFactory {
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
                 .flightNumber("PIBA-1420")
-                .destination("Bogotá")
+                .destiny("Bogotá")
                 .seats(1)
                 .seatType("Business")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleFive()
                         )
@@ -67,10 +67,10 @@ public class FlightDTOResponseFactory {
                 .dateTo(LocalDate.of(2022,02,20))
                 .origin("Puerto Iguazú")
                 .flightNumber("PIBA-1420")
-                .destination("Bogotá")
+                .destiny("Bogotá")
                 .seats(2)
                 .seatType("Business")
-                .peopleDto(
+                .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleThree(),
                                 PeopleDTOFactory.getPeopleFour()

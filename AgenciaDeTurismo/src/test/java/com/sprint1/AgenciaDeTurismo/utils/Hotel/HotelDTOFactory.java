@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class HotelDTOFactory {
     public static HotelDTO getCataratasHotelDTO() {
         return HotelDTO.builder().hotelCode("CH-0002")
+                .id(1)
                 .name("Cataratas Hotel")
                 .city("Puerto Iguazú")
                 .typeRoom("Doble")
@@ -19,6 +20,7 @@ public class HotelDTOFactory {
     }
     public static HotelDTO getBristolDTO() {
         return HotelDTO.builder().hotelCode("HB-0001")
+                .id(2)
                 .name("Hotel Bristol")
                 .city("Buenos Aires")
                 .typeRoom("Single")

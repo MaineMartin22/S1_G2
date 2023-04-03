@@ -19,11 +19,10 @@ public class FlightReservationDTO {
     private LocalDate dateFrom;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
-
     @NotNull(message ="El origen no puede estar vacío")
     private String origin;
+    @NotNull(message = "El numero de vuelo no puede estar vacío")
     private String flightNumber;
-
     @NotNull(message ="El destino no puede estar vacío")
     private String destiny;
     private Integer seats;

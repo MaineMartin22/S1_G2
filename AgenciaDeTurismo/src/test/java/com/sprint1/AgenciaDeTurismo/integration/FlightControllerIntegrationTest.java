@@ -68,9 +68,9 @@ class FlightControllerIntegrationTest {
 
         mockMvc.perform(request)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(statusExpected,
-                        bodyExpected,
-                        contentTypeExpected);
+                .andExpect(statusExpected)
+                .andExpect(bodyExpected)
+                .andExpect(contentTypeExpected);
     }
 
     @Test
@@ -129,7 +129,6 @@ class FlightControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
 
-
         // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
         // STATUS
         ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
@@ -152,7 +151,7 @@ class FlightControllerIntegrationTest {
     }
 
     @Test
-    void flightAvailability() throws Exception{
+    void flightAvailability() throws Exception {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
                 FlightDTOFactory.getPuertoIguazuBogotaDTO());
@@ -188,9 +187,9 @@ class FlightControllerIntegrationTest {
         // arrange
         List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
 
-        LocalDate dateFrom = LocalDate.of(2022,02,10);
-        LocalDate dateTo= LocalDate.of(2022,02,15);
-        String origin= "Buenos Aires";
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 15);
+        String origin = "Buenos Aires";
         String destination = "Puerto Iguazú";
 
         // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
@@ -238,7 +237,6 @@ class FlightControllerIntegrationTest {
                         writer.writeValueAsString(flightRequestDto)
                 )
                 .contentType(MediaType.APPLICATION_JSON);
-
 
 
         // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --

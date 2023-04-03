@@ -119,12 +119,18 @@ public class HotelService implements IHotelService {
             return getAllEntities();
         }
 
+        if (dateFrom == null || dateTo == null || destination == null) {
+            throw new BadRequestException("Los datos no están completos");
+        }
 
-        var list = hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity( dateFrom.plusDays(1),  dateTo.minusDays(1), destination);
+
+        var list = hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(
+                dateFrom.plusDays(1),
+                dateTo.minusDays(1), destination);
 
 
         if (list.isEmpty())
-            throw new NotFoundException("NO se encontró vuelos con esos datos");
+            throw new NotFoundException("NO se encontró hoteles con esos datos");
 
         return list.stream().map(
                 hotel -> mapper.map(hotel, HotelDTO.class)

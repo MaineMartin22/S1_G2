@@ -18,7 +18,7 @@ public class People {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "dni", unique = true)
+    @Column(name = "dni")
     private String dni;
     @Column(name = "nombre")
     private String name;
@@ -26,7 +26,7 @@ public class People {
     private String lastName;
     @Column(name = "fecha_nacimiento")
     private String birthDate;
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String mail;
 
 }

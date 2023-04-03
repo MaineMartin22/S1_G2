@@ -54,8 +54,6 @@ public class HotelController {
 
     //Lista de todos los hoteles y hoteles según filtros.
     @GetMapping("/api/v1/hotels")
-    // /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=Puerto Iguazu
-
     public List<HotelDTO> hotelesDisponibles(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
                                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo,
                                              @RequestParam(required = false) @Size(min = 3, message = "Debe ingresar un destino") String destination) {
