@@ -112,7 +112,7 @@ class HotelControllerTest {
     @Test
     void reservasEnLaDB() throws Exception {
         // arrange
-        BookingResponseDTO expected = BookingResponseFactory.getReservationHotelIguazuDebit();
+        List<BookingResponseDTO>  expected = List.of(BookingResponseFactory.getReservationHotelIguazuDebit());
 
         // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
         // aca vamos a declarar la request que vamos a llamar o hacer

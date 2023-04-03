@@ -10,12 +10,12 @@ import java.util.List;
 public class BookingResponseDTOFactory {
     public static BookingResponseDetailsDTO bookingResponseDtoIguazuDoble(){
         return BookingResponseDetailsDTO.builder()
-                .dateFrom(LocalDate.of(2022, 02, 10))
-                .dateTo(LocalDate.of(2022, 03, 20))
+                .dateFrom(LocalDate.of(2022, 02, 12))
+                .dateTo(LocalDate.of(2022, 03, 19))
                 .destination("Puerto Iguazú")
                 .hotelCode("CH-0002")
-                .peopleAmount(2)
-                .roomType("Doble")
+                .peopleAmount(1)
+                .roomType("doble")
                 .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleOne()
@@ -23,6 +23,11 @@ public class BookingResponseDTOFactory {
                 )
                 .build();
     }
+
+
+
+
+
     public static BookingResponseDetailsDTO bookingResponseDtoBuenosAiresSinlge(){
         return BookingResponseDetailsDTO.builder()
                 .dateFrom(LocalDate.of(2022, 02, 10))

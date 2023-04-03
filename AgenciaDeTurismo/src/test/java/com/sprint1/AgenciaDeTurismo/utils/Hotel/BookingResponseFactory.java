@@ -11,13 +11,16 @@ public class BookingResponseFactory {
 
 public static BookingResponseDTO getReservationHotelIguazuDebit() {
     return BookingResponseDTO.builder()
-            .userName(PeopleDTOFactory.getPeopleOne().getMail())
-            .totalNeto(13000.0)
-            .totalIntereses(0)
-            .totalFinal(13000.0)
+            .id(1)
+            .userName("mm@gmail.com")
+            .totalNeto(242550)
+            .totalIntereses(22050)
+            .totalFinal(220500)
             .booking(BookingResponseDTOFactory.bookingResponseDtoIguazuDoble())
             .build();
     }
+
+
     public static BookingResponseDTO getReservationHotelBsAsThreeDues() {
         return BookingResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleOne().getMail())

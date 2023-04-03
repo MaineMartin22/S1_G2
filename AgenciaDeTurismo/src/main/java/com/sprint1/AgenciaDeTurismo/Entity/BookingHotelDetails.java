@@ -23,10 +23,10 @@ public class BookingHotelDetails {
     private Integer id;
     @Column(name = "fecha_ingreso")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private String dateFrom;
+    private LocalDate dateFrom;
     @Column(name = "fecha_salida")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private String dateTo;
+    private LocalDate dateTo;
     @Column(name = "destino")
     private String destination;
     @Column(name = "codigo_hotel")

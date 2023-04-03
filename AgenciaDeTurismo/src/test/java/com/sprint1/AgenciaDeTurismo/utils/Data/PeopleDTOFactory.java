@@ -7,13 +7,15 @@ public class PeopleDTOFactory {
     public static PeopleDto getPeopleOne(){
         return PeopleDto.builder()
                 .id(1)
-                .dni("12421")
-                .name("pepsadito")
-                .lastName("sdmaine")
+                .dni("125421")
+                .name("martin")
+                .lastName("maine")
                 .birthDate("2022-02-02")
-                .mail("mmasdasd@gmial.com")
+                .mail("mm@gmail.com")
                 .build();
     }
+
+
     public static PeopleDto getPeopleTwo(){
         return PeopleDto.builder()
                 .dni("29983746")
