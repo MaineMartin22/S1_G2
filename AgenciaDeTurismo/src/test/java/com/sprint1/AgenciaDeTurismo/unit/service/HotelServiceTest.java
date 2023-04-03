@@ -150,35 +150,35 @@ class HotelServiceTest {
                 hotelService.reservationHotel(entity));
 
     }
-/*
+
     @Test
     @DisplayName("No se encontraron hoteles disponibles para el rango de fechas seleccionadas")
     void getNotExistentHoteltAvailability() {
-        // arrange
-        LocalDate dateFrom = LocalDate.of(2022,02,10);
-        LocalDate dateTo= LocalDate.of(2022,02,20);
+      LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 20);
         String destination = "Puerto Iguazú";
 
         // act
-        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(List.of());
+        Mockito.when(hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(dateFrom.plusDays(1), dateTo.minusDays(1), destination)).thenReturn(List.of());
 
         // assert
         Assertions.assertThrows(
                 NotFoundException.class,
-                () -> hotelService.getHotelDisponibles(dateFrom, dateTo, destination)
-        ); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
+                () -> hotelService.findHotelAvailable(dateFrom, dateTo, destination)
+        ).printStackTrace(); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
     }
 
+/*
     @Test
     @DisplayName("Las fechas solicitadas no están disponibles")
     void ReservationHotelDateNotAvailable() {
         //Arrange
         BookingRequestDto param2 = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
-        List<HotelDTO> expectedDataHotels = List.of(HotelDTOFactory.getCataratasHotelDTO(),HotelDTOFactory.getBristolDTO());
+        List<Hotel> expectedDataHotels = List.of(HotelFactory.getCataratasHotel(),HotelFactory.getBristol());
         param2.getBooking().setDateTo(LocalDate.of(2024, 06, 03));
         // Act
-        Mockito.when(hotelRepository.dataHotels()).thenReturn(expectedDataHotels);
-        Mockito.when(hotelRepository.findHotelWhitCode(param2.getBooking().getHotelCode())).thenReturn(HotelFactory.getCataratasHotel());
+        Mockito.when(hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity()).thenReturn(expectedDataHotels);
+        Mockito.when(hotelRepository.findHotelByHotelCode(param2.getBooking().getHotelCode())).thenReturn(HotelFactory.getCataratasHotel());
 
 
         //Assert
@@ -191,10 +191,10 @@ class HotelServiceTest {
     @DisplayName("Solicitud de reserva de hotel")
     void reservationHotel() {
         // arrange
-        List<HotelDTO> hoteles = List.of(HotelDTOFactory.getCataratasHotelDTO(),
-                HotelDTOFactory.getBristolDTO());
+        List<Hotel> hotels = List.of(HotelFactory.getBristol(),
+                HotelFactory.getCataratasHotel());
 
-        List<HotelDTO> hotelDisponible = List.of(HotelDTOFactory.getCataratasHotelDTO());
+        List<Hotel> hotelDisponible = List.of(HotelFactory.getCataratasHotel());
 
         LocalDate dateFrom = LocalDate.of(2022, 02, 10);
         LocalDate dateTo = LocalDate.of(2022, 03, 20);
@@ -208,15 +208,16 @@ class HotelServiceTest {
         BookingRequestDto bookingRequestDto = BookingRequestDTOFactory.bookingDtoPuertoIguazuDobleDebit();
 
         // act
-        Mockito.when(hotelRepository.dataHotels()).thenReturn(hoteles);
-        Mockito.when(hotelRepository.getHotelDisponible(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
-        Mockito.when(hotelRepository.findHotelWhitCode(code)).thenReturn(hotelCode);
+        Mockito.when(hotelRepository.findAll()).thenReturn(hotels);
+        Mockito.when(hotelRepository.findHotelByHotelCode(code)).thenReturn(hotelCode);
+        Mockito.when(hotelRepository.findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(dateFrom, dateTo, destination)).thenReturn(hotelDisponible);
+
         var result = hotelService.reservationHotel(bookingRequestDto);
 
         // assert
         Assertions.assertEquals(expected, result);
 
-    }
+
 
     @Test
     @DisplayName("Si el código de hotel no existe, lanza una excepción")

@@ -1,11 +1,13 @@
-/*
+
 package com.sprint1.AgenciaDeTurismo.unit.service;
 
 
 
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
+import com.sprint1.AgenciaDeTurismo.Entity.Hotel;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
@@ -13,6 +15,8 @@ import com.sprint1.AgenciaDeTurismo.Entity.Flight;
 import com.sprint1.AgenciaDeTurismo.Repository.IFlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.*;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,35 +43,40 @@ class FlightServiceTest {
     @DisplayName("Devuelve el listado de todos los vuelos")
     void getFlight() {
         // arrange
-        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
+        List<Flight> expected = List.of(FlightFactory.getBsAsPuertoIguazu(),
+                FlightFactory.getPuertoIguazuBogota());
+
+        List<FlightDto> expectedDTO = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
                 FlightDTOFactory.getPuertoIguazuBogotaDTO());
         // act
-        Mockito.when(flightRepository.dataFlights()).thenReturn(expected);
-        var result = flightService.getFlight();
+        Mockito.when(flightRepository.findAll()).thenReturn(expected);
+        var result = flightService.getAllEntities();
 
         // assert
-        Assertions.assertEquals(expected, result);
+        Assertions.assertEquals(expectedDTO, result);
     }
+
 
     @Test
     @DisplayName("Al enviar todos los parámetros nulos, retorna la lista de vuelos")
     void getFlightAvailabilityNull() {
         // arrange
-        List<FlightDto> vuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
+        List<Flight> vuelos = List.of(FlightFactory.getBsAsPuertoIguazu(),
+                FlightFactory.getPuertoIguazuBogota());
+
+        List<FlightDto> expectedDTO = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
                 FlightDTOFactory.getPuertoIguazuBogotaDTO());
-        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
-                FlightDTOFactory.getPuertoIguazuBogotaDTO());
-        LocalDate dateFrom =null;
-        LocalDate dateTo= null;
-        String origin= null;
+        LocalDate dateFrom = null;
+        LocalDate dateTo = null;
+        String origin = null;
         String destination = null;
 
         // act
-        Mockito.when(flightRepository.dataFlights()).thenReturn(vuelos);
-        var result = flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
+        Mockito.when(flightRepository.findAll()).thenReturn(vuelos);
+        var result = flightService.findFlightAvailable(dateFrom, dateTo, origin, destination);
 
         // assert
-        Assertions.assertEquals(expected, result);
+        Assertions.assertEquals(expectedDTO, result);
     }
 
 
@@ -76,42 +85,43 @@ class FlightServiceTest {
     @DisplayName("Con los datos ingresados, verifica vuelos disponibles")
     void getFlightAvailability() {
         // arrange
-        List<FlightDto> vuelos = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
+        List<FlightDto> expectedDTO = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO(),
                 FlightDTOFactory.getPuertoIguazuBogotaDTO());
 
+        List<Flight> expected = List.of(FlightFactory.getBsAsPuertoIguazu(),
+                FlightFactory.getPuertoIguazuBogota());
 
-        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
-        LocalDate dateFrom = LocalDate.of(2022,02,10);
-        LocalDate dateTo= LocalDate.of(2022,02,15);
-        String origin= "Buenos Aires";
+
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = LocalDate.of(2022, 02, 15);
+        String origin = "Buenos Aires";
         String destination = "Puerto Iguazú";
 
         // act
-        Mockito.when(flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)).thenReturn(expected);
-        Mockito.when(flightRepository.dataFlights()).thenReturn(vuelos);
-        var result = flightService.getFlightAvailability(dateFrom, dateTo, origin, destination);
+        Mockito.when(flightRepository.findFlightByDateFromAndDateToAndOriginAndDestiny(dateFrom, dateTo, origin, destination)).thenReturn(expected);
+        var result = flightService.findFlightAvailable(dateFrom, dateTo, origin, destination);
         // assert
 
-        Assertions.assertEquals(expected, result);
+        Assertions.assertEquals(expectedDTO, result);
     }
+
 
     @Test
     @DisplayName("Al no pasar un dato o el mismo sea null, lanza una excepción")
     void getFlightAvailabilityNullOneParameter() {
         // arrange
-        List<FlightDto> expected = List.of(FlightDTOFactory.getBsAsPuertoIguazuDTO());
-        LocalDate dateFrom =LocalDate.of(2022,02,10);
-        LocalDate dateTo= null;
-        String origin= "Buenos Aires";
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateTo = null;
+        String origin = "Buenos Aires";
         String destination = "Puerto Iguazú";
-        // act
-        Mockito.when(flightRepository.getFlightAvailability(dateFrom, dateTo, origin, destination)).thenReturn(expected);
-        // assert
+        // act assert
         Assertions.assertThrows(
                 BadRequestException.class,
-                () -> flightService.getFlightAvailability(dateFrom, dateTo, origin, destination)
+                () -> flightService.findFlightAvailable(dateFrom, dateTo, origin, destination)
         );
     }
+}
+    /*
     @Test
     @DisplayName("Al ingresar origen o destino que no existen, devuelve una excepción")
     void getFlightAvailabilityOrigenNotExist() {

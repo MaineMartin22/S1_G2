@@ -7,6 +7,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlight;
 import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlightDetails;
+import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Entity.Flight;
 
@@ -34,7 +35,9 @@ public class FlightService implements IFlightService {
         if (dateFrom == null && dateTo == null && destiny == null && origin == null) {
             return getAllEntities();
         }
-
+        if (dateFrom == null || dateTo == null || destiny == null || origin == null) {
+            throw new BadRequestException("Los datos no están completos");
+        }
         var list = flightRepository.findFlightByDateFromAndDateToAndOriginAndDestiny(dateFrom, dateTo, origin, destiny);
 
         if (list.isEmpty())
