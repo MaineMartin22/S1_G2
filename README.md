@@ -21,10 +21,19 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 
 ## Dependencias Sprint 3 🛠️<a name="id2"></a>
  ```
-   <dependencies>
+ <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,22 +46,31 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-      <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!--  JPA  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.4.4</version>
+        </dependency>
+        <!--  H2  -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
  ```
@@ -119,8 +137,8 @@ Especificaciones Técnicas necesarias:
 | HTTP   |     Plantilla URI   | Descripción | Dificultad |
 |--------------|:-----------------:|-----------------:|-----------:|
 ||ALTAS|
-| POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | -----------  |  
-| POST| /api/v1/flights/new | Alta de un nuevo vuelo | -----------  |  
+| POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
+| POST| /api/v1/flights/new | Alta de un nuevo vuelo | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |  
 | POST | /api/v1/hotel-booking/new | Alta de una reserva de hotel | ----------- |  
 | POST | /api/v1/flight-reservation/new | Alta de una reserva de vuelo | -----------  |  
 ||||
@@ -131,12 +149,12 @@ Especificaciones Técnicas necesarias:
 | PUT | /api/v1/flight-reservation/edit?id=num_id | Modificación de una reserva de vuelo | -----------  |  
 ||||
 ||CONSULTAS/LECTURAS|
-| GET |/api/v1/hotels | Listado de todos los hoteles  | -----------  |  
+| GET |/api/v1/hotels | Listado de todos los hoteles  |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
 | GET| /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=destination_name | Listado de hoteles según filtros | -----------  |  
-| GET | /api/v1/flights | Listado de todos los vuelos | ----------- |  
+| GET | /api/v1/flights | Listado de todos los vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior. - |  
 | GET | /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=origin_name&destination=destination_name  | Listado de vuelos según filtros | -----------  |  
 | GET | /api/v1/hotel-bookings/ | Listado de todas las reservas de hotel | ----------- |  
-| GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos | ----------- |
+| GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |
 ||||
 ||BAJAS|
 | DELETE | /api/v1/hotels/delete?hotelCode=code | Baja de un hotel | -----------  |  
