@@ -40,3 +40,10 @@ VALUES (1,'mm2@gmail.com', 242550,22050,220500,1);
 
 INSERT INTO booking_hotel_detalle_people(booking_hotel_details_id, people_id)
 VALUES (1,1);
+
+
+
+INSERT INTO Paquetes (nombre, descripcion,precio, fecha_salida, fecha_vuelta)
+VALUES
+("Paquete1", "Disfruta de las cataratas en un hotel de lujo", 13000, "2022-02-10", "2022-03-20"),
+("Paquete2", "Disfruta de Brasil en un hotel de lujo", 12000, "2022-02-10", "2022-03-20");

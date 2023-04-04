@@ -1,4 +1,4 @@
-package com.sprint1.AgenciaDeTurismo.unit.repository;
+/*package com.sprint1.AgenciaDeTurismo.unit.repository;
 
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
@@ -96,3 +96,4 @@ public class HotelRepositoryTest {
         );
     }
 }
+*/

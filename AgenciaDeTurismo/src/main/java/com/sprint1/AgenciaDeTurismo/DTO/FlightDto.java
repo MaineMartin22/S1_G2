@@ -19,9 +19,9 @@ public class FlightDto {
      private String destiny;
      private String seatType;
      private double priceForPerson;
-     @JsonFormat(pattern = "yyyy-MM-dd")
+     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
      private LocalDate dateFrom;
-     @JsonFormat(pattern = "yyyy-MM-dd")
+     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
      private LocalDate dateTo;
 
 }
