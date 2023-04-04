@@ -165,7 +165,7 @@ Especificaciones Técnicas necesarias:
 
 ## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id5"></a>
 
-### Requerimiento Nº 2:
+### Requerimiento Nº 2 de manera individual:
 
 La agencia de turismo está dispuesta a escuchar sugerencias que provengan de los desarrolladores del proyecto para implementar nuevas funcionalidades que se adapten al desarrollo del sistema actual.
 Para ello, se sugiere tener en cuenta los siguientes criterios:
@@ -174,27 +174,7 @@ Agregar valor a la implementación propuesta en los requerimientos anteriores (p
 Plantear y resolver un problema que se corresponda con una situación posible del negocio propuesto (Puede ser un requerimiento totalmente nuevo pero debe de tener relación con los anteriores).
 Considerar la posibilidad de que la propuesta deba ser presentada (o “vendida”) al dueño de la agencia, por lo cual, la sugerencia debe estar bien presentada y poder llamar la atención o “interés” de esta persona para lograr convencer a éste.
 
-
-
-
-Especificaciones Técnicas necesarias: 
-
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-| POST | /api/v1/touristicpackage/new/ | Alta de un nuevo paquete | -----------  |  
-| PUT| /api/v1/touristicpackage/edit?packageNumber=number | Modificación de un paquete | -----------  |  
-| GET | /api/v1/touristicpackages | Listado de todos los paquetes dados de alta | ----------- |  
-| DELETE | /api/v1/touristicpackage/delete?packageNumber=number | Baja de un paquete | -----------  |  
-
-
-
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-| GET | /api/v1/income?date=dd/mm/yyyy | Total de ingresos brutos para un día en particular  a partir de reservas | -----------  |  
-| GET| /api/v1/income?month=1&year=2021 | Total de ingresos brutos para un mes y año en particular  a partir de reservas | -----------  |  
-
+Lo podran ver visualizado en la rama de cada integrante del equipo
 
 ## Entregables:  Sprint 3 💡<a name="id6"></a>
 
