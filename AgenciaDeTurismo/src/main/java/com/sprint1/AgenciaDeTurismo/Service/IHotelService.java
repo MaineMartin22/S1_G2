@@ -10,7 +10,13 @@ import java.util.List;
 
 public interface IHotelService extends ICrudService<HotelDTO, Integer> {
     List<BookingResponseDTO> getAllEntitiesResponse();
+
+    List<HotelDTO> getAllEntitiesByCity(String city);
     BookingResponseDTO reservationHotel(@RequestBody BookingRequestDto bookingRequestDto);
 
     BookingResponseDTO updateReservaEntity(@RequestBody BookingResponseDTO bookingResponseDTO, Integer id);
+
+    List<BookingResponseDTO> getAllEntitiesForPrice(Double desde, Double hasta);
+
+
 }

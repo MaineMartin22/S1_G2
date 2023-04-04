@@ -27,7 +27,16 @@ VALUES
 ("EC-0003", "El Campín", "Bogotá", "Triple", 7020, "2022-02-15", "2022-03-27", false),
 ("CP-0004", "Central Plaza", "Medellín", "Múltiple", 8600, "2022-03-01", "2022-04-17", false),
 ("CP-0002", "Central Plaza 2", "Medellín", "Doble", 6400, "2022-02-10", "2022-03-20", false),
-("BG-0004", "Bocagrande", "Cartagena", "Múltiple", 9370, "2022-04-17", "2022-06-12", false);
+("BG-0004", "Bocagrande", "Cartagena", "Múltiple", 9370, "2022-04-17", "2022-06-12", false),
+("GM-0001", "Gran Meliá Iguazú Hotel", "Puerto Iguazú", "Doble", 10000, "2022-02-10", "2022-03-20", false),
+("MI-0003", "Mérit Iguazú Hotel", "Puerto Iguazú", "Triple", 9000, "2022-02-10", "2022-03-20", false),
+("RE-0002", "Hotel Raices Esturion", "Puerto Iguazú", "Doble", 7500, "2022-02-10", "2022-03-20", false),
+("HA-0001", "Hotel Arcos", "Buenos Aires", "Single", 5600, "2022-02-10", "2022-03-23", false),
+("HC-0002", "Hotel Compostela", "Buenos Aires", "Doble", 6000, "2022-02-10", "2022-03-23", false),
+("MM-0001", "Morada do Mar Hotel", "Bogotá", "Single", 6200, "2022-01-23", "2022-12-10", false),
+("RF-0002", "Residencial Florida II", "Bogotá", "Doble", 4500, "2022-01-23", "2022-10-15", false);
+
+
 
 INSERT INTO persona(id, dni, nombre, apellido, fecha_nacimiento, email)
 VALUES (1,'125421','martin', 'maine', '2022-02-02', 'mm@gmail.com');

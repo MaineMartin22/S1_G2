@@ -60,6 +60,12 @@ public class HotelController {
 
         return hotelService.findHotelAvailable(dateFrom, dateTo, destination);
     }
+    //Devuelve un listado de hoteles disponibles según destino.
+    @GetMapping("/api/v1/hotels/{city}")
+    public List<HotelDTO> hotelDisponiblePorCiudad(@PathVariable String city) {
+
+        return hotelService.getAllEntitiesByCity(city);
+    }
 
     //Devuelve la lista de las reservas de hoteles.
     @GetMapping("/api/v1/hotel-bookings")
@@ -77,6 +83,12 @@ public class HotelController {
     @PutMapping("/api/v1/hotel-booking/edit")
     public BookingResponseDTO updateReservaFlight(@RequestParam Integer id,@RequestBody BookingResponseDTO bookingResponseDTO) {
         return hotelService.updateReservaEntity(bookingResponseDTO, id);
+    }
+
+    //Devuelve el precio total de las reservas
+    @GetMapping("/api/v1/hotel-bookings/ForPrice")
+    public List<BookingResponseDTO> reservasMontoTotal(@RequestParam Double desde, @RequestParam Double hasta) {
+        return hotelService.getAllEntitiesForPrice(desde, hasta);
     }
 
 }

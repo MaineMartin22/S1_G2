@@ -1,5 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.utils.Hotel;
 
+import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDetailsDTO;
 import com.sprint1.AgenciaDeTurismo.utils.Data.PeopleDTOFactory;
 import java.time.LocalDate;
@@ -25,9 +26,6 @@ public class BookingResponseDTOFactory {
     }
 
 
-
-
-
     public static BookingResponseDetailsDTO bookingResponseDtoBuenosAiresSinlge(){
         return BookingResponseDetailsDTO.builder()
                 .dateFrom(LocalDate.of(2022, 02, 10))
@@ -41,6 +39,17 @@ public class BookingResponseDTOFactory {
                                 PeopleDTOFactory.getPeopleThree()
                         )
                 )
+                .build();
+    }
+
+    public static BookingResponseDTO bookingResponseDTOEntre4y250000(){
+        return BookingResponseDTO.builder()
+                .id(1)
+                .userName("mm@gmail.com")
+                .totalNeto(242550)
+                .totalIntereses(22050)
+                .totalFinal(220500)
+                .booking(bookingResponseDtoIguazuDoble())
                 .build();
     }
 }

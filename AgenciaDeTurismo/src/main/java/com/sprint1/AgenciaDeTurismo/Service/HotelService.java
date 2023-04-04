@@ -51,6 +51,18 @@ public class HotelService implements IHotelService {
                 )
                 .collect(Collectors.toList());
     }
+    //Parte individual
+    //Devuelve una lista de todos los hoteles según el destino seleccionado.
+    @Override
+    public List<HotelDTO> getAllEntitiesByCity(String city) {
+        // buscar todos los resultados en el repo
+        var list = hotelRepository.findHotelByCity(city);
+        // luego convertir de entidad a DTO
+        return list.stream().map(
+                        hotel -> mapper.map(hotel, HotelDTO.class)
+                )
+                .collect(Collectors.toList());
+    }
 
     @Override
     public HotelDTO updateEntity(HotelDTO objectDTO, String code) {
@@ -194,6 +206,19 @@ public class HotelService implements IHotelService {
         } else
             throw new NotFoundException("No existe reserva con ese ID");
     }
+
+    //Parte indiv
+    //Devuelve el total de reservas de hotel dentro de un rango precio
+    @Override
+    public List<BookingResponseDTO> getAllEntitiesForPrice(Double desde, Double hasta) {
+        var list = bookingHotel.findBookingHotelByTotalFinalBetween(desde, hasta);
+        // luego convertir de entidad a DTO
+        return list.stream().map(
+                        booking -> mapper.map(booking, BookingResponseDTO.class)
+                )
+                .collect(Collectors.toList());
+    }
+
 }
 
 

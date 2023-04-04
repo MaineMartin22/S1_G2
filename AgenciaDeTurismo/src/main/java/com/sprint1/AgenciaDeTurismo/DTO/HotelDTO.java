@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 
@@ -15,6 +16,7 @@ public class HotelDTO {
     private Integer id;
     private String hotelCode;
     private String name;
+    @NotBlank(message = "La ciudad no puede estar vacía")
     private String city;
     private String  typeRoom;
     private double  priceForNight;

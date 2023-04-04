@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface IHotelRepository extends JpaRepository<Hotel, Integer> {
     List<Hotel>findHotelByAvailabilityFromBeforeAndAvailabilityUntilAfterAndCity(LocalDate availabilityFrom, LocalDate availabilityUntil, String city);
 
+    List<Hotel>findHotelByCity(String city);
 
 
     Optional<Hotel> findHotelByHotelCode(String code);

@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class HotelControllerTest {
@@ -136,6 +136,47 @@ class HotelControllerTest {
                 .andExpect(contentTypeExpected);
     }
 
+    //parte individual
+
+    //Devuelve una lista de reservas de hoteles con un monto total que se encuentra en un rango dado.
+    @Test
+    void reservasMontoTotal() throws Exception {
+        // arrange
+        //Defino los valores de entrada y se crea una lista de objetos BookingResponseDTO
+        Double desde = 4D;
+        Double hasta = 350000D;
+        List<BookingResponseDTO> expected = List.of(BookingResponseDTOFactory.bookingResponseDTOEntre4y250000());
+
+        // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
+        // MockMvc simula una solicitud HTTP al endpoint y comprueba que la respuesta cumple con las expectativas
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/hotel-bookings/ForPrice").
+                param("desde", desde.toString())
+                .param("hasta", hasta.toString());
+
+
+
+        // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
+        // STATUS
+        ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
+
+        // BODY
+        ResultMatcher bodyExpected = MockMvcResultMatchers.content().json(
+                writer.writeValueAsString(expected)
+        );
+
+        // CONTENT-TYPE
+        ResultMatcher contentTypeExpected = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // act & assert con mockmvc
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(statusExpected)
+                .andExpect(bodyExpected)
+                .andExpect(contentTypeExpected);
+    }
+
+
     @Test
     void updateHotel() {
     }
@@ -143,4 +184,5 @@ class HotelControllerTest {
     @Test
     void updateReservaFlight() {
     }
+
 }

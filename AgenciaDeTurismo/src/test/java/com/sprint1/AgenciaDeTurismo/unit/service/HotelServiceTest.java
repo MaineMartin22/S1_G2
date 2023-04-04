@@ -1,18 +1,12 @@
 package com.sprint1.AgenciaDeTurismo.unit.service;
-
-
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
-import com.sprint1.AgenciaDeTurismo.Exception.PaymentRequiredException;
 import com.sprint1.AgenciaDeTurismo.Entity.Hotel;
 import com.sprint1.AgenciaDeTurismo.Repository.IHotelRepository;
 import com.sprint1.AgenciaDeTurismo.Service.HotelService;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.BookingRequestDTOFactory;
-import com.sprint1.AgenciaDeTurismo.utils.Hotel.BookingResponseFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelFactory;
 import org.junit.jupiter.api.Assertions;
@@ -154,7 +148,7 @@ class HotelServiceTest {
     @Test
     @DisplayName("No se encontraron hoteles disponibles para el rango de fechas seleccionadas")
     void getNotExistentHoteltAvailability() {
-      LocalDate dateFrom = LocalDate.of(2022, 02, 10);
+        LocalDate dateFrom = LocalDate.of(2022, 02, 10);
         LocalDate dateTo = LocalDate.of(2022, 02, 20);
         String destination = "Puerto Iguazú";
 
@@ -165,9 +159,26 @@ class HotelServiceTest {
         Assertions.assertThrows(
                 NotFoundException.class,
                 () -> hotelService.findHotelAvailable(dateFrom, dateTo, destination)
-        ).printStackTrace(); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
+        );
     }
 
+    //Parte individual
+    @Test
+    @DisplayName("Búsqueda de un hotel por ciudad")
+    void getHotelDisponiblesPorCiudad() {
+        // arrange
+        List<HotelDTO> expectedDTO = List.of(HotelDTOFactory.getCataratasHotelDTO());
+        List<Hotel> expected = List.of(HotelFactory.getCataratasHotel());
+        String city = "Puerto Iguazú";
+
+        Mockito.when(hotelRepository.findHotelByCity(city)).thenReturn(expected);
+
+        // act
+        var result = hotelService.getAllEntitiesByCity(city);
+
+        // assert
+        Assertions.assertEquals(expectedDTO, result);
+    }
 /*
     @Test
     @DisplayName("Las fechas solicitadas no están disponibles")
