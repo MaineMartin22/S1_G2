@@ -6,15 +6,9 @@
 **Índice**   
 1. [Objetivo  Sprint 3 💡](#id1)
 2. [Dependencias Sprint 3 🛠️](#id2)
-3. [Contribuyentes Sprint 3 ✒️](#id3)
-4. [Especificación de Requerimiento Nº 1 Sprint 3 📝](#id4)
-5. [Especificación de Requerimiento Nº 2 Sprint 3 📝](#id5)
-6. [Entregables Sprint 3 📝](#id6)
-
-
-
-
-:bangbang:[**Link de Tablero de trabajo de daily en Trello**](https://trello.com/b/QEQDbLOv/dailybootcamp):bangbang:
+3. [Contribuyente Sprint 3 ✒️](#id3)
+4. [Especificación de Requerimiento Nº 2 Sprint 3 📝](#id4)
+5. [Entregables Sprint 3 📝](#id5)
 
 
 ## Objetivo  Sprint 3 💡<a name="id1"></a>
@@ -82,91 +76,10 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 
 ## Contribuyentes Sprint 3 ✒️<a name="id3"></a>
   ```
-  Alvarez Lucas
-  Ataides Nicolas
-  Flax Marco Maria Laura de las Victorias
-  Maine Martin
   Vallejos Podio Valentina
   ```
-## Especificación de Requerimiento Nº 1 Sprint 3 📝<a name="id4"></a>
-
-### Requerimiento Nº 1:
-
-En las versiones anteriores de la aplicación, el manejo de datos se llevó a cabo con una “base de datos” lógica, implementada mediante collections o maps y en algunos casos JSON. Llegó el momento de implementar una base de datos relacional que permita realizar operaciones CRUD/ABM.
-
-
-Iconos indicadores :
-
-:heavy_check_mark:Tarea cumplida.
-
-
-
-####  User Story:
-
-COMO encargado de la empresa de turismo QUIERO poder realizar operaciones de alta, baja, modificación y lectura sobre una base de datos PARA poder almacenar cada uno de los datos necesarios para la administración de las reservas de mi empresa.
-
-
-OPERACIONES/ACCIONES TÉCNICAS Y FUNCIONALES  NECESARIAS:
-
-Configuración de conexión de base de datos y dependencias
-
-Mapeo de entidades JPA + Hibernate
-
-Se debe permitir el alta, baja, modificación y consulta de vuelos.
-
-Se debe permitir el alta, baja, modificación y consulta de hoteles
-
-Se debe permitir el alta, baja, modificación y consulta de reservas.
-
-
-ROLES Y PERMISOS:
-
-Para esta US aún no se aplicarán roles o permisos de ningún tipo. Se deberán generar únicamente los endpoints correspondientes.
-
-
-VALIDACIONES NECESARIAS:
-
-Para bajas y modificaciones debe existir el hotel, reserva o vuelo correspondiente. Caso contrario, se debe retornar el correspondiente status code y msje.
-
-Para las consultas, en caso de no encontrar resultados se debe informar dicha situación mediante un mensaje.
-
-Para altas, validar que no exista anteriormente una reserva con idénticas características.
-
-Antes de dar de baja un vuelo o un hotel, validar que no se encuentre actualmente en una reserva. En caso de que sea así, no se podrá eliminar el registro, sin antes haber cancelado/eliminado la reserva.
-
-Especificaciones Técnicas necesarias: 
-
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-||ALTAS|
-| :heavy_check_mark: POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
-| :heavy_check_mark: POST| /api/v1/flights/new | Alta de un nuevo vuelo | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |  
-| :heavy_check_mark: POST | /api/v1/hotel-booking/new | Alta de una reserva de hotel | ----------- |  
-| :heavy_check_mark: POST | /api/v1/flight-reservation/new | Alta de una reserva de vuelo | -----------  |  
-||||
-||MODIFICACIONES|
-| :heavy_check_mark: PUT | /api/v1/flights/edit?flightNumber=number | Modificación de un vuelo | -----------  |  
-| :heavy_check_mark: PUT| /api/v1/hotels/edit?hotelCode=code | Modificación de un hotel | -----------  |  
-| :heavy_check_mark: PUT | /api/v1/hotel-booking/edit?id=num_id | Modificación de una reserva de hotel | ----------- |  
-| :heavy_check_mark: PUT | /api/v1/flight-reservation/edit?id=num_id | Modificación de una reserva de vuelo | -----------  |  
-||||
-||CONSULTAS/LECTURAS|
-| :heavy_check_mark: GET |/api/v1/hotels | Listado de todos los hoteles  |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
-| :heavy_check_mark: GET| /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=destination_name | Listado de hoteles según filtros | -----------  |  
-| :heavy_check_mark: GET | /api/v1/flights | Listado de todos los vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior. - |  
-| :heavy_check_mark: GET | /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=origin_name&destination=destination_name  | Listado de vuelos según filtros | -----------  |  
-| :heavy_check_mark: GET | /api/v1/hotel-bookings/ | Listado de todas las reservas de hotel | ----------- |  
-| :heavy_check_mark: GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |
-||||
-||BAJAS|
-| :heavy_check_mark: DELETE | /api/v1/hotels/delete?hotelCode=code | Baja de un hotel | -----------  |  
-| :heavy_check_mark: DELETE| /api/v1/flights/delete?flightNumber=number | Baja de un vuelo | -----------  |  
-| :heavy_check_mark: DELETE | /api/v1/hotel-booking/delete?id=num_id | Baja de una reserva de hotel | ----------- |  
-| :heavy_check_mark: DELETE | /api/v1/flight-reservation/delete?id=num_id | Baja de una reserva de vuelo | -----------  |  
-
-
-## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id5"></a>
+  
+## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id4"></a>
 
 ### Requerimiento Nº 2:
 
@@ -179,24 +92,40 @@ Considerar la posibilidad de que la propuesta deba ser presentada (o “vendida�
 
 
 
+Iconos indicadores :
+
+:heavy_check_mark:Tarea cumplida.
+
+
+
+####  User Story:
+
+COMO desarrollador del proyecto QUIERO para implementar nuevas funcionalidades que se adapten al desarrollo del sistema actual. Poder realizar operaciones de alta y lectura sobre una base de datos y así poder almacenar cada uno de los datos necesarios para la administración de los paquetes turisticos de la empresa.
+
+
+OPERACIONES/ACCIONES TÉCNICAS Y FUNCIONALES  NECESARIAS:
+
+Configuración de conexión de base de datos y dependencias
+
+Mapeo de entidades JPA + Hibernate
+
+Se debe permitir el alta y consulta de Touristic Package.
+
+
+ROLES Y PERMISOS:
+
+Para esta US aún no se aplicarán roles o permisos de ningún tipo. Se deberán generar únicamente los endpoints correspondientes.
+
+
 
 Especificaciones Técnicas necesarias: 
+| HTTP   |     Plantilla URI   | Descripción | Dificultad | Testing|
+|--------------|:-----------------:|-----------------:|-----------:|-----------:|
+||ALTAS|
+| :heavy_check_mark: POST |/api/v1/touristic-packages  | Alta de un nuevo Touristic Package | Dificultad a la hora de implementar el metodo en el service, ya que buscaba la relacion con Hotels y Flights|En cuanto a test no se realizo test de este metodo|
+||CONSULTAS/LECTURAS|
+| :heavy_check_mark: GET |/api/v1/touristic-packages | Listado de todos los Touristic Package  |En cuanto a test se realizo test unitario con mocks y test de integracion , hubo dificultad en el de integracion, debido a los Factorys con la relacion de hotels y flights|
 
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-| POST | /api/v1/touristicpackage/new/ | Alta de un nuevo paquete | -----------  |  
-| PUT| /api/v1/touristicpackage/edit?packageNumber=number | Modificación de un paquete | -----------  |  
-| GET | /api/v1/touristicpackages | Listado de todos los paquetes dados de alta | ----------- |  
-| DELETE | /api/v1/touristicpackage/delete?packageNumber=number | Baja de un paquete | -----------  |  
-
-
-
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-| GET | /api/v1/income?date=dd/mm/yyyy | Total de ingresos brutos para un día en particular  a partir de reservas | -----------  |  
-| GET| /api/v1/income?month=1&year=2021 | Total de ingresos brutos para un mes y año en particular  a partir de reservas | -----------  |  
 
 
 ## Entregables:  Sprint 3 💡<a name="id6"></a>
