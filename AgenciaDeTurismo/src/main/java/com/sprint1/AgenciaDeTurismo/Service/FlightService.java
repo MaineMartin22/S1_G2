@@ -1,15 +1,15 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.DestinoMasSolicitado;
 import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.GananciasDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
-import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlight;
-import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlightDetails;
+import com.sprint1.AgenciaDeTurismo.Entity.*;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
-import com.sprint1.AgenciaDeTurismo.Entity.Flight;
 
 import com.sprint1.AgenciaDeTurismo.Repository.IFlightRepository;
 import com.sprint1.AgenciaDeTurismo.Repository.IReservationFlight;
@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,6 +95,26 @@ public class FlightService implements IFlightService {
             throw new NotFoundException("No existe reserva con ese ID");
     }
 
+    @Override
+    public GananciasDTO totalEarnings() {
+        double total = 0;
+        var reservations = reservationFlight.findAll();
+        if(reservations.isEmpty()){
+            throw new NotFoundException("Aun no hay reservas.");
+        }
+        var prices = reservations.stream().map(reservation -> reservation.getTotalFinal())
+                .collect(Collectors.toList());
+        total = prices.stream()
+                .mapToDouble(Double::doubleValue)
+                .sum();
+        GananciasDTO ganancias = new GananciasDTO();
+        ganancias.setMessage("El total recaudado en las reservas de vuelos es: ");
+        ganancias.setCount(total);
+        ganancias.setReservationCount("En total hubo " + reservationFlight.count() + " reservas");
+        ganancias.setCompanyProfit("Las ganancias finales de la empresa son: " + total*0.15);
+        return ganancias;
+    }
+
 
     @Override
     public FlightDto getEntityByCode(String code) {
@@ -155,6 +177,13 @@ public class FlightService implements IFlightService {
         }
 
         FlightDto reservation = getEntityByCode(flightRequestDto.getFlightReservation().getFlightNumber());
+        if(reservation.getTotalSeats().equals(0)){
+            throw new BadRequestException("No hay mas asientos disponibles");
+        } else {
+            reservation.setTotalSeats(reservation.getTotalSeats() - flightRequestDto.getFlightReservation().getSeats());
+            var entity = mapper.map(reservation, Flight.class);
+            flightRepository.save(entity);
+        }
 
         findFlightAvailable(flightRequestDto.getFlightReservation().getDateFrom(),
                 flightRequestDto.getFlightReservation().getDateTo(),
@@ -184,6 +213,32 @@ public class FlightService implements IFlightService {
         reservationFlight.save(response);
 
         return mapper.map(response, FlightResponseDTO.class);
+    }
+    @Override
+    public DestinoMasSolicitado getDestinoMasSolicitado() {
+        // obtener todas las reservas
+        List<ReservationFlight> reservations = reservationFlight.findAll();
+
+        // crear un mapa para contar las reservas por destino
+        Map<String, Integer> destinationCounts = new HashMap<>();
+        for (ReservationFlight reservation : reservations) {
+            String destination = reservation.getFlightReservation().getDestiny();
+            destinationCounts.put(destination, destinationCounts.getOrDefault(destination, 0) + 1);
+        }
+        // encontrar el destino más popular
+        String mostPopularDestination = null;
+        int mostPopularCount = 0;
+        for (Map.Entry<String, Integer> entry : destinationCounts.entrySet()) {
+            if (entry.getValue() > mostPopularCount) {
+                mostPopularDestination = entry.getKey();
+                mostPopularCount = entry.getValue();
+            }
+        }
+        DestinoMasSolicitado destinoMasSolicitado = new DestinoMasSolicitado();
+        destinoMasSolicitado.setMessage("El destino mas solicitado es " + mostPopularDestination);
+        destinoMasSolicitado.setCount(mostPopularCount);
+
+        return destinoMasSolicitado;
     }
 
 

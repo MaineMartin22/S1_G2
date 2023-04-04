@@ -1,5 +1,7 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.DestinoMasSolicitado;
+import com.sprint1.AgenciaDeTurismo.DTO.GananciasDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
@@ -13,4 +15,7 @@ public interface IHotelService extends ICrudService<HotelDTO, Integer> {
     BookingResponseDTO reservationHotel(@RequestBody BookingRequestDto bookingRequestDto);
 
     BookingResponseDTO updateReservaEntity(@RequestBody BookingResponseDTO bookingResponseDTO, Integer id);
+    GananciasDTO totalEarnings();
+
+    DestinoMasSolicitado getDestinoMasSolicitado();
 }

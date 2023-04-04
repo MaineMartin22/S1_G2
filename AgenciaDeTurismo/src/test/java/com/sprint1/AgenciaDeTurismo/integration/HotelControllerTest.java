@@ -3,9 +3,17 @@ package com.sprint1.AgenciaDeTurismo.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sprint1.AgenciaDeTurismo.DTO.DestinoMasSolicitado;
+import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.GananciasDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
+import com.sprint1.AgenciaDeTurismo.utils.Data.DestinoMasSolicitadoDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Data.GananciasDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,6 +38,20 @@ class HotelControllerTest {
     ObjectWriter writer = new ObjectMapper()
             .registerModule(new JavaTimeModule()) // convertir fechas
             .writer();
+    List<HotelDTO> hotels;
+
+    @BeforeEach
+    void setup() {
+        // Inicializar el estado antes de cada test
+        hotels = List.of(HotelDTOFactory.getCataratasHotelDTO(), HotelDTOFactory.getBristolDTO());
+    }
+
+    @AfterEach
+    void teardown() {
+        // Limpiar el estado después de cada test
+        hotels = null;
+    }
+
 
     @Test
     void findHotelByCode() throws Exception {
@@ -143,4 +165,66 @@ class HotelControllerTest {
     @Test
     void updateReservaFlight() {
     }
+    // Test integracion - PARTE INDIVIDUAL -
+    @Test
+    void getGananciasTotales() throws Exception {
+        // arrange
+        GananciasDTO expected = GananciasDTOFactory.gananciasHoteles();
+
+        // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
+        // aca vamos a declarar la request que vamos a llamar o hacer
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/hotel-bookings/totalGanancias");
+
+
+        // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
+        // STATUS
+        ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
+
+        // BODY
+        ResultMatcher bodyExpected = MockMvcResultMatchers.content().json(
+                writer.writeValueAsString(expected)
+        );
+
+        // CONTENT-TYPE
+        ResultMatcher contentTypeExpected = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // act & assert con mockmvc
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(statusExpected)
+                .andExpect(bodyExpected)
+                .andExpect(contentTypeExpected);
+    }
+    @Test
+    void getDestinoMasSolicitado() throws Exception {
+        // arrange
+        DestinoMasSolicitado expected = DestinoMasSolicitadoDTOFactory.destinoMasSolicitadoHoteles();
+
+        // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
+        // aca vamos a declarar la request que vamos a llamar o hacer
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/hotel-bookings/destinoMasSolicitado");
+
+
+        // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
+        // STATUS
+        ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
+
+        // BODY
+        ResultMatcher bodyExpected = MockMvcResultMatchers.content().json(
+                writer.writeValueAsString(expected)
+        );
+
+        // CONTENT-TYPE
+        ResultMatcher contentTypeExpected = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // act & assert con mockmvc
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(statusExpected)
+                .andExpect(bodyExpected)
+                .andExpect(contentTypeExpected);
+    }
+
 }

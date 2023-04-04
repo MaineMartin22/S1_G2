@@ -24,7 +24,7 @@ public class FlightRequestDTOFactory {
     }
     public static FlightRequestDto getReservationCreditSixPIBA(){
         return FlightRequestDto.builder()
-                .userName(PeopleDTOFactory.getPeopleThree().getMail())
+                .userName("miguel@gmail.com")
                 .flightReservation(FlightReservationDTOFactory.getReservationCreditSixPIBA())
                 .build();
     }

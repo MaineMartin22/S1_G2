@@ -1,6 +1,8 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.DestinoMasSolicitado;
 import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.GananciasDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -146,8 +150,16 @@ public class HotelService implements IHotelService {
 
         HotelDTO bookHotel = getEntityByCode(bookingRequestDto.getBooking().getHotelCode());
 
+
         if (!bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase(bookHotel.getTypeRoom())) {
             throw new NotFoundException("Ese tipo de habitación no está disponible. \nLas habitaciones disponibles son : " + bookHotel.getTypeRoom());
+        }
+        if(bookHotel.getTotalRooms().equals(0)){
+            throw new BadRequestException("No hay mas habitaciones disponibles");
+        } else {
+            bookHotel.setTotalRooms(bookHotel.getTotalRooms() - 1);
+            var entity = mapper.map(bookHotel, Hotel.class);
+            hotelRepository.save(entity);
         }
 
         if( (bookingRequestDto.getBooking().getRoomType().equalsIgnoreCase("Single") &&  bookingRequestDto.getBooking().getPeopleAmount() > 1) ||
@@ -194,7 +206,57 @@ public class HotelService implements IHotelService {
         } else
             throw new NotFoundException("No existe reserva con ese ID");
     }
+
+    @Override
+    public GananciasDTO totalEarnings() {
+        double total = 0;
+        var reservations = bookingHotel.findAll();
+        if(reservations.isEmpty()){
+            throw new NotFoundException("Aun no hay reservas.");
+        }
+        var prices = reservations.stream().map(reservation -> reservation.getTotalFinal())
+                .collect(Collectors.toList());
+        total = prices.stream()
+                .mapToDouble(Double::doubleValue)
+                .sum();
+        GananciasDTO ganancias = new GananciasDTO();
+        ganancias.setMessage("El total recaudado en las reservas de hoteles es: ");
+        ganancias.setCount(total);
+        ganancias.setReservationCount("En total hubo " + bookingHotel.count() + " reservas");
+        ganancias.setCompanyProfit("Las ganancias finales de la empresa son: " + total*0.15);
+        return ganancias;
+    }
+
+    @Override
+    public DestinoMasSolicitado getDestinoMasSolicitado() {
+        // obtener todas las reservas
+        List<BookingHotel> reservations = bookingHotel.findAll();
+
+            // crear un mapa para contar las reservas por destino
+            Map<String, Integer> destinationCounts = new HashMap<>();
+            for (BookingHotel reservation : reservations) {
+                String destination = reservation.getBooking().getDestination();
+                destinationCounts.put(destination, destinationCounts.getOrDefault(destination, 0) + 1);
+            }
+
+            // encontrar el destino más popular
+            String mostPopularDestination = null;
+            int mostPopularCount = 0;
+            for (Map.Entry<String, Integer> entry : destinationCounts.entrySet()) {
+                if (entry.getValue() > mostPopularCount) {
+                    mostPopularDestination = entry.getKey();
+                    mostPopularCount = entry.getValue();
+                }
+            }
+            DestinoMasSolicitado destinoMasSolicitado = new DestinoMasSolicitado();
+            destinoMasSolicitado.setMessage("El destino mas solicitado es " + mostPopularDestination);
+            destinoMasSolicitado.setCount(mostPopularCount);
+
+            return destinoMasSolicitado;
+        }
+
 }
+
 
 
 

@@ -27,9 +27,9 @@ public class FlightResponseFactory {
     public static FlightResponseDTO flightDTOResponseCreditSixPIBA(){
         return FlightResponseDTO.builder()
                 .userName(PeopleDTOFactory.getPeopleThree().getMail())
-                .totalNeto(43200)
-                .totalIntereses(4320)
-                .totalFinal(47520)
+                .totalNeto(13000)
+                .totalIntereses(1300)
+                .totalFinal(14300)
                 .flightReservation(FlightDTOResponseFactory.flightDTOResponseCreditSixPIBA())
                 .build();
     }

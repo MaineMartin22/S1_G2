@@ -45,11 +45,11 @@ public class PeopleDTOFactory {
     }
     public static PeopleDto getPeopleFive(){
         return PeopleDto.builder()
-                .dni("18926743")
-                .name("Carlos")
+                .dni("123456")
+                .name("pepeito")
                 .lastName("Rodríguez")
-                .birthDate("14-11-1980")
-                .mail("carlos.rodriguez@gmail.com")
+                .birthDate("09-11-1982")
+                .mail("miguel2@gmail.com")
                 .build();
     }
     public static PeopleDto getPeopleSix(){

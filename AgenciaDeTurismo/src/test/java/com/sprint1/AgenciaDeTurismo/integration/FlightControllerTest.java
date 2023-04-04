@@ -3,10 +3,10 @@ package com.sprint1.AgenciaDeTurismo.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
-import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.*;
+import com.sprint1.AgenciaDeTurismo.utils.Data.DestinoMasSolicitadoDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Data.ErrorDTOFactory;
+import com.sprint1.AgenciaDeTurismo.utils.Data.GananciasDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Flight.FlightDTOFactory;
 import com.sprint1.AgenciaDeTurismo.utils.Hotel.HotelDTOFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -151,5 +151,66 @@ class FlightControllerTest {
 
     @Test
     void updateReservaFlight() {
+    }
+
+    @Test
+    void getGananciasTotales() throws Exception {
+        // arrange
+        GananciasDTO expected = GananciasDTOFactory.gananciasVuelos();
+
+        // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
+        // aca vamos a declarar la request que vamos a llamar o hacer
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/flight-reservations/totalGanancias");
+
+
+        // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
+        // STATUS
+        ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
+
+        // BODY
+        ResultMatcher bodyExpected = MockMvcResultMatchers.content().json(
+                writer.writeValueAsString(expected)
+        );
+
+        // CONTENT-TYPE
+        ResultMatcher contentTypeExpected = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // act & assert con mockmvc
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(statusExpected)
+                .andExpect(bodyExpected)
+                .andExpect(contentTypeExpected);
+    }
+    @Test
+    void getDestinoMasSolicitado() throws Exception {
+        // arrange
+        DestinoMasSolicitado expected = DestinoMasSolicitadoDTOFactory.destinoMasSolicitadoHoteles();
+
+        // REQUEST con  MockHttpServletRequestBuilder & MockMvcRequestBuilders
+        // aca vamos a declarar la request que vamos a llamar o hacer
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/flight-reservations/destinoMasSolicitado");
+
+
+        // Los 3 EXPECTED con ResultMatcher & MockMvcResultMatchers --
+        // STATUS
+        ResultMatcher statusExpected = MockMvcResultMatchers.status().isOk();
+
+        // BODY
+        ResultMatcher bodyExpected = MockMvcResultMatchers.content().json(
+                writer.writeValueAsString(expected)
+        );
+
+        // CONTENT-TYPE
+        ResultMatcher contentTypeExpected = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // act & assert con mockmvc
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(statusExpected)
+                .andExpect(bodyExpected)
+                .andExpect(contentTypeExpected);
     }
 }

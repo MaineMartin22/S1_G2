@@ -16,6 +16,7 @@ public class HotelFactory {
                 .availabilityFrom(LocalDate.of(2022, 02, 10))
                 .availabilityUntil(LocalDate.of(2022, 03, 20))
                 .reserved(false)
+                .totalRooms(2)
                 .build();
 
     }
@@ -29,6 +30,7 @@ public class HotelFactory {
                 .availabilityFrom(LocalDate.of(2022, 02, 10))
                 .availabilityUntil(LocalDate.of(2022, 03, 23))
                 .reserved(false)
+                .totalRooms(2)
                 .build();
 
     }
@@ -42,6 +44,7 @@ public class HotelFactory {
                 .availabilityFrom(LocalDate.of(2022, 02, 10))
                 .availabilityUntil(LocalDate.of(2022, 03, 23))
                 .reserved(false)
+                .totalRooms(2)
                 .build();
 
     }

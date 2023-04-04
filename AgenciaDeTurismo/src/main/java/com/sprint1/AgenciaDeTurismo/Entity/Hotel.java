@@ -33,6 +33,8 @@ public class Hotel {
     private LocalDate  availabilityUntil;
     @Column(name = "reservado")
     private boolean reserved;
+    @Column(name = "habitaciones_totales")
+    private Integer totalRooms;
 
 
 }

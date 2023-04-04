@@ -48,12 +48,12 @@ public class FlightDTOResponseFactory {
     public static FlightDTOResponseDetails flightDTOResponseCreditSixPIBA(){
         return FlightDTOResponseDetails.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
-                .dateTo(LocalDate.of(2022,02,20))
-                .origin("Puerto Iguazú")
+                .dateTo(LocalDate.of(2022,02,15))
+                .origin("Buenos Aires")
                 .flightNumber("PIBA-1420")
-                .destiny("Bogotá")
-                .seats(1)
-                .seatType("Business")
+                .destiny("Puerto Iguazú")
+                .seats(2)
+                .seatType("economy")
                 .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleFive()

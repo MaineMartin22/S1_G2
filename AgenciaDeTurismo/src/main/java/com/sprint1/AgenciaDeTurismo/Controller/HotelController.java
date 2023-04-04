@@ -1,8 +1,6 @@
 package com.sprint1.AgenciaDeTurismo.Controller;
 
-import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
-import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
-import com.sprint1.AgenciaDeTurismo.DTO.HotelDTO;
+import com.sprint1.AgenciaDeTurismo.DTO.*;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Hotel.BookingRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Hotel.BookingResponseDTO;
 
@@ -77,6 +75,18 @@ public class HotelController {
     @PutMapping("/api/v1/hotel-booking/edit")
     public BookingResponseDTO updateReservaFlight(@RequestParam Integer id,@RequestBody BookingResponseDTO bookingResponseDTO) {
         return hotelService.updateReservaEntity(bookingResponseDTO, id);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------//
+
+    // Retorna las ganancias totales
+    @GetMapping("/api/v1/hotel-bookings/totalGanancias")
+    public GananciasDTO gananciasTotales() {return hotelService.totalEarnings();}
+
+    // Retorna el destino con mas reservas.
+    @GetMapping("/api/v1/hotel-bookings/destinoMasSolicitado")
+    public DestinoMasSolicitado destinoMasSolicitado() {
+        return hotelService.getDestinoMasSolicitado();
     }
 
 }

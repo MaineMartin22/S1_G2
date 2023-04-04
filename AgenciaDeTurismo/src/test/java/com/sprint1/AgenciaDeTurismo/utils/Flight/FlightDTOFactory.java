@@ -15,6 +15,7 @@ public class FlightDTOFactory {
                 .priceForPerson(6500.0)
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,15))
+                .totalSeats(4)
                 .build();
     }
     public static FlightDto getPuertoIguazuBogotaDTO(){
@@ -27,6 +28,7 @@ public class FlightDTOFactory {
                 .priceForPerson(43200.0)
                 .dateFrom(LocalDate.of(2022,02,10))
                 .dateTo(LocalDate.of(2022,02,20))
+                .totalSeats(4)
                 .build();
     }
 }

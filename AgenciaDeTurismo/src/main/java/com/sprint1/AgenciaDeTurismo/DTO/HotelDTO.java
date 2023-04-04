@@ -23,6 +23,6 @@ public class HotelDTO {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate  availabilityUntil;
     private boolean reserved;
-
+    private Integer totalRooms;
 
 }

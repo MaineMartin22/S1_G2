@@ -1,8 +1,10 @@
 package com.sprint1.AgenciaDeTurismo.Controller;
 
 
+import com.sprint1.AgenciaDeTurismo.DTO.DestinoMasSolicitado;
 import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.GananciasDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
@@ -78,5 +80,19 @@ public class FlightController {
     public FlightResponseDTO updateReservaFlight(@RequestParam Integer id,@RequestBody FlightResponseDTO flightResponseDTO) {
         return flightService.updateReservaEntity(flightResponseDTO, id);
     }
+
+    //------------------------------------------------------------------------------------------------------------------------------//
+
+    //Retorna el total de las ganancias de lo recaudado de los vuelos y las ganancias finales de la empresa.
+    @GetMapping("/api/v1/flight-reservations/totalGanancias")
+    public GananciasDTO gananciasTotales() {
+        return flightService.totalEarnings();
+    }
+    // Retorna el destino mas elegido por los turistas.
+    @GetMapping("/api/v1/flight-reservations/destinoMasSolicitado")
+    public DestinoMasSolicitado getDestinoMasSolicitado() {
+        return flightService.getDestinoMasSolicitado();
+    }
+
 }
 

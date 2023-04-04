@@ -65,12 +65,12 @@ public class FlightReservationDTOFactory {
     public static FlightReservationDTO getReservationCreditSixPIBA(){
         return FlightReservationDTO.builder()
                 .dateFrom(LocalDate.of(2022,02,10))
-                .dateTo(LocalDate.of(2022,02,20))
-                .origin("Puerto Iguazú")
-                .flightNumber("PIBA-1420")
-                .destiny("Bogotá")
-                .seats(1)
-                .seatType("Business")
+                .dateTo(LocalDate.of(2022,02,15))
+                .origin("Buenos Aires")
+                .flightNumber("BAPI-1235")
+                .destiny("Puerto Iguazú")
+                .seats(2)
+                .seatType("economy")
                 .people(
                         List.of(
                                 PeopleDTOFactory.getPeopleFive()

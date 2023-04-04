@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ae988883-07fc-424a-9e63-381fe6fa00f0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/DTO/DestinoMasSolicitado.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/DTO/GananciasDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Controller/FlightController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Controller/FlightController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Controller/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/DTO/FlightDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/DTO/FlightDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/DTO/HotelDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/DTO/HotelDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Entity/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Entity/Flight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Entity/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Entity/Hotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/FlightService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/FlightService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/HotelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/IFlightService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/IFlightService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/IHotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/java/com/sprint1/AgenciaDeTurismo/Service/IHotelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/integration/FlightControllerIntegrationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/integration/HotelControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/integration/HotelControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/unit/repository/FlightRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/unit/repository/HotelRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/unit/service/HotelServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/unit/service/HotelServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Flight/FlightDTOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Flight/FlightDTOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Flight/FlightFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Flight/FlightFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Hotel/HotelDTOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Hotel/HotelDTOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Hotel/HotelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/java/com/sprint1/AgenciaDeTurismo/utils/Hotel/HotelFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/AgenciaDeTurismo/src/test/resources/data.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -33,4 +33,6 @@ public class Flight {
     @Column(name = "fecha_vuelta")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
+    @Column(name = "total_asientos")
+    private Integer totalSeats;
 }

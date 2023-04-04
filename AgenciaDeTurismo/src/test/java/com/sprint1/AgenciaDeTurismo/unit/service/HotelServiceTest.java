@@ -165,7 +165,7 @@ class HotelServiceTest {
         Assertions.assertThrows(
                 NotFoundException.class,
                 () -> hotelService.findHotelAvailable(dateFrom, dateTo, destination)
-        ).printStackTrace(); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
+        ); //printStackTrace() <- Devuelve la exception en pantalla y vemos si es la correcta o no.
     }
 
 /*

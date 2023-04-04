@@ -1,6 +1,8 @@
 package com.sprint1.AgenciaDeTurismo.Service;
 
+import com.sprint1.AgenciaDeTurismo.DTO.DestinoMasSolicitado;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
+import com.sprint1.AgenciaDeTurismo.DTO.GananciasDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Service.Generics.ICrudService;
@@ -15,5 +17,6 @@ public interface IFlightService extends ICrudService<FlightDto, Integer> {
 
     FlightResponseDTO updateReservaEntity(@RequestBody FlightResponseDTO flightResponseDTO, Integer id);
 
-
+    GananciasDTO totalEarnings();
+    DestinoMasSolicitado getDestinoMasSolicitado();
 }

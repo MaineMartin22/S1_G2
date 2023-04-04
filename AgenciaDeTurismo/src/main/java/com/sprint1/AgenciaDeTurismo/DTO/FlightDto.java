@@ -24,4 +24,6 @@ public class FlightDto {
      @JsonFormat(pattern = "yyyy-MM-dd")
      private LocalDate dateTo;
 
+     private Integer totalSeats;
+
 }
