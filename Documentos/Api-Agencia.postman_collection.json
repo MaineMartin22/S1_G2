@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "feef97fc-33c9-4331-ab17-c7ba24f6852e",
+		"_postman_id": "36a56217-ba98-461d-b3e0-04827a7a8a53",
 		"name": "Api-Agencia",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23970229"
+		"_exporter_id": "23970213"
 	},
 	"item": [
 		{
@@ -486,6 +486,60 @@
 									"key": "id",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TOURISTICPACKAGE",
+			"item": [
+				{
+					"name": "New Package",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Paquete1\",\r\n    \"description\": \"bgdiuasdud\",\r\n    \"price\": 13000,\r\n    \"dateFrom\": \"2022-04-04\",\r\n    \"dateTo\": \"2022-04-20\",\r\n    \"hotels\": [\r\n        {\r\n            \"id\": 1,\r\n            \"hotelCode\": \"CH-0002\",\r\n            \"name\": \"Cataratas Hotel\",\r\n            \"city\": \"Puerto Iguazú\",\r\n            \"typeRoom\": \"Doble\",\r\n            \"priceForNight\": 6300.0,\r\n            \"availabilityFrom\": \"2022-02-10\",\r\n            \"availabilityUntil\": \"2022-03-20\",\r\n            \"reserved\": false\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"hotelCode\": \"CH-0003\",\r\n            \"name\": \"Cataratas Hotel 2\",\r\n            \"city\": \"Puerto Iguazú\",\r\n            \"typeRoom\": \"Triple\",\r\n            \"priceForNight\": 8200.0,\r\n            \"availabilityFrom\": \"2022-02-10\",\r\n            \"availabilityUntil\": \"2022-03-20\",\r\n            \"reserved\": false\r\n        }\r\n    ],\r\n    \"flights\": [\r\n        {\r\n            \"id\": 1,\r\n            \"numberFlight\": \"BAPI-1235\",\r\n            \"origin\": \"Buenos Aires\",\r\n            \"destiny\": \"Puerto Iguazú\",\r\n            \"seatType\": \"Economy\",\r\n            \"priceForPerson\": 6500.0,\r\n            \"dateFrom\": \"2022-02-10\",\r\n            \"dateTo\": \"2022-02-15\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"numberFlight\": \"PIBA-1420\",\r\n            \"origin\": \"Puerto Iguazú\",\r\n            \"destiny\": \"Bogotá\",\r\n            \"seatType\": \"Business\",\r\n            \"priceForPerson\": 43200.0,\r\n            \"dateFrom\": \"2022-02-10\",\r\n            \"dateTo\": \"2022-02-20\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/touristic-packages",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"touristic-packages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/touristic-packages",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"touristic-packages"
 							]
 						}
 					},
