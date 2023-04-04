@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,10 +17,10 @@ import java.util.List;
 public class TouristicPackageDTO {
     private Integer id;
 
-
+    @NotNull(message ="El nombre no puede estar vacío")
     private String name;
 
-
+    @NotNull(message ="La descripcion no puede estar vacío")
     private String description;
 
 
