@@ -38,7 +38,7 @@ public class ReservationFlightDetails {
     private Integer seats;
     @Column(name = "tipo_asiento")
     private String seatType;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<People> people;
 
 }

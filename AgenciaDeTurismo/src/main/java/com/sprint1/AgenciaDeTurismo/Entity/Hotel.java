@@ -28,8 +28,10 @@ public class Hotel {
     @Column(name = "precio_noche")
     private Integer  priceForNight;
     @Column(name = "disponible_desde")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate availabilityFrom;
     @Column(name = "disponible_hasta")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate  availabilityUntil;
     @Column(name = "reservado")
     private boolean reserved;

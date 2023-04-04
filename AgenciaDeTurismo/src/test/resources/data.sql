@@ -20,3 +20,9 @@ VALUES (1,'mm@gmail.com', 242550,22050,220500,1);
 
 INSERT INTO booking_hotel_detalle_people(booking_hotel_details_id, people_id)
 VALUES (1,1);
+
+INSERT INTO package(codigo_paquete, precio, ciudad, flight_id, hotel_id)
+VALUES
+("PACK-001", 50000.0, "Puerto Iguazú", 1, 1),
+("PACK-002", 60000.0, "Puerto Iguazú", 1, 2);
+

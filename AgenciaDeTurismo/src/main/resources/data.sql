@@ -30,7 +30,9 @@ VALUES
 ("BG-0004", "Bocagrande", "Cartagena", "Múltiple", 9370, "2022-04-17", "2022-06-12", false);
 
 INSERT INTO persona(id, dni, nombre, apellido, fecha_nacimiento, email)
-VALUES (1,'125421','martin', 'maine', '2022-02-02', 'mm@gmail.com');
+VALUES
+(1,'122445','lucas', 'alvarez', '2022-02-02', 'la@gmail.com'),
+(2,'125421','martin', 'maine', '2022-02-02', 'mm@gmail.com');
 
 INSERT INTO booking_hotel_detalle(id, fecha_ingreso, fecha_salida, destino, codigo_hotel, cantidad_persona, tipo_habitacion)
 VALUES (1,'2022-02-12','2022-03-19','Puerto Iguazú','CH-0002',1,'doble');
@@ -40,3 +42,10 @@ VALUES (1,'mm2@gmail.com', 242550,22050,220500,1);
 
 INSERT INTO booking_hotel_detalle_people(booking_hotel_details_id, people_id)
 VALUES (1,1);
+
+INSERT INTO package(codigo_paquete, precio, ciudad, flight_id, hotel_id)
+VALUES
+("PACK-001", 50000.0, "Puerto Iguazú", 1, 1),
+("PACK-002", 60000.0, "Puerto Iguazú", 1, 2),
+("PACK-003", 40000.0, "Bogotá", 2, 8),
+("PACK-004", 30000.0, "Bogotá", 2, 7);
