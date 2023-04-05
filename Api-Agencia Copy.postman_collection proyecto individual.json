@@ -1,0 +1,561 @@
+{
+	"info": {
+		"_postman_id": "a669548d-15d2-42bf-b064-294013b5d102",
+		"name": "Api-Agencia Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23970116"
+	},
+	"item": [
+		{
+			"name": "Hotel",
+			"item": [
+				{
+					"name": "allHotels",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allHotelForcity",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels/buenos aires",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"buenos aires"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findHotelWhitParams",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/hotels?dateFrom=2022-02-10&dateTo=2022-03-20&destination=Puerto Iguazú",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels"
+							],
+							"query": [
+								{
+									"key": "dateFrom",
+									"value": "2022-02-10"
+								},
+								{
+									"key": "dateTo",
+									"value": "2022-03-20"
+								},
+								{
+									"key": "destination",
+									"value": "Puerto Iguazú"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allReservation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/flight-reservations/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flight-reservations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newBooking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"booking\" : {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-03-20\",\r\n        \"destination\": \"Puerto Iguazú\",\r\n        \"hotelCode\": \"CH-0002\",\r\n        \"peopleAmount\": 1,\r\n        \"roomType\": \"Doble\",\r\n        \"people\":[ { \r\n            \"dni\": \"1241\",\r\n            \"name\":\"pepito\",\r\n            \"lastName\": \"maine\",\r\n            \"birthDate\": \"22-12-2002\",\r\n            \"mail\": \"mm@gmial.com\"\r\n        }] ,\r\n        \"paymentMethod\": {\r\n        \"type\":\"credit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 6\r\n    }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consulta por precio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"booking\" : {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-03-20\",\r\n        \"destination\": \"Puerto Iguazú\",\r\n        \"hotelCode\": \"CH-0002\",\r\n        \"peopleAmount\": 1,\r\n        \"roomType\": \"Doble\",\r\n        \"people\":[ { \r\n            \"dni\": \"1241\",\r\n            \"name\":\"pepito\",\r\n            \"lastName\": \"maine\",\r\n            \"birthDate\": \"22-12-2002\",\r\n            \"mail\": \"mm@gmial.com\"\r\n        }] ,\r\n        \"paymentMethod\": {\r\n        \"type\":\"credit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 6\r\n    }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newHotel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"numberFlight\": \"Martincito-123\",\r\n        \"origin\": \"Rafaela\",\r\n        \"destiny\": \"Susana\",\r\n        \"seatType\": \"Premium\",\r\n        \"priceForPerson\": 150.0,\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateHotel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"hotelCode\": \"CH-0002\",\r\n    \"name\": \"Cataratas Hotel\",\r\n    \"city\": \"Puerto Iguazú\",\r\n    \"typeRoom\": \"Doble\",\r\n    \"priceForNight\": 6300,\r\n    \"availabilityFrom\": \"2022-02-10\",\r\n    \"availabilityUntil\": \"2022-03-20\",\r\n    \"reserved\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/hotels/edit?code=CH-0002",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"edit"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "CH-0002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReservationHotel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"totalNeto\": 13000.0,\r\n    \"totalIntereses\": 0.0,\r\n    \"totalFinal\": 13000.0,\r\n    \"flightReservation\": {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\": [\r\n            {\r\n                \"dni\": \"12411234\",\r\n                \"name\": \"pepito\",\r\n                \"lastName\": \"Gomez\",\r\n                \"birthDate\": \"10-11-1982\",\r\n                \"mail\": \"arjonamiguel@gmail.com\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/flight-reservation/edit?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flight-reservation",
+								"edit"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/delete/BAPI-1235",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"delete",
+								"BAPI-1235"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flight",
+			"item": [
+				{
+					"name": "allFlights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findFlightsWhitParams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights?dateFrom=2022-02-10&dateTo=2022-02-15&origin=Rafaela&destination=Puerto Iguazú",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "dateFrom",
+									"value": "2022-02-10"
+								},
+								{
+									"key": "dateTo",
+									"value": "2022-02-15"
+								},
+								{
+									"key": "origin",
+									"value": "Rafaela"
+								},
+								{
+									"key": "destination",
+									"value": "Puerto Iguazú"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allReservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/flight-reservations/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flight-reservations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newFlightReservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"flightReservation\" : {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\":[\r\n            { \r\n            \"dni\": \"12411234\",\r\n            \"name\":\"pepito\",\r\n            \"lastName\": \"Gomez\",\r\n            \"birthDate\": \"10-11-1982\",\r\n            \"mail\": \"arjonamiguel@gmail.com\"\r\n             }\r\n        ]\r\n    , \"paymentMethod\": {\r\n        \"type\":\"debit\",\r\n        \"number\": \"1242-1241-1241-1241\",\r\n        \"dues\": 1\r\n    }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flight-reservation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flight-reservation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newFlight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"numberFlight\": \"Martincito-123\",\r\n        \"origin\": \"Rafaela\",\r\n        \"destiny\": \"Susana\",\r\n        \"seatType\": \"Premium\",\r\n        \"priceForPerson\": 150.0,\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/delete/BAPI-1235",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"delete",
+								"BAPI-1235"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFlight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 13,\r\n    \"numberFlight\": \"lucas\",\r\n    \"origin\": \"Buenos Aires\",\r\n    \"destiny\": \"Puerto Iguazú\",\r\n    \"seatType\": \"Economy\",\r\n    \"priceForPerson\": 6500.0,\r\n    \"dateFrom\": \"2022-02-10\",\r\n    \"dateTo\": \"2022-02-15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/update?code=lucas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"update"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "lucas"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReservationFlight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"arjonamiguel@gmail.com\",\r\n    \"totalNeto\": 13000.0,\r\n    \"totalIntereses\": 0.0,\r\n    \"totalFinal\": 13000.0,\r\n    \"flightReservation\": {\r\n        \"dateFrom\": \"2022-02-10\",\r\n        \"dateTo\": \"2022-02-15\",\r\n        \"origin\": \"Buenos Aires\",\r\n        \"destiny\": \"Puerto Iguazú\",\r\n        \"flightNumber\": \"BAPI-1235\",\r\n        \"seats\": 2,\r\n        \"seatType\": \"economy\",\r\n        \"people\": [\r\n            {\r\n                \"dni\": \"12411234\",\r\n                \"name\": \"pepito\",\r\n                \"lastName\": \"Gomez\",\r\n                \"birthDate\": \"10-11-1982\",\r\n                \"mail\": \"arjonamiguel@gmail.com\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/flight-reservation/edit?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flight-reservation",
+								"edit"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
