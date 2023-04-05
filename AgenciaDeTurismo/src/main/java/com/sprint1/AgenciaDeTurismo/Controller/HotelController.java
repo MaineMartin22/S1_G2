@@ -79,5 +79,9 @@ public class HotelController {
         return hotelService.updateReservaEntity(bookingResponseDTO, id);
     }
 
+
+
+
+
 }
 

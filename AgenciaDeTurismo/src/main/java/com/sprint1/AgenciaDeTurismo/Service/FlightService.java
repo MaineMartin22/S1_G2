@@ -2,11 +2,8 @@ package com.sprint1.AgenciaDeTurismo.Service;
 
 import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
-import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.PaymentMethodDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
 import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlight;
-import com.sprint1.AgenciaDeTurismo.Entity.ReservationFlightDetails;
 import com.sprint1.AgenciaDeTurismo.Exception.BadRequestException;
 import com.sprint1.AgenciaDeTurismo.Exception.NotFoundException;
 import com.sprint1.AgenciaDeTurismo.Entity.Flight;
@@ -18,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,17 +46,10 @@ public class FlightService implements IFlightService {
         ).collect(Collectors.toList());
     }
 
+
     @Override
     public FlightDto saveEntity(FlightDto objectDTO) {
-        // mappear de dto a entity para llevar al repo
-        var entity = mapper.map(objectDTO, Flight.class);
-
-        // guardar
-        flightRepository.save(entity);
-
-        // mappear de entity a dto para llevar al controller
-
-        return mapper.map(entity, FlightDto.class);
+        return null;
     }
 
     @Override
@@ -81,6 +72,11 @@ public class FlightService implements IFlightService {
             return mapper.map(entity, FlightDto.class);
         } else
             throw new NotFoundException("No existe vuelo con ese ID");
+    }
+
+    @Override
+    public List<FlightResponseDTO> getAllEntitiesByFlightNumber() {
+        return null;
     }
 
     @Override
@@ -147,45 +143,43 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-    public FlightResponseDTO reservationFlight(FlightRequestDto flightRequestDto) {
-        ReservationFlight response = new ReservationFlight();
-
-        if (flightRepository.findAll().isEmpty()) {
-            throw new NotFoundException("No se encontraron vuelos disponibles");
-        }
-
-        FlightDto reservation = getEntityByCode(flightRequestDto.getFlightReservation().getFlightNumber());
-
-        findFlightAvailable(flightRequestDto.getFlightReservation().getDateFrom(),
-                flightRequestDto.getFlightReservation().getDateTo(),
-                flightRequestDto.getFlightReservation().getOrigin(),
-                flightRequestDto.getFlightReservation().getDestiny());
-
-        if (!flightRequestDto.getFlightReservation().getSeatType().equalsIgnoreCase(reservation.getSeatType())) {
-            throw new NotFoundException("El tipo de asiento ingresado no esta disponible." + "\n"
-                    + "El tipo de asiento disponible para este vuelo es: " + reservation.getSeatType() + ".");
-        }
-
-        var flightResponseDto = mapper.map(flightRequestDto.getFlightReservation(), ReservationFlightDetails.class);
-
-        double totalPrice = reservation.getPriceForPerson() * flightRequestDto.getFlightReservation().getSeats();
-
-        PaymentMethodDto paymentMethod = flightRequestDto.getFlightReservation().getPaymentMethod();
-
-        var totalIntereses = CalcularInteres.calculateInterest(paymentMethod, totalPrice);
-
-        double totalFinal = totalPrice + totalIntereses;
-        response.setUserName(flightRequestDto.getUserName());
-        response.setTotalNeto(totalPrice);
-        response.setTotalIntereses(totalIntereses);
-        response.setTotalFinal(totalFinal);
-        response.setFlightReservation(flightResponseDto);
-
-        reservationFlight.save(response);
-
-        return mapper.map(response, FlightResponseDTO.class);
+    public List<FlightDto> getAllEntitiesByFlightNumber(String flightNumber) {
+        return null;
     }
 
 
-}
+    public List <FlightDto> getAllEntitiesByVuelo(String vuelo){
+
+        //buscar en el repo
+        var list = flightRepository.findFlightByNumberFlight(vuelo);
+        //luego convertir de entidad a DTO
+        return list.stream().map(
+                Vuelo->mapper.map(vuelo,FlightDto.class)
+        )
+                .collect(Collectors.toList());
+    }
+//parte individual
+
+
+    @Override
+    public FlightResponseDTO flightReserva(FlightResponseDTO flightResponseDTO) {
+        return null;
+    }
+
+    @Override
+    public FlightResponseDTO actualiza(FlightResponseDTO bookingResponseDTO, Integer id) {
+        return null;
+    }
+        @Override
+        public List<FlightResponseDTO> getPrecioTotal(Double desde, Double hasta) {
+            List<FlightResponseDTO> responseList = new ArrayList<>();
+
+
+            return responseList;
+        }
+
+    }
+
+
+
 

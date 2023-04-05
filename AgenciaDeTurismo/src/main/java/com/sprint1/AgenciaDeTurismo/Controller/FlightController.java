@@ -5,6 +5,7 @@ import com.sprint1.AgenciaDeTurismo.DTO.ErrorDTO;
 import com.sprint1.AgenciaDeTurismo.DTO.FlightDto;
 import com.sprint1.AgenciaDeTurismo.DTO.RequestDto.Flight.FlightRequestDto;
 import com.sprint1.AgenciaDeTurismo.DTO.ResponseDto.Flight.FlightResponseDTO;
+import com.sprint1.AgenciaDeTurismo.Repository.IFlightRepository;
 import com.sprint1.AgenciaDeTurismo.Service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,11 +39,7 @@ public class FlightController {
         return flightService.saveEntity(flightDto);
     }
 
-    // Reserva de un vuelo.
-    @PostMapping("/api/v1/flight-reservation")
-    public FlightResponseDTO flightReservation(@RequestBody @Valid FlightRequestDto flightRequestDto) {
-        return flightService.reservationFlight(flightRequestDto);
-    }
+
 
     // Busca vuelo por el código.
     @GetMapping("/api/v1/flights/findOneWhit")
@@ -78,5 +76,15 @@ public class FlightController {
     public FlightResponseDTO updateReservaFlight(@RequestParam Integer id,@RequestBody FlightResponseDTO flightResponseDTO) {
         return flightService.updateReservaEntity(flightResponseDTO, id);
     }
+    //Parte individual
+    @GetMapping("/api/v1/flight-reservation/PrecioTotal")
+    public List<FlightResponseDTO> PrecioTotal(@RequestParam Double desde, @RequestParam Double hasta) {
+        List<FlightResponseDTO> responseList = new ArrayList<>();
+
+
+        return responseList;
+    }
+
 }
+
 
