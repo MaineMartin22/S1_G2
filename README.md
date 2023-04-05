@@ -177,26 +177,7 @@ Agregar valor a la implementación propuesta en los requerimientos anteriores (p
 Plantear y resolver un problema que se corresponda con una situación posible del negocio propuesto (Puede ser un requerimiento totalmente nuevo pero debe de tener relación con los anteriores).
 Considerar la posibilidad de que la propuesta deba ser presentada (o “vendida”) al dueño de la agencia, por lo cual, la sugerencia debe estar bien presentada y poder llamar la atención o “interés” de esta persona para lograr convencer a éste.
 
-
-
-
-Especificaciones Técnicas necesarias: 
-
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-| POST | /api/v1/touristicpackage/new/ | Alta de un nuevo paquete | -----------  |  
-| PUT| /api/v1/touristicpackage/edit?packageNumber=number | Modificación de un paquete | -----------  |  
-| GET | /api/v1/touristicpackages | Listado de todos los paquetes dados de alta | ----------- |  
-| DELETE | /api/v1/touristicpackage/delete?packageNumber=number | Baja de un paquete | -----------  |  
-
-
-
-
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-| GET | /api/v1/income?date=dd/mm/yyyy | Total de ingresos brutos para un día en particular  a partir de reservas | -----------  |  
-| GET| /api/v1/income?month=1&year=2021 | Total de ingresos brutos para un mes y año en particular  a partir de reservas | -----------  |  
+Lo podran visualizar en las ramas de cada integrante.
 
 
 ## Entregables:  Sprint 3 💡<a name="id6"></a>
