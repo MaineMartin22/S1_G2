@@ -110,7 +110,7 @@ public class HotelService implements IHotelService {
 
         return ErrorDTO.builder()
                 .explanation("ELIMINACIÓN")
-                .messages(List.of("Se elimino la reserva con id " + id))
+                .messages(List.of("Se elimino la reserva con id " + booking.getId()))
                 .build();
     }
 

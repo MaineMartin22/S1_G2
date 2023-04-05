@@ -131,7 +131,7 @@ public class FlightService implements IFlightService {
 
         return ErrorDTO.builder()
                 .explanation("ELIMINACIÓN")
-                .messages(List.of("Se elimino la reserva con id " + reservation))
+                .messages(List.of("Se elimino la reserva con id " + reservation.getId()))
                 .build();
     }
 
