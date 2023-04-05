@@ -82,17 +82,15 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 
 ## Contribuyentes Sprint 3 ✒️<a name="id3"></a>
   ```
-  Alvarez Lucas
+  
   Ataides Nicolas
-  Flax Marco Maria Laura de las Victorias
-  Maine Martin
-  Vallejos Podio Valentina
+ 
   ```
 ## Especificación de Requerimiento Nº 1 Sprint 3 📝<a name="id4"></a>
 
-### Requerimiento Nº 1:
+### Requerimiento Nº 2:
 
-En las versiones anteriores de la aplicación, el manejo de datos se llevó a cabo con una “base de datos” lógica, implementada mediante collections o maps y en algunos casos JSON. Llegó el momento de implementar una base de datos relacional que permita realizar operaciones CRUD/ABM.
+La agencia de turismo está dispuesta a escuchar sugerencias que provengan de los desarrolladores del proyecto para implementar nuevas funcionalidades que se adapten al desarrollo del sistema actual. Para ello, se sugiere tener en cuenta los siguientes criterios: Ser consistente con la lógica de negocios ya existente (se deberán tomar como base todos los requerimientos ya implementados, siendo la nueva implementación un “incremento” de las anteriores). Agregar valor a la implementación propuesta en los requerimientos anteriores (puede ser un agregado a un requerimiento ya existente que proporcione un PLUS). Plantear y resolver un problema que se corresponda con una situación posible del negocio propuesto (Puede ser un requerimiento totalmente nuevo pero debe de tener relación con los anteriores). Considerar la posibilidad de que la propuesta deba ser presentada (o “vendida”) al dueño de la agencia, por lo cual, la sugerencia debe estar bien presentada y poder llamar la atención o “interés” de esta persona para lograr convencer a éste.
 
 
 Iconos indicadores :
@@ -103,7 +101,7 @@ Iconos indicadores :
 
 ####  User Story:
 
-COMO encargado de la empresa de turismo QUIERO poder realizar operaciones de alta, baja, modificación y lectura sobre una base de datos PARA poder almacenar cada uno de los datos necesarios para la administración de las reservas de mi empresa.
+COMO desarrollador QUIERO que me traiga los vuelos PARA que el cliente tenga mas opciones que elegir y que su viaje sea mejor.
 
 
 OPERACIONES/ACCIONES TÉCNICAS Y FUNCIONALES  NECESARIAS:
@@ -137,34 +135,8 @@ Antes de dar de baja un vuelo o un hotel, validar que no se encuentre actualment
 Especificaciones Técnicas necesarias: 
 
 
-| HTTP   |     Plantilla URI   | Descripción | Dificultad |
-|--------------|:-----------------:|-----------------:|-----------:|
-||ALTAS|
-| :heavy_check_mark: POST | /api/v1/hotels/new/ | Alta de un nuevo hotel | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
-| :heavy_check_mark: POST| /api/v1/flights/new | Alta de un nuevo vuelo | Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |  
-| :heavy_check_mark: POST | /api/v1/hotel-booking/new | Alta de una reserva de hotel | ----------- |  
-| :heavy_check_mark: POST | /api/v1/flight-reservation/new | Alta de una reserva de vuelo | -----------  |  
-||||
-||MODIFICACIONES|
-| :heavy_check_mark: PUT | /api/v1/flights/edit?flightNumber=number | Modificación de un vuelo | -----------  |  
-| :heavy_check_mark: PUT| /api/v1/hotels/edit?hotelCode=code | Modificación de un hotel | -----------  |  
-| :heavy_check_mark: PUT | /api/v1/hotel-booking/edit?id=num_id | Modificación de una reserva de hotel | ----------- |  
-| :heavy_check_mark: PUT | /api/v1/flight-reservation/edit?id=num_id | Modificación de una reserva de vuelo | -----------  |  
-||||
-||CONSULTAS/LECTURAS|
-| :heavy_check_mark: GET |/api/v1/hotels | Listado de todos los hoteles  |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.   |  
-| :heavy_check_mark: GET| /api/v1/hotels?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination=destination_name | Listado de hoteles según filtros | -----------  |  
-| :heavy_check_mark: GET | /api/v1/flights | Listado de todos los vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior. - |  
-| :heavy_check_mark: GET | /api/v1/flights?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&origin=origin_name&destination=destination_name  | Listado de vuelos según filtros | -----------  |  
-| :heavy_check_mark: GET | /api/v1/hotel-bookings/ | Listado de todas las reservas de hotel | ----------- |  
-| :heavy_check_mark: GET | /api/v1/flight-reservations/ | Listado de todas las reservas de vuelos |Nivel de dificultad intermedia ya que tuvimos que refactorizar el código del sprint anterior.  |
-||||
-||BAJAS|
-| :heavy_check_mark: DELETE | /api/v1/hotels/delete?hotelCode=code | Baja de un hotel | -----------  |  
-| :heavy_check_mark: DELETE| /api/v1/flights/delete?flightNumber=number | Baja de un vuelo | -----------  |  
-| :heavy_check_mark: DELETE | /api/v1/hotel-booking/delete?id=num_id | Baja de una reserva de hotel | ----------- |  
-| :heavy_check_mark: DELETE | /api/v1/flight-reservation/delete?id=num_id | Baja de una reserva de vuelo | -----------  |  
-
+HTTP	Plantilla URI	Descripción	Dificultad
+GET	/api/v1/hotel-reservation/PrecioTotal	
 
 ## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id5"></a>
 
