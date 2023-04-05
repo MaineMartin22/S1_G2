@@ -135,8 +135,9 @@ Antes de dar de baja un vuelo o un hotel, validar que no se encuentre actualment
 Especificaciones Técnicas necesarias: 
 
 
-HTTP	Plantilla URI	Descripción	Dificultad
-GET	/api/v1/hotel-reservation/PrecioTotal	
+HTTP	Plantilla URI	Descripción	
+GET	/api/v1/hotel-reservation/PrecioTotal	}
+Dificultad : Para implementar los services me pisaba con las cosas del propio proyecto grupal y me costo mucho.
 
 ## Especificación de Requerimiento Nº 2 Sprint 3 📝<a name="id5"></a>
 
